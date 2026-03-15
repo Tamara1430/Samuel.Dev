@@ -1,398 +1,505 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio</title>
-    <link rel="icon" href="asset/Logo.png" type="image/x-icon" />
-    <link rel="stylesheet" href="https://codepen.io/GreenSock/pen/xxmzBrw.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script defer src="javascript/index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <style>
+    <title>Samuel Andi Winata | Portfolio</title>
     
-    .header{
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <style>
+        /* --- VARIABEL WARNA & DASAR --- */
+        :root {
+            --bg-color: #0a192f;
+            --light-bg: #112240;
+            --text-primary: #ccd6f6;
+            --text-secondary: #8892b0;
+            --accent: #64ffda;
+            --white: #ffffff;
+        }
 
-.content{
-    background-color: rgb(255, 255, 255);
-}
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
-.foto {
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  padding-top: 180px;
-  padding-bottom: 170px;
-}
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-.custom-container {
-    height: 100vh; /* Agar elemen vertikal penuh */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f8f9fa; /* Warna background opsional */
-}
+        .highlight { color: var(--accent); font-family: 'Fira Code', monospace; }
+        h1, h2, h3 { font-weight: 700; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
 
-.navtext {
-    font-size: 13px;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin: 0;
-    white-space: nowrap;
-    color: #f8f9fa;
-}
+        /* --- NAVBAR & LANG SWITCH --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            position: fixed;
+            width: 100%;
+            background: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
 
-.navtext:hover{
-    text-shadow: 1px 1px rgba(255, 0, 0, 0.596);
-    text-decoration: underline;
-}
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            font-family: 'Fira Code', monospace;
+        }
 
-.text-mini{
-  font-family: "Caveat", serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  padding-left: 10%;
-  padding-right: 10%;
-  padding-bottom: 10%;
-}
-.foto {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+        .nav-right { display: flex; align-items: center; gap: 30px; }
+        .nav-links { list-style: none; display: flex; gap: 30px; }
+        .nav-links a { font-size: 0.9rem; font-family: 'Fira Code', monospace; }
+        .nav-links a:hover { color: var(--accent); }
 
-.foto img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
+        .lang-switch {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            border: 1px solid var(--accent);
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            gap: 10px;
+        }
+        .lang-opt { opacity: 0.5; transition: 0.3s; }
+        .lang-opt:hover { opacity: 1; }
+        .lang-opt.active { opacity: 1; color: var(--accent); font-weight: bold; text-decoration: underline; }
+        .divider { color: var(--text-secondary); }
 
-/*keren*/
-.container-fluid{
-  overflow-x: hidden;
-  overflow-y: hidden;
-}
+        /* --- GSAP ZOOM HERO (KODE LAMA) --- */
+        .zoom-container {
+            overflow-x: hidden;
+            overflow-y: hidden;
+            width: 100%;
+        }
+        
+        .wrapper, .content {
+            position: relative;
+            width: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .wrapper {
+            height: 100vh;
+        }
+        
+        .content .section {
+            width: 100%;
+            height: 100vh;
+        }
+        
+        .content .section.zoom-bg {
+            background-image: url('asset/Welcome.jpg');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  .wrapper,
-  .content {
-    position: relative;
-    width: 100%;
-    z-index: 1;
-    overflow: hidden;
-  }
-  .wrapper {
-    overflow: hidden; /* Mencegah scroll horizontal */
-    position: relative;
-    width: 100%;
-    height: 100vh;
-  }
-  
-  .content {
-    overflow-x: hidden;
-  }
-  
-  .content .section {
-    width: 100%;
-    height: 100vh;
-  }
-  .nama{
-    font-family: "Kaisei HarunoUmi", serif;
-    font-style: bold;
-  }
-  
-  .content .section.hero {
-    background-image: url(/asset/Welcome.jpg);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
+        .image-container {
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 2;
+            perspective: 500px;
+            overflow: hidden;
+        }
+        
+        .image-container img.zoom-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+        }
 
-  .image-container {
-    width: 100%;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 2;
-    perspective: 500px;
-    overflow: hidden;
-  }
-  @media screen and (max-width: 768px) {
-    .image-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-  
-  .image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
-  }
+        @media screen and (max-width: 768px) {
+            .image-container img.zoom-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
 
+        /* --- HERO SECTION (KODE BARU) --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 10% 0;
+            gap: 50px;
+            position: relative;
+            z-index: 10;
+        }
 
-  /*button hire*/
+        .hero-text { flex: 1; animation: fadeIn 1.5s ease-in-out; }
+        .hero-text h3 { color: var(--accent); font-family: 'Fira Code', monospace; font-size: 1.2rem; margin-bottom: 10px; }
+        .hero-text h1 { font-size: 3.5rem; color: var(--white); line-height: 1.1; margin-bottom: 10px; min-height: 60px; }
+        .hero-text h2 { font-size: 2.5rem; color: var(--text-secondary); line-height: 1.1; margin-bottom: 20px; }
+        .hero-text p { color: var(--text-secondary); margin-bottom: 30px; max-width: 500px; font-size: 1.1rem; }
 
-  .button {
-    position: relative;
-    padding: 10px 20px;
-    border-radius: 7px;
-    border: 1px solid gray;
-    font-size: 14px;
-    text-transform: uppercase;
-    font-weight: 600;
-    letter-spacing: 2px;
-    background: transparent;
-    color: #000000;
-    overflow: hidden;
-    box-shadow: 0 0 0 0 transparent;
-    -webkit-transition: all 0.2s ease-in;
-    -moz-transition: all 0.2s ease-in;
-    transition: all 0.2s ease-in;
-    margin-left: 10%;
-  }
-  
-  .button:hover {
-    background: gray;
-    box-shadow: 0 0 10px 5px rgb(156, 149, 149);
-    -webkit-transition: all 0.2s ease-out;
-    -moz-transition: all 0.2s ease-out;
-    transition: all 0.2s ease-out;
-    color: #fff;
-  }
-  
-  .button:hover::before {
-    -webkit-animation: sh02 0.5s 0s linear;
-    -moz-animation: sh02 0.5s 0s linear;
-    animation: sh02 0.5s 0s linear;
-  }
-  
-  .button::before {
-    content: '';
-    display: block;
-    width: 0px;
-    height: 86%;
-    position: absolute;
-    top: 7%;
-    left: 0%;
-    opacity: 0;
-    background: #fff;
-    box-shadow: 0 0 50px 30px #fff;
-    -webkit-transform: skewX(-20deg);
-    -moz-transform: skewX(-20deg);
-    -ms-transform: skewX(-20deg);
-    -o-transform: skewX(-20deg);
-    transform: skewX(-20deg);
-  }
-  
-  @keyframes sh02 {
-    from {
-      opacity: 0;
-      left: 0%;
-    }
-  
-    50% {
-      opacity: 1;
-    }
-  
-    to {
-      opacity: 0;
-      left: 100%;
-    }
-  }
-  
-  .button:active {
-    box-shadow: 0 0 0 0 transparent;
-    -webkit-transition: box-shadow 0.2s ease-in;
-    -moz-transition: box-shadow 0.2s ease-in;
-    transition: box-shadow 0.2s ease-in;
-  }
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .btn::before {
+            content: ''; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
+            background: var(--accent); z-index: -1; transform: scaleX(0);
+            transform-origin: left; transition: transform 0.3s ease-out;
+        }
+        .btn:hover::before { transform: scaleX(1); }
+        .btn:hover { color: var(--bg-color); box-shadow: 0 0 20px rgba(100, 255, 218, 0.4); }
 
-  /*product*/
+        .hero-img { flex: 1; display: flex; justify-content: center; position: relative; }
+        .img-wrapper { width: 300px; height: 300px; position: relative; z-index: 10; }
+        .img-wrapper img {
+            width: 100%; height: 100%; object-fit: cover; border-radius: 15px;
+            filter: grayscale(100%) contrast(1.1); transition: 0.3s; position: relative; z-index: 2;
+        }
+        .img-wrapper::after {
+            content: ''; position: absolute; width: 100%; height: 100%;
+            border: 2px solid var(--accent); border-radius: 15px; top: 20px; left: 20px;
+            z-index: 1; transition: 0.3s;
+        }
+        .img-wrapper:hover img { filter: none; transform: translate(-5px, -5px); }
+        .img-wrapper:hover::after { transform: translate(5px, 5px); }
 
-.box-interactive{
-  width: 97%;
-  height: 95%;
-  background-color: #fff;
-  box-shadow: 1px 1px 5px 1px black;
-  border-radius: 16px;
-  align-items: center;
-  margin-top: 20px;
-  padding-top: 10%;
-  padding-bottom: 10%;
-}
-.titel-box-interactive{
-  text-align: center;
-  padding-top: 30px;
-}
+        /* --- SECTIONS --- */
+        section.content-section { padding: 100px 10%; }
+        .section-title { display: flex; align-items: center; margin-bottom: 40px; font-size: 1.8rem; color: var(--white); }
+        .section-title span { color: var(--accent); font-family: 'Fira Code', monospace; margin-right: 10px; font-size: 1.5rem; }
+        .section-title::after { content: ""; display: block; width: 200px; height: 1px; background: #233554; margin-left: 20px; }
 
-.p-box-interactive{
-  padding-left: 20px;
-  padding-right: 20px;
-  text-align: justify;
-}
-.price-box-interactive{
-  text-align: justify;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
+        /* --- PORTFOLIO --- */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .project-card {
+            background-color: var(--light-bg); border-radius: 8px; padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; height: 100%;
+            display: flex; flex-direction: column;
+        }
+        .project-card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7); }
+        .folder-icon { color: var(--accent); font-size: 2.5rem; margin-bottom: 20px; }
+        .project-card h3 { color: var(--white); margin-bottom: 10px; font-size: 1.4rem; }
+        .project-card p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 15px; font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--text-secondary); }
 
-.box-interactive:hover{
-  background-color: lightblue;
-  color: #000000;
-  width: 100%;
-}
-.gambar-product{
-  width: 100px;
-  height: 100px;
-  margin-top: 50px;
-  margin-left: 25%;
-}
+        /* --- SKILLS --- */
+        .skills-container { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px; }
+        .skill-tag { border: 1px solid var(--accent); color: var(--accent); padding: 8px 15px; border-radius: 50px; font-size: 0.9rem; }
 
-</style>
+        /* --- CONTACT --- */
+        .contact { text-align: center; max-width: 600px; margin: 0 auto; margin-bottom: 100px; }
+        .social-icons { margin-top: 30px; display: flex; justify-content: center; gap: 20px; }
+        .social-icons a { font-size: 1.5rem; color: var(--text-secondary); }
+        .social-icons a:hover { color: var(--accent); transform: translateY(-3px); }
+
+        /* --- ANIMATIONS --- */
+        .hidden { opacity: 0; transform: translateY(30px); transition: all 1s; }
+        .show { opacity: 1; transform: translateY(0); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero { flex-direction: column-reverse; text-align: center; height: auto; padding-top: 150px; padding-bottom: 50px; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .hero-text h2 { font-size: 1.5rem; }
+            .img-wrapper { width: 250px; height: 250px; margin: 0 auto; }
+            .nav-links { display: none; }
+            nav { justify-content: space-between; }
+        }
+    </style>
 </head>
 <body>
-    <div class="container-fluid">
+
+    <nav>
+        <div class="logo">&lt;Samuel Dev/&gt;</div>
+        <div class="nav-right">
+            <ul class="nav-links">
+                <li><a href="#about"><span class="highlight">01.</span> <span data-i18n="nav_about">Tentang</span></a></li>
+                <li><a href="#portfolio"><span class="highlight">02.</span> <span data-i18n="nav_portfolio">Portofolio</span></a></li>
+                <li><a href="#contact"><span class="highlight">03.</span> <span data-i18n="nav_contact">Kontak</span></a></li>
+            </ul>
+            <div class="lang-switch">
+                <span class="lang-opt active" id="lang-id" onclick="setLanguage('id')">ID</span>
+                <span class="divider">|</span>
+                <span class="lang-opt" id="lang-en" onclick="setLanguage('en')">EN</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="zoom-container">
         <div class="wrapper">
             <div class="content">
-            <section class="section hero"></section>
+                <section class="section zoom-bg"></section>
             </div>
             <div class="image-container">
-            <img src="asset/laptop.png" alt="image">
+                <img src="asset/laptop.png" alt="image" class="zoom-img">
             </div>
         </div>   
-    </div>   
-    <!--Mulai Di Sini-->
-    <div class="container-fluid" style="background-color: #000000">
-        <div class="row header">
-            <div class="col-1"></div>
-            <div class="col-10">
-                <div class="container-fluid">
-                    <div class="row justify-content-end">
-                        <div class="col-12 col-lg-6 d-flex align-items-center justify-content-center">
-                            <nav class="d-flex flex-wrap justify-content-center">
-                                <div class="p-2"><p class="navtext">HOME</p></div>
-                                <div class="p-2"><p class="navtext">ABOUT</p></div>
-                                <div class="p-2"><p class="navtext">PROJECT</p></div>
-                                <div class="p-2"><p class="navtext">CONTACT</p></div>
-                                <div class="p-2"><p class="navtext">SKILLS</p></div>
-                            </nav>
-                        </div>
-                    </div>
-                </div>                          
-            </div>
-            <div class="col-1"></div>
+    </div> 
+
+    <section class="hero">
+        <div class="hero-text">
+            <h3 data-i18n="hero_greeting">Halo, nama saya</h3>
+            <h1 id="typing-text"></h1>
+            <h2 data-i18n="hero_subtitle">Saya membangun solusi digital.</h2>
+            <p data-i18n="hero_desc">Saya seorang Software Engineer yang berfokus membangun pengalaman digital yang (terkadang) luar biasa. Fokus pada produk yang responsif dan user-friendly.</p>
+            <a href="#portfolio" class="btn" data-i18n="btn_hero">Lihat Project Saya!</a>
         </div>
-    </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-6" style="padding-left:10px;">
-                <h6 style="text-align: center; margin-top: 50px; font-size: 200%;"class="nama">SAMUEL ANDI WINATA</h6>
-                <h3 style="text-align: center; font-size: 150%"><b>WEBSITE DEVELOPER</b></h3>
-                <p style="text-align: justify" class="text-mini">
-                    Sebagai seorang pengembang website profesional, saya mengubah ide-ide Anda menjadi solusi digital yang menarik, responsif, dan berorientasi pada pengalaman pengguna. Dengan fokus pada teknologi modern dan desain fungsional, saya menghadirkan website yang tidak hanya indah tetapi juga mampu mendorong pertumbuhan bisnis Anda.
-                    <br><br>
-                    Apa yang Saya Tawarkan:
-                    <br>
-                    Desain Responsif: Website yang terlihat sempurna di semua perangkat.
-                    Kode Bersih: Pengembangan dengan standar coding yang terorganisir, efisien, dan mudah dikembangkan.
-                    SEO-Optimized: Meningkatkan visibilitas Anda di mesin pencari.
-                    Keamanan Data: Fokus pada perlindungan dan integritas data pengguna.
-                    Kustomisasi Penuh: Solusi unik sesuai kebutuhan Anda.
+        <div class="hero-img">
+            <div class="img-wrapper">
+                <img src="asset/foto.jpeg" alt="Samuel Andi Winata">
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="content-section hidden">
+        <h2 class="section-title"><span>01.</span> <span data-i18n="title_about">Tentang Saya</span></h2>
+        <div style="max-width: 700px;">
+            <p style="color: var(--text-secondary); margin-bottom: 20px;" data-i18n="about_p1">
+                Halo! Nama saya Samuel Andi Winata dan saya senang membuat sesuatu yang hidup di internet. Ketertarikan saya pada pengembangan web dimulai ketika saya mencoba mengedit kode HTML sederhana.
+            </p>
+            <p style="color: var(--text-secondary);" data-i18n="about_p2">
+                Hari ini, saya telah mengerjakan berbagai proyek mulai dari landing page sederhana hingga sistem manajemen yang kompleks, memastikan semuanya berjalan lancar di berbagai perangkat.
+            </p>
+            
+            <div style="margin-top: 30px;">
+                <h4 style="color:white; margin-bottom:15px;" data-i18n="tech_title">Teknologi yang saya gunakan:</h4>
+                <div class="skills-container">
+                    <span class="skill-tag">JavaScript (ES6+)</span>
+                    <span class="skill-tag">React JS</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Tailwind CSS</span>
+                    <span class="skill-tag">Git</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="content-section hidden">
+        <h2 class="section-title"><span>02.</span> <span data-i18n="title_portfolio">Project Pilihan</span></h2>
+        
+        <div class="portfolio-grid">
+            <div class="project-card" onclick="window.location.href='preview-project.html'">
+                <div class="folder-icon"><i class="far fa-folder"></i></div>
+                <h3 data-i18n="proj1_title">E-Commerce Dashboard</h3>
+                <p data-i18n="proj1_desc">
+                    Membangun dashboard admin untuk toko online dengan fitur analitik penjualan real-time,
+                    manajemen stok, dan integrasi payment gateway.
                 </p>
-                <button class="button">HIRE ME!</button>
-            </div>
-          <div class="col-lg-6">
-            <div class="foto">
-                <img src="asset/foto.png" alt="Profile Picture">
-            </div>
-          </div>
-        </div>
-    </div>
-    <div class="container-fluid">
-        <div class="row" style="background-color: gray; padding-top: 10px; padding-bottom: 20px;">
-            <div class="col-lg-2">
-                <div class="box-interactive">
-                    <h3 class="titel-box-interactive">DESIGN LOGO</h3>
-                    <p class="p-box-interactive">Salah satu cara untuk membuat bisnismu terkenal adalah dengan logo yang menarik loh!!!... customer dapat mengenal bisnis kamu lebih dalam dan mengingat product dan toko kamu melalui logo yang menarik dan mudah di ingat</p>
-                    <div class="gambar-product">
-                        <img src="asset/bottol.png" width="100%">
-                    </div>
-                    <P class="price-box-interactive">Price start from 100.000</P>
+                <div class="tech-stack">
+                    <span>React</span>
+                    <span>Firebase</span>
+                    <span>Chart.js</span>
+                    <span>Next.js</span>
                 </div>
             </div>
-            <div class="col-lg-2">
-                <div class="box-interactive">
-                    <h3 class="titel-box-interactive">DESIGN LANDING PAGE</h3>   
-                    <p class="p-box-interactive">Landing Page adalah halaman yang merepresentatifkan produk dan toko kamu di era digital ini, kamu bisa memperkenalkan seperti apa bsinis kamu... di dalam landing page kamu dapat menyertakan video testimoni dan juga pendekatan informatif yang lebih mendalam seperti link gofood, shopeefood, lokasi toko kamu hingga link whatsapp cs milikmu lebih spesifik seingga customer dapat menyetujui transaksi karena merasa percaya dengan kamu</p>           
-                    <div class="gambar-product">
-                        <img src="asset/bottol.png" width="100%">
-                    </div>
-                    <P class="price-box-interactive">Price Rp 200.000/page</P>
+
+            <div class="project-card">
+                <div class="folder-icon"><i class="far fa-folder"></i></div>
+                <h3 data-i18n="proj2_title">Travel Booking App</h3>
+                <p data-i18n="proj2_desc">Aplikasi web responsif untuk pemesanan tiket wisata lokal. Termasuk fitur pencarian, filter lokasi, dan sistem review user.</p>
+                <div class="tech-stack">
+                    <span>Vue.js</span>
+                    <span>Laravel</span>
+                    <span>MySQL</span>
                 </div>
             </div>
-            <div class="col-lg-2">
-                <div class="box-interactive">
-                    <h3 class="titel-box-interactive">DUKUNGAN BACKEND</h3>
-                    <p class="p-box-interactive">Customer dapat melakukan pendaftaran sebelum melakukan transaksi dengan kamu, hal ini bertujuan untuk menyiman data email/nomor telepone customer. Dengan data ini kamu dapat mengirimkan promosi atau ikaln yang kamu inginkan melalui email dan whatsapp. Dalam bisnis strategi ini dinamakan call back and buy back.</p>
-                    <div class="gambar-product">
-                        <img src="asset/bottol.png" width="100%">
-                    </div>
-                    <P class="price-box-interactive">Price Rp 100.000/100 token</P>
+
+            <div class="project-card">
+                <div class="folder-icon"><i class="far fa-folder"></i></div>
+                <h3 data-i18n="proj3_title">AI Chat Bot</h3>
+                <p data-i18n="proj3_desc">Bot sederhana yang terintegrasi dengan WhatsApp API untuk menjawab pertanyaan pelanggan secara otomatis menggunakan NLP dasar.</p>
+                <div class="tech-stack">
+                    <span>Python</span>
+                    <span>Flask</span>
+                    <span>OpenAI API</span>
                 </div>
             </div>
-            <div class="col-lg-2">
-                <div class="box-interactive">
-                    <h3 class="titel-box-interactive">DUKUNGAN AI</h3>
-                    <p class="p-box-interactive">memungkinkan AI membantu proses transaksi pada website kamu, apabila kamu tidak memiliki cs, kamu dapat memanfaatkan AI untuk membalas pesan customer dengan realtime dan kamu ga perlu balesin mereka satu persatu, yang perlu kamu lakukan adalah melatih AI, memberikan data yang relevant terkait bisnis kamu dan memastikan limit token kamu tidak habis</p>
-                    <div class="gambar-product">
-                        <img src="asset/bottol.png" width="100%">
-                    </div>
-                    <P class="price-box-interactive">Price Rp 500.000/10.000 promp</P>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="box-interactive">
-                    <h3 class="titel-box-interactive">MOCKUP PRODUCT</h3>
-                    <p class="p-box-interactive">Tampilkan product kamu secara 3d yang sesuai dengna color palet pilihanmu sehingga setiap orang dapat tertarik dengan visual yang di tampilkan oleh website</p>
-                    <div class="gambar-product">
-                        <img src="asset/bottol.png" width="100%">
-                    </div>
-                    <P class="price-box-interactive">Price Rp 500.000/Mounth</P>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="box-interactive">
-                    <h3 class="titel-box-interactive">Costum Paketmu sendiri</h3>
-                    <p class="p-box-interactive">Lakukan konsultasi breeefing dan desain sesuai keinginan kamu, buat struktur pola mockup product sesuai keinginan kamu atau meeting langsung dan negosiasi biaya segera</p>
-                    <div class="gambar-product">
-                        <img src="asset/mockup1.jpg" width="100%">
-                    </div>
-                    <P class="price-box-interactive">Price Contact Manager Marketing Kami</P>
+            
+            <div class="project-card">
+                <div class="folder-icon"><i class="far fa-folder"></i></div>
+                <h3 data-i18n="proj4_title">Personal Finance Tracker</h3>
+                <p data-i18n="proj4_desc">Membantu pengguna mencatat pengeluaran harian dan visualisasi budget bulanan agar keuangan tetap terkontrol.</p>
+                <div class="tech-stack">
+                    <span>Flutter</span>
+                    <span>Dart</span>
+                    <span>SQLite</span>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <section id="contact" class="content-section hidden">
+        <div class="contact">
+            <h2 style="color: var(--accent); font-family: 'Fira Code'; font-size: 1rem; margin-bottom: 20px;" data-i18n="contact_small">03. Selanjutnya?</h2>
+            <h1 style="font-size: 3rem; color: var(--white); margin-bottom: 20px;" data-i18n="contact_big">Hubungi Saya</h1>
+            <p style="color: var(--text-secondary); margin-bottom: 40px;" data-i18n="contact_desc">
+                Saya sedang mencari peluang baru untuk kolaborasi. Baik Anda memiliki pertanyaan atau hanya ingin menyapa, inbox saya selalu terbuka!
+            </p>
+            <a href="mailto:samuel@example.com" class="btn" data-i18n="btn_contact">Kirim Email</a>
+
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+        <p style="text-align: center; color: var(--text-secondary); font-size: 0.8rem; font-family: 'Fira Code';">
+            <span data-i18n="footer_text">Dibuat dengan kode dan kopi oleh</span> Samuel A.W.
+        </p>
+    </section>
+
+    <script>
+        // 1. DATA TERJEMAHAN
+        const translations = {
+            id: {
+                nav_about: "Tentang",
+                nav_portfolio: "Portofolio",
+                nav_contact: "Kontak",
+                hero_greeting: "Halo, nama saya",
+                hero_subtitle: "Saya membangun solusi digital.",
+                hero_desc: "Saya seorang Software Engineer yang berfokus membangun pengalaman digital yang (terkadang) luar biasa. Fokus pada produk yang responsif dan user-friendly.",
+                btn_hero: "Lihat Project Saya!",
+                title_about: "Tentang Saya",
+                about_p1: "Halo! Nama saya Samuel Andi Winata dan saya senang membuat sesuatu yang hidup di internet. Ketertarikan saya pada pengembangan web dimulai ketika saya mencoba mengedit kode HTML sederhana.",
+                about_p2: "Hari ini, saya telah mengerjakan berbagai proyek mulai dari landing page sederhana hingga sistem manajemen yang kompleks, memastikan semuanya berjalan lancar di berbagai perangkat.",
+                tech_title: "Teknologi yang saya gunakan:",
+                title_portfolio: "Project Pilihan",
+                proj1_title: "E-Commerce Dashboard",
+                proj1_desc: "Membangun dashboard admin untuk toko online dengan fitur analitik penjualan real-time, manajemen stok, dan integrasi payment gateway.",
+                proj2_title: "Travel Booking App",
+                proj2_desc: "Aplikasi web responsif untuk pemesanan tiket wisata lokal. Termasuk fitur pencarian, filter lokasi, dan sistem review user.",
+                proj3_title: "AI Chat Bot",
+                proj3_desc: "Bot sederhana yang terintegrasi dengan WhatsApp API untuk menjawab pertanyaan pelanggan secara otomatis menggunakan NLP dasar.",
+                proj4_title: "Personal Finance Tracker",
+                proj4_desc: "Membantu pengguna mencatat pengeluaran harian dan visualisasi budget bulanan agar keuangan tetap terkontrol.",
+                contact_small: "03. Selanjutnya?",
+                contact_big: "Hubungi Saya",
+                contact_desc: "Saya sedang mencari peluang baru untuk kolaborasi. Baik Anda memiliki pertanyaan atau hanya ingin menyapa, inbox saya selalu terbuka!",
+                btn_contact: "Kirim Email",
+                footer_text: "Dibuat dengan kode dan kopi oleh"
+            },
+            en: {
+                nav_about: "About",
+                nav_portfolio: "Portfolio",
+                nav_contact: "Contact",
+                hero_greeting: "Hi, my name is",
+                hero_subtitle: "I build things for the web.",
+                hero_desc: "I'm a Software Engineer specializing in building (and occasionally designing) exceptional digital experiences. Currently, I'm focused on building accessible, human-centered products.",
+                btn_hero: "Check out my work!",
+                title_about: "About Me",
+                about_p1: "Hello! My name is Samuel Andi Winata and I enjoy creating things that live on the internet. My interest in web development started when I decided to try editing simple HTML codes.",
+                about_p2: "Fast-forward to today, and I've worked on various projects from simple landing pages to complex management systems, ensuring everything runs smoothly across devices.",
+                tech_title: "Technologies I've been working with:",
+                title_portfolio: "Featured Projects",
+                proj1_title: "E-Commerce Dashboard",
+                proj1_desc: "Built an admin dashboard for an online store featuring real-time sales analytics, inventory management, and payment gateway integration.",
+                proj2_title: "Travel Booking App",
+                proj2_desc: "A responsive web app for booking local tourism tickets. Includes search features, location filtering, and user review systems.",
+                proj3_title: "AI Chat Bot",
+                proj3_desc: "A simple bot integrated with WhatsApp API to answer customer queries automatically using basic NLP.",
+                proj4_title: "Personal Finance Tracker",
+                proj4_desc: "Helps users track daily expenses and visualize monthly budgets to keep finances under control.",
+                contact_small: "03. What's Next?",
+                contact_big: "Get In Touch",
+                contact_desc: "I'm currently looking for new opportunities. Whether you have a question or just want to say hi, my inbox is always open!",
+                btn_contact: "Say Hello",
+                footer_text: "Built with code and coffee by"
+            }
+        };
+
+        // 2. LOGIKA GANTI BAHASA
+        function setLanguage(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerText = translations[lang][key];
+                }
+            });
+
+            document.getElementById('lang-id').classList.remove('active');
+            document.getElementById('lang-en').classList.remove('active');
+            document.getElementById('lang-' + lang).classList.add('active');
+        }
+
+        // 3. EFEK MENGETIK
+        const textElement = document.getElementById('typing-text');
+        const textToType = "Samuel Andi Winata."; 
+        let index = 0;
+
+        function typeWriter() {
+            if (index < textToType.length) {
+                textElement.innerHTML += textToType.charAt(index);
+                index++;
+                setTimeout(typeWriter, 100); 
+            }
+        }
+        
+        // 4. INIT SCRIPT (GSAP & OBSERVER)
+        gsap.registerPlugin(ScrollTrigger);
+
+        window.addEventListener("load", () => {
+            // Animasi GSAP Zoom
+            gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".wrapper",
+                    start: "top top",
+                    end: "+=150%",
+                    pin: true,
+                    scrub: true,
+                    markers: false
+                }
+            })
+            .to(".zoom-img", {
+                scale: 2,
+                z: 350,
+                transformOrigin: "center center",
+                ease: "power1.inOut"
+            })
+            .to(".zoom-bg", {
+                scale: 1.1,
+                transformOrigin: "center center",
+                ease: "power1.inOut"
+            }, "<");
+
+            // Mulai efek ketik
+            typeWriter();
+            
+            // Scroll Animation Observer untuk konten
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                    }
+                });
+            });
+            const hiddenElements = document.querySelectorAll('.hidden');
+            hiddenElements.forEach((el) => observer.observe(el));
+        });
+    </script>
 </body>
 </html>
