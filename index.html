@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio</title>
+    <link rel="icon" href="asset/Logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://codepen.io/GreenSock/pen/xxmzBrw.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script defer src="javascript/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+    
+    .header{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.content{
+    background-color: rgb(255, 255, 255);
+}
+
+.foto {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  padding-top: 180px;
+  padding-bottom: 170px;
+}
+
+.custom-container {
+    height: 100vh; /* Agar elemen vertikal penuh */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa; /* Warna background opsional */
+}
+
+.navtext {
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0;
+    white-space: nowrap;
+    color: #f8f9fa;
+}
+
+.navtext:hover{
+    text-shadow: 1px 1px rgba(255, 0, 0, 0.596);
+    text-decoration: underline;
+}
+
+.text-mini{
+  font-family: "Caveat", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-bottom: 10%;
+}
+.foto {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.foto img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/*keren*/
+.container-fluid{
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .wrapper,
+  .content {
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .wrapper {
+    overflow: hidden; /* Mencegah scroll horizontal */
+    position: relative;
+    width: 100%;
+    height: 100vh;
+  }
+  
+  .content {
+    overflow-x: hidden;
+  }
+  
+  .content .section {
+    width: 100%;
+    height: 100vh;
+  }
+  .nama{
+    font-family: "Kaisei HarunoUmi", serif;
+    font-style: bold;
+  }
+  
+  .content .section.hero {
+    background-image: url(/asset/Welcome.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .image-container {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    perspective: 500px;
+    overflow: hidden;
+  }
+  @media screen and (max-width: 768px) {
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+
+  /*button hire*/
+
+  .button {
+    position: relative;
+    padding: 10px 20px;
+    border-radius: 7px;
+    border: 1px solid gray;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px;
+    background: transparent;
+    color: #000000;
+    overflow: hidden;
+    box-shadow: 0 0 0 0 transparent;
+    -webkit-transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+    margin-left: 10%;
+  }
+  
+  .button:hover {
+    background: gray;
+    box-shadow: 0 0 10px 5px rgb(156, 149, 149);
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    color: #fff;
+  }
+  
+  .button:hover::before {
+    -webkit-animation: sh02 0.5s 0s linear;
+    -moz-animation: sh02 0.5s 0s linear;
+    animation: sh02 0.5s 0s linear;
+  }
+  
+  .button::before {
+    content: '';
+    display: block;
+    width: 0px;
+    height: 86%;
+    position: absolute;
+    top: 7%;
+    left: 0%;
+    opacity: 0;
+    background: #fff;
+    box-shadow: 0 0 50px 30px #fff;
+    -webkit-transform: skewX(-20deg);
+    -moz-transform: skewX(-20deg);
+    -ms-transform: skewX(-20deg);
+    -o-transform: skewX(-20deg);
+    transform: skewX(-20deg);
+  }
+  
+  @keyframes sh02 {
+    from {
+      opacity: 0;
+      left: 0%;
+    }
+  
+    50% {
+      opacity: 1;
+    }
+  
+    to {
+      opacity: 0;
+      left: 100%;
+    }
+  }
+  
+  .button:active {
+    box-shadow: 0 0 0 0 transparent;
+    -webkit-transition: box-shadow 0.2s ease-in;
+    -moz-transition: box-shadow 0.2s ease-in;
+    transition: box-shadow 0.2s ease-in;
+  }
+
+  /*product*/
+
+.box-interactive{
+  width: 97%;
+  height: 95%;
+  background-color: #fff;
+  box-shadow: 1px 1px 5px 1px black;
+  border-radius: 16px;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 10%;
+  padding-bottom: 10%;
+}
+.titel-box-interactive{
+  text-align: center;
+  padding-top: 30px;
+}
+
+.p-box-interactive{
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: justify;
+}
+.price-box-interactive{
+  text-align: justify;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.box-interactive:hover{
+  background-color: lightblue;
+  color: #000000;
+  width: 100%;
+}
+.gambar-product{
+  width: 100px;
+  height: 100px;
+  margin-top: 50px;
+  margin-left: 25%;
+}
+
+</style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="wrapper">
+            <div class="content">
+            <section class="section hero"></section>
+            </div>
+            <div class="image-container">
+            <img src="asset/laptop.png" alt="image">
+            </div>
+        </div>   
+    </div>   
+    <!--Mulai Di Sini-->
+    <div class="container-fluid" style="background-color: #000000">
+        <div class="row header">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <div class="container-fluid">
+                    <div class="row justify-content-end">
+                        <div class="col-12 col-lg-6 d-flex align-items-center justify-content-center">
+                            <nav class="d-flex flex-wrap justify-content-center">
+                                <div class="p-2"><p class="navtext">HOME</p></div>
+                                <div class="p-2"><p class="navtext">ABOUT</p></div>
+                                <div class="p-2"><p class="navtext">PROJECT</p></div>
+                                <div class="p-2"><p class="navtext">CONTACT</p></div>
+                                <div class="p-2"><p class="navtext">SKILLS</p></div>
+                            </nav>
+                        </div>
+                    </div>
+                </div>                          
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6" style="padding-left:10px;">
+                <h6 style="text-align: center; margin-top: 50px; font-size: 200%;"class="nama">SAMUEL ANDI WINATA</h6>
+                <h3 style="text-align: center; font-size: 150%"><b>WEBSITE DEVELOPER</b></h3>
+                <p style="text-align: justify" class="text-mini">
+                    Sebagai seorang pengembang website profesional, saya mengubah ide-ide Anda menjadi solusi digital yang menarik, responsif, dan berorientasi pada pengalaman pengguna. Dengan fokus pada teknologi modern dan desain fungsional, saya menghadirkan website yang tidak hanya indah tetapi juga mampu mendorong pertumbuhan bisnis Anda.
+                    <br><br>
+                    Apa yang Saya Tawarkan:
+                    <br>
+                    Desain Responsif: Website yang terlihat sempurna di semua perangkat.
+                    Kode Bersih: Pengembangan dengan standar coding yang terorganisir, efisien, dan mudah dikembangkan.
+                    SEO-Optimized: Meningkatkan visibilitas Anda di mesin pencari.
+                    Keamanan Data: Fokus pada perlindungan dan integritas data pengguna.
+                    Kustomisasi Penuh: Solusi unik sesuai kebutuhan Anda.
+                </p>
+                <button class="button">HIRE ME!</button>
+            </div>
+          <div class="col-lg-6">
+            <div class="foto">
+                <img src="asset/foto.png" alt="Profile Picture">
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row" style="background-color: gray; padding-top: 10px; padding-bottom: 20px;">
+            <div class="col-lg-2">
+                <div class="box-interactive">
+                    <h3 class="titel-box-interactive">DESIGN LOGO</h3>
+                    <p class="p-box-interactive">Salah satu cara untuk membuat bisnismu terkenal adalah dengan logo yang menarik loh!!!... customer dapat mengenal bisnis kamu lebih dalam dan mengingat product dan toko kamu melalui logo yang menarik dan mudah di ingat</p>
+                    <div class="gambar-product">
+                        <img src="asset/bottol.png" width="100%">
+                    </div>
+                    <P class="price-box-interactive">Price start from 100.000</P>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="box-interactive">
+                    <h3 class="titel-box-interactive">DESIGN LANDING PAGE</h3>   
+                    <p class="p-box-interactive">Landing Page adalah halaman yang merepresentatifkan produk dan toko kamu di era digital ini, kamu bisa memperkenalkan seperti apa bsinis kamu... di dalam landing page kamu dapat menyertakan video testimoni dan juga pendekatan informatif yang lebih mendalam seperti link gofood, shopeefood, lokasi toko kamu hingga link whatsapp cs milikmu lebih spesifik seingga customer dapat menyetujui transaksi karena merasa percaya dengan kamu</p>           
+                    <div class="gambar-product">
+                        <img src="asset/bottol.png" width="100%">
+                    </div>
+                    <P class="price-box-interactive">Price Rp 200.000/page</P>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="box-interactive">
+                    <h3 class="titel-box-interactive">DUKUNGAN BACKEND</h3>
+                    <p class="p-box-interactive">Customer dapat melakukan pendaftaran sebelum melakukan transaksi dengan kamu, hal ini bertujuan untuk menyiman data email/nomor telepone customer. Dengan data ini kamu dapat mengirimkan promosi atau ikaln yang kamu inginkan melalui email dan whatsapp. Dalam bisnis strategi ini dinamakan call back and buy back.</p>
+                    <div class="gambar-product">
+                        <img src="asset/bottol.png" width="100%">
+                    </div>
+                    <P class="price-box-interactive">Price Rp 100.000/100 token</P>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="box-interactive">
+                    <h3 class="titel-box-interactive">DUKUNGAN AI</h3>
+                    <p class="p-box-interactive">memungkinkan AI membantu proses transaksi pada website kamu, apabila kamu tidak memiliki cs, kamu dapat memanfaatkan AI untuk membalas pesan customer dengan realtime dan kamu ga perlu balesin mereka satu persatu, yang perlu kamu lakukan adalah melatih AI, memberikan data yang relevant terkait bisnis kamu dan memastikan limit token kamu tidak habis</p>
+                    <div class="gambar-product">
+                        <img src="asset/bottol.png" width="100%">
+                    </div>
+                    <P class="price-box-interactive">Price Rp 500.000/10.000 promp</P>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="box-interactive">
+                    <h3 class="titel-box-interactive">MOCKUP PRODUCT</h3>
+                    <p class="p-box-interactive">Tampilkan product kamu secara 3d yang sesuai dengna color palet pilihanmu sehingga setiap orang dapat tertarik dengan visual yang di tampilkan oleh website</p>
+                    <div class="gambar-product">
+                        <img src="asset/bottol.png" width="100%">
+                    </div>
+                    <P class="price-box-interactive">Price Rp 500.000/Mounth</P>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="box-interactive">
+                    <h3 class="titel-box-interactive">Costum Paketmu sendiri</h3>
+                    <p class="p-box-interactive">Lakukan konsultasi breeefing dan desain sesuai keinginan kamu, buat struktur pola mockup product sesuai keinginan kamu atau meeting langsung dan negosiasi biaya segera</p>
+                    <div class="gambar-product">
+                        <img src="asset/mockup1.jpg" width="100%">
+                    </div>
+                    <P class="price-box-interactive">Price Contact Manager Marketing Kami</P>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
