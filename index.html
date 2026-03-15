@@ -1,6 +1,7 @@
 ```html
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +22,7 @@
 --text:#ccd6f6;
 --sub:#8892b0;
 --accent:#64ffda;
---white:#fff;
+--white:#ffffff;
 }
 
 *{
@@ -36,6 +37,38 @@ font-family:'Poppins',sans-serif;
 background:var(--bg);
 color:var(--text);
 overflow-x:hidden;
+}
+
+/* ---------- HERO CINEMATIC ---------- */
+
+.wrapper{
+position:relative;
+width:100%;
+height:100vh;
+overflow:hidden;
+}
+
+.section.hero-bg{
+width:100%;
+height:100vh;
+background-image:url(asset/Welcome.jpg);
+background-size:cover;
+background-position:center;
+}
+
+.image-container{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+perspective:500px;
+}
+
+.image-container img{
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
 /* ---------- NAVBAR ---------- */
@@ -78,23 +111,7 @@ font-size:14px;
 color:var(--accent);
 }
 
-.lang-switch{
-border:1px solid var(--accent);
-padding:4px 10px;
-font-family:'Fira Code';
-cursor:pointer;
-}
-
-.lang-opt{
-opacity:.5;
-}
-
-.lang-opt.active{
-opacity:1;
-color:var(--accent);
-}
-
-/* ---------- HERO ---------- */
+/* ---------- HERO INTRO ---------- */
 
 .hero{
 min-height:100vh;
@@ -139,6 +156,7 @@ color:var(--accent);
 padding:12px 26px;
 font-family:'Fira Code';
 display:inline-block;
+transition:.3s;
 }
 
 .btn:hover{
@@ -320,9 +338,26 @@ display:none;
 }
 
 </style>
+
 </head>
 
 <body>
+
+
+<!-- HERO CINEMATIC -->
+
+<div class="wrapper">
+
+<div class="section hero-bg"></div>
+
+<div class="image-container">
+<img src="asset/laptop.png">
+</div>
+
+</div>
+
+
+<!-- NAVBAR -->
 
 <nav>
 
@@ -336,15 +371,12 @@ display:none;
 <li><a href="#contact">03. Kontak</a></li>
 </ul>
 
-<div class="lang-switch">
-<span class="lang-opt active">ID</span> |
-<span class="lang-opt">EN</span>
-</div>
-
 </div>
 
 </nav>
 
+
+<!-- HERO INTRO -->
 
 <section class="hero">
 
@@ -357,8 +389,8 @@ display:none;
 <h2>Saya membangun solusi digital.</h2>
 
 <p>
-Saya seorang Software Engineer yang berfokus membangun website modern
-yang responsif dan user friendly.
+Saya seorang Software Engineer yang fokus membangun website modern
+yang responsif dan user-friendly.
 </p>
 
 <a href="#portfolio" class="btn">Lihat Project Saya</a>
@@ -376,13 +408,15 @@ yang responsif dan user friendly.
 </section>
 
 
+<!-- ABOUT -->
+
 <section id="about" class="hidden">
 
 <h2 class="section-title"><span>01.</span>Tentang Saya</h2>
 
 <p style="color:var(--sub);max-width:700px;margin-bottom:20px;">
-Saya adalah developer yang berfokus pada pengembangan web modern menggunakan
-framework terbaru dan pendekatan UI/UX yang baik.
+Saya adalah developer yang berfokus pada pengembangan web modern
+menggunakan teknologi terbaru dan desain UI/UX yang baik.
 </p>
 
 <div class="skills-container">
@@ -399,6 +433,8 @@ framework terbaru dan pendekatan UI/UX yang baik.
 </section>
 
 
+<!-- PORTFOLIO -->
+
 <section id="portfolio" class="hidden">
 
 <h2 class="section-title"><span>02.</span>Project Pilihan</h2>
@@ -414,8 +450,7 @@ framework terbaru dan pendekatan UI/UX yang baik.
 <h3>E-Learning Platform</h3>
 
 <p>
-Website pembelajaran online dengan sistem login,
-manajemen kursus dan dashboard admin.
+Website pembelajaran online dengan sistem login dan dashboard admin.
 </p>
 
 <div class="tech-stack">
@@ -436,8 +471,7 @@ manajemen kursus dan dashboard admin.
 <h3>Travel Booking App</h3>
 
 <p>
-Aplikasi booking wisata dengan sistem pencarian
-dan review user.
+Aplikasi booking wisata dengan sistem pencarian dan review user.
 </p>
 
 <div class="tech-stack">
@@ -458,8 +492,7 @@ dan review user.
 <h3>AI Chatbot</h3>
 
 <p>
-Bot WhatsApp otomatis untuk customer service
-menggunakan NLP.
+Bot WhatsApp otomatis untuk customer service.
 </p>
 
 <div class="tech-stack">
@@ -474,6 +507,8 @@ menggunakan NLP.
 
 </section>
 
+
+<!-- CONTACT -->
 
 <section id="contact" class="hidden">
 
