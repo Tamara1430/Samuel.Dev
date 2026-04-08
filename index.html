@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Samuel Andi Winata | Portfolio</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    
     <style>
         :root {
             --bg-color: #0a192f;
@@ -19,306 +17,47 @@
             --accent: #64ffda;
             --white: #ffffff;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
 
         /* ========== ROCKET INTRO ========== */
-        #rocket-intro {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            background: #020c1b;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        /* Stars */
-        #stars-canvas {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Ground */
-        .ground {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            background: linear-gradient(to top, #0d2137, #0a192f);
-            border-top: 2px solid #1a3a5c;
-            z-index: 2;
-        }
-        .ground-detail {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            background: repeating-linear-gradient(
-                90deg,
-                transparent,
-                transparent 40px,
-                rgba(100,255,218,0.03) 40px,
-                rgba(100,255,218,0.03) 41px
-            );
-        }
-
-        /* Launch pad */
-        .launch-pad {
-            position: absolute;
-            bottom: 78px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 3;
-        }
-        .pad-base {
-            width: 120px;
-            height: 16px;
-            background: #1e3a5f;
-            border: 1px solid #2a5080;
-            border-radius: 4px;
-            margin: 0 auto;
-        }
-        .pad-legs {
-            display: flex;
-            justify-content: space-between;
-            width: 90px;
-            margin: 0 auto;
-        }
-        .pad-leg {
-            width: 6px;
-            height: 20px;
-            background: #1a3355;
-            border-radius: 0 0 3px 3px;
-        }
-
-        /* Rocket */
-        #rocket-wrap {
-            position: absolute;
-            bottom: 94px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .rocket-svg {
-            width: 70px;
-            filter: drop-shadow(0 0 8px rgba(100,255,218,0.3));
-        }
-
-        /* Flame */
-        .flame-wrap {
-            margin-top: -4px;
-            display: flex;
-            gap: 4px;
-            align-items: flex-start;
-            opacity: 0;
-        }
-        .flame {
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            animation: flicker 0.1s infinite alternate;
-        }
-        .flame-main {
-            width: 22px;
-            height: 40px;
-            background: linear-gradient(to bottom, #fff5c0, #ffaa00, #ff5500, transparent);
-            animation-delay: 0s;
-        }
-        .flame-l, .flame-r {
-            width: 12px;
-            height: 24px;
-            background: linear-gradient(to bottom, #ffcc44, #ff7700, transparent);
-        }
+        #rocket-intro { position: fixed; inset: 0; z-index: 9999; background: #020c1b; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+        #stars-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+        .ground { position: absolute; bottom: 0; left: 0; width: 100%; height: 80px; background: linear-gradient(to top, #0d2137, #0a192f); border-top: 2px solid #1a3a5c; z-index: 2; }
+        .ground-detail { position: absolute; bottom: 0; left: 0; width: 100%; height: 80px; background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(100,255,218,0.03) 40px, rgba(100,255,218,0.03) 41px); }
+        .launch-pad { position: absolute; bottom: 78px; left: 50%; transform: translateX(-50%); z-index: 3; }
+        .pad-base { width: 120px; height: 16px; background: #1e3a5f; border: 1px solid #2a5080; border-radius: 4px; margin: 0 auto; }
+        .pad-legs { display: flex; justify-content: space-between; width: 90px; margin: 0 auto; }
+        .pad-leg { width: 6px; height: 20px; background: #1a3355; border-radius: 0 0 3px 3px; }
+        #rocket-wrap { position: absolute; bottom: 94px; left: 50%; transform: translateX(-50%); z-index: 10; display: flex; flex-direction: column; align-items: center; }
+        .rocket-svg { width: 70px; filter: drop-shadow(0 0 8px rgba(100,255,218,0.3)); }
+        .flame-wrap { margin-top: -4px; display: flex; gap: 4px; align-items: flex-start; opacity: 0; }
+        .flame { border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; animation: flicker 0.1s infinite alternate; }
+        .flame-main { width: 22px; height: 40px; background: linear-gradient(to bottom, #fff5c0, #ffaa00, #ff5500, transparent); }
+        .flame-l, .flame-r { width: 12px; height: 24px; background: linear-gradient(to bottom, #ffcc44, #ff7700, transparent); }
         .flame-l { animation-delay: 0.05s; transform: rotate(-10deg); }
         .flame-r { animation-delay: 0.03s; transform: rotate(10deg); }
+        @keyframes flicker { from { transform: scaleY(1) scaleX(1); } to { transform: scaleY(0.93) scaleX(1.05); } }
+        .smoke-container { position: absolute; bottom: 90px; left: 50%; transform: translateX(-50%); z-index: 5; pointer-events: none; }
+        .smoke { position: absolute; border-radius: 50%; background: rgba(150,180,210,0.15); animation: smokeRise 1.5s ease-out forwards; }
+        @keyframes smokeRise { 0% { transform: translateY(0) scale(0.5); opacity: 0.5; } 100% { transform: translateY(-60px) scale(3); opacity: 0; } }
+        #countdown-display { position: absolute; bottom: 180px; left: 50%; transform: translateX(-50%); font-family: 'Fira Code', monospace; font-size: 1.1rem; color: var(--accent); z-index: 20; text-align: center; letter-spacing: 2px; white-space: nowrap; }
+        #countdown-number { font-size: 3rem; font-weight: 700; display: block; color: var(--white); text-shadow: 0 0 20px rgba(100,255,218,0.6); }
+        #loading-bar-wrap { position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); z-index: 20; width: 220px; }
+        #loading-label { font-family: 'Fira Code', monospace; font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 6px; text-align: center; letter-spacing: 1px; }
+        #loading-bar-bg { height: 3px; background: rgba(100,255,218,0.1); border-radius: 2px; overflow: hidden; }
+        #loading-bar-fill { height: 100%; width: 0%; background: var(--accent); border-radius: 2px; transition: width 0.1s linear; box-shadow: 0 0 8px rgba(100,255,218,0.5); }
+        #skip-btn { position: absolute; top: 28px; right: 32px; z-index: 9999; font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--text-secondary); border: 1px solid rgba(136,146,176,0.3); padding: 6px 14px; border-radius: 4px; cursor: pointer; background: transparent; transition: 0.3s; }
+        #skip-btn:hover { color: var(--accent); border-color: var(--accent); }
+        .deco-moon { position: absolute; top: 10%; right: 15%; width: 50px; height: 50px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #2a4a6a, #0d1f35); border: 1px solid #1e3a5a; opacity: 0.6; }
+        .deco-planet { position: absolute; top: 20%; left: 12%; width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 40% 40%, #1a3a2a, #0a1f10); border: 1px solid rgba(100,255,218,0.2); opacity: 0.5; }
+        #intro-title { position: absolute; top: 28px; left: 50%; transform: translateX(-50%); font-family: 'Fira Code', monospace; font-size: 1rem; color: var(--accent); letter-spacing: 3px; white-space: nowrap; z-index: 20; }
 
-        @keyframes flicker {
-            from { transform: scaleY(1) scaleX(1); }
-            to   { transform: scaleY(0.93) scaleX(1.05); }
-        }
+        /* ========== MAIN PAGE ========== */
+        #main-page { display: none; }
 
-        /* Smoke particles */
-        .smoke-container {
-            position: absolute;
-            bottom: 90px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 5;
-            pointer-events: none;
-        }
-        .smoke {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(150,180,210,0.15);
-            animation: smokeRise 1.5s ease-out forwards;
-        }
-        @keyframes smokeRise {
-            0%   { transform: translateY(0) scale(0.5); opacity: 0.5; }
-            100% { transform: translateY(-60px) scale(3); opacity: 0; }
-        }
-
-        /* Countdown */
-        #countdown-display {
-            position: absolute;
-            bottom: 180px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Fira Code', monospace;
-            font-size: 1.1rem;
-            color: var(--accent);
-            z-index: 20;
-            text-align: center;
-            letter-spacing: 2px;
-            white-space: nowrap;
-        }
-        #countdown-number {
-            font-size: 3rem;
-            font-weight: 700;
-            display: block;
-            color: var(--white);
-            text-shadow: 0 0 20px rgba(100,255,218,0.6);
-        }
-
-        /* Progress bar */
-        #loading-bar-wrap {
-            position: absolute;
-            bottom: 140px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 20;
-            width: 220px;
-        }
-        #loading-label {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-        #loading-bar-bg {
-            height: 3px;
-            background: rgba(100,255,218,0.1);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        #loading-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: var(--accent);
-            border-radius: 2px;
-            transition: width 0.1s linear;
-            box-shadow: 0 0 8px rgba(100,255,218,0.5);
-        }
-
-        /* Skip button */
-        #skip-btn {
-            position: absolute;
-            top: 28px;
-            right: 32px;
-            z-index: 9999;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            border: 1px solid rgba(136,146,176,0.3);
-            padding: 6px 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            background: transparent;
-            transition: 0.3s;
-        }
-        #skip-btn:hover {
-            color: var(--accent);
-            border-color: var(--accent);
-        }
-
-        /* Planet / moon decoration */
-        .deco-moon {
-            position: absolute;
-            top: 10%;
-            right: 15%;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, #2a4a6a, #0d1f35);
-            border: 1px solid #1e3a5a;
-            opacity: 0.6;
-        }
-        .deco-planet {
-            position: absolute;
-            top: 20%;
-            left: 12%;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 40% 40%, #1a3a2a, #0a1f10);
-            border: 1px solid rgba(100,255,218,0.2);
-            opacity: 0.5;
-        }
-
-        /* Intro title */
-        #intro-title {
-            position: absolute;
-            top: 28px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Fira Code', monospace;
-            font-size: 1rem;
-            color: var(--accent);
-            letter-spacing: 3px;
-            white-space: nowrap;
-            z-index: 20;
-        }
-
-        /* Exhaust trail for launch */
-        #exhaust-trail {
-            position: absolute;
-            bottom: 94px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 22px;
-            background: linear-gradient(to bottom, rgba(255,170,0,0.8), transparent);
-            z-index: 9;
-            display: none;
-            border-radius: 0 0 10px 10px;
-        }
-
-        /* ========== MAIN PAGE (hidden until intro done) ========== */
-        #main-page {
-            display: none;
-        }
-
-        /* --- NAVBAR --- */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 50px;
-            position: sticky;
-            width: 100%;
-            background: rgba(10, 25, 47, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            top:0;
-        }
+        /* NAVBAR */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; position: sticky; width: 100%; background: rgba(10, 25, 47, 0.95); backdrop-filter: blur(10px); z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.3); top: 0; }
         .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent); font-family: 'Fira Code', monospace; }
         .nav-right { display: flex; align-items: center; gap: 30px; }
         .nav-links { list-style: none; display: flex; gap: 30px; }
@@ -330,7 +69,7 @@
         .lang-opt.active { opacity: 1; color: var(--accent); font-weight: bold; text-decoration: underline; }
         .divider { color: var(--text-secondary); }
 
-        /* --- ZOOM HERO --- */
+        /* ZOOM HERO */
         .zoom-container { overflow: hidden; width: 100%; }
         .wrapper, .content { position: relative; width: 100%; z-index: 1; overflow: hidden; }
         .wrapper { height: 100vh; }
@@ -339,23 +78,20 @@
         .image-container { width: 100%; height: 100vh; position: absolute; top: 0; left: 0; right: 0; z-index: 2; perspective: 500px; overflow: hidden; }
         .image-container img.zoom-img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 
-        /* --- HERO SECTION --- */
+        /* HERO */
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 100px 10% 0; gap: 50px; position: relative; z-index: 10; }
         .hero-text { flex: 1; animation: fadeIn 1.5s ease-in-out; }
         .hero-text h3 { color: var(--accent); font-family: 'Fira Code', monospace; font-size: 1.2rem; margin-bottom: 10px; }
         .hero-text h1 { font-size: 3.5rem; color: var(--white); line-height: 1.1; margin-bottom: 10px; min-height: 60px; }
         .hero-text h2 { font-size: 2.5rem; color: var(--text-secondary); line-height: 1.1; margin-bottom: 20px; }
         .hero-text p { color: var(--text-secondary); margin-bottom: 30px; max-width: 500px; font-size: 1.1rem; }
-
         .highlight { color: var(--accent); font-family: 'Fira Code', monospace; }
         h1, h2, h3 { font-weight: 700; }
         a { text-decoration: none; color: inherit; transition: 0.3s; }
-
         .btn { display: inline-block; padding: 12px 28px; border: 1px solid var(--accent); color: var(--accent); border-radius: 4px; font-family: 'Fira Code', monospace; position: relative; overflow: hidden; z-index: 1; }
         .btn::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; right: 0; background: var(--accent); z-index: -1; transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease-out; }
         .btn:hover::before { transform: scaleX(1); }
         .btn:hover { color: var(--bg-color); box-shadow: 0 0 20px rgba(100,255,218,0.4); }
-
         .hero-img { flex: 1; display: flex; justify-content: center; position: relative; }
         .img-wrapper { width: 300px; height: 300px; position: relative; z-index: 10; }
         .img-wrapper img { width: 100%; height: 100%; object-fit: cover; border-radius: 15px; filter: grayscale(100%) contrast(1.1); transition: 0.3s; position: relative; z-index: 2; }
@@ -363,37 +99,129 @@
         .img-wrapper:hover img { filter: none; transform: translate(-5px, -5px); }
         .img-wrapper:hover::after { transform: translate(5px, 5px); }
 
-        /* --- SECTIONS --- */
+        /* SECTIONS */
         section.content-section { padding: 100px 10%; }
         .section-title { display: flex; align-items: center; margin-bottom: 40px; font-size: 1.8rem; color: var(--white); }
         .section-title span { color: var(--accent); font-family: 'Fira Code', monospace; margin-right: 10px; font-size: 1.5rem; }
         .section-title::after { content: ""; display: block; width: 200px; height: 1px; background: #233554; margin-left: 20px; }
 
-        /* --- PORTFOLIO --- */
+        /* PORTFOLIO GRID */
         .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .project-card { background-color: var(--light-bg); border-radius: 8px; padding: 25px; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; height: 100%; display: flex; flex-direction: column; }
-        .project-card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7); }
+        .project-card { background-color: var(--light-bg); border-radius: 8px; padding: 25px; transition: transform 0.3s ease, box-shadow 0.3s ease; height: 100%; display: flex; flex-direction: column; }
+        .project-card:hover { transform: translateY(-6px); box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7); }
         .folder-icon { color: var(--accent); font-size: 2.5rem; margin-bottom: 20px; }
         .project-card h3 { color: var(--white); margin-bottom: 10px; font-size: 1.4rem; }
         .project-card p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
         .tech-stack { display: flex; flex-wrap: wrap; gap: 15px; font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--text-secondary); }
 
-        /* --- SKILLS --- */
+        /* TOMBOL LIHAT SEMUA */
+        .card-actions { display: flex; align-items: center; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+        .btn-see-all {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.78rem;
+            color: var(--accent);
+            border: 1px solid rgba(100,255,218,0.35);
+            padding: 7px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            background: transparent;
+            transition: 0.25s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-see-all:hover { background: rgba(100,255,218,0.08); border-color: var(--accent); letter-spacing: 0.5px; }
+        .btn-go-page {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            border: 1px solid rgba(136,146,176,0.25);
+            padding: 7px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            background: transparent;
+            transition: 0.25s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+        .btn-go-page:hover { color: var(--accent); border-color: rgba(100,255,218,0.4); }
+
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 12, 27, 0.88);
+            backdrop-filter: blur(8px);
+            z-index: 5000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-box {
+            background: var(--light-bg);
+            border: 1px solid rgba(100, 255, 218, 0.18);
+            border-radius: 14px;
+            padding: 38px;
+            max-width: 680px;
+            width: 100%;
+            max-height: 82vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalIn 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+            scrollbar-width: thin;
+            scrollbar-color: rgba(100,255,218,0.2) transparent;
+        }
+        .modal-box::-webkit-scrollbar { width: 4px; }
+        .modal-box::-webkit-scrollbar-thumb { background: rgba(100,255,218,0.2); border-radius: 4px; }
+        @keyframes modalIn { from { opacity: 0; transform: translateY(24px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        .modal-close { position: absolute; top: 16px; right: 18px; background: none; border: none; color: var(--text-secondary); font-size: 1.3rem; cursor: pointer; line-height: 1; transition: 0.2s; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+        .modal-close:hover { color: var(--accent); background: rgba(100,255,218,0.08); }
+        .modal-header-label { font-family: 'Fira Code', monospace; font-size: 0.78rem; color: var(--accent); letter-spacing: 2px; margin-bottom: 6px; }
+        .modal-header-title { font-size: 1.35rem; color: var(--white); font-weight: 700; margin-bottom: 6px; }
+        .modal-header-sub { font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 22px; }
+        .modal-divider { height: 1px; background: rgba(100,255,218,0.08); margin-bottom: 22px; }
+        .modal-tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+        .modal-tag { font-family: 'Fira Code', monospace; font-size: 0.72rem; padding: 4px 11px; border-radius: 50px; border: 1px solid rgba(136,146,176,0.2); color: var(--text-secondary); background: rgba(255,255,255,0.02); }
+        .modal-tag.active { border-color: var(--accent); color: var(--accent); background: rgba(100,255,218,0.07); }
+        .modal-count { font-family: 'Fira Code', monospace; font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 16px; }
+        .modal-count strong { color: var(--accent); }
+        .modal-project-list { display: flex; flex-direction: column; gap: 14px; }
+        .modal-project-item { background: rgba(255,255,255,0.02); border: 1px solid rgba(100,255,218,0.07); border-radius: 10px; padding: 20px; transition: all 0.2s ease; cursor: pointer; position: relative; overflow: hidden; }
+        .modal-project-item::before { content: ''; position: absolute; left: 0; top: 0; width: 3px; height: 100%; background: var(--accent); transform: scaleY(0); transition: transform 0.2s ease; border-radius: 3px 0 0 3px; }
+        .modal-project-item:hover { border-color: rgba(100,255,218,0.2); transform: translateX(4px); background: rgba(100,255,218,0.03); }
+        .modal-project-item:hover::before { transform: scaleY(1); }
+        .modal-item-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+        .modal-item-title { font-size: 1rem; color: var(--white); font-weight: 600; }
+        .modal-item-badge { font-family: 'Fira Code', monospace; font-size: 0.68rem; color: var(--accent); border: 1px solid rgba(100,255,218,0.3); padding: 3px 9px; border-radius: 50px; white-space: nowrap; flex-shrink: 0; }
+        .modal-item-desc { font-size: 0.87rem; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.5; }
+        .modal-item-stack { display: flex; gap: 8px; flex-wrap: wrap; }
+        .modal-item-stack span { font-family: 'Fira Code', monospace; font-size: 0.72rem; color: var(--text-secondary); }
+        .modal-item-stack span.hl { color: var(--accent); }
+        .modal-footer-actions { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+        .modal-btn-primary { font-family: 'Fira Code', monospace; font-size: 0.82rem; color: var(--bg-color); background: var(--accent); border: none; padding: 10px 22px; border-radius: 5px; cursor: pointer; transition: 0.25s; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 7px; }
+        .modal-btn-primary:hover { background: #4de8c5; box-shadow: 0 0 18px rgba(100,255,218,0.3); }
+        .modal-btn-secondary { font-family: 'Fira Code', monospace; font-size: 0.82rem; color: var(--accent); background: transparent; border: 1px solid rgba(100,255,218,0.35); padding: 10px 22px; border-radius: 5px; cursor: pointer; transition: 0.25s; text-decoration: none; display: inline-flex; align-items: center; gap: 7px; }
+        .modal-btn-secondary:hover { background: rgba(100,255,218,0.07); border-color: var(--accent); }
+
+        /* SKILLS */
         .skills-container { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px; }
         .skill-tag { border: 1px solid var(--accent); color: var(--accent); padding: 8px 15px; border-radius: 50px; font-size: 0.9rem; }
 
-        /* --- CONTACT --- */
-        .contact { text-align: center; max-width: 600px; margin: 0 auto; margin-bottom: 100px; }
+        /* CONTACT */
+        .contact { text-align: center; max-width: 600px; margin: 0 auto 100px; }
         .social-icons { margin-top: 30px; display: flex; justify-content: center; gap: 20px; }
         .social-icons a { font-size: 1.5rem; color: var(--text-secondary); }
         .social-icons a:hover { color: var(--accent); transform: translateY(-3px); }
 
-        /* --- ANIMATIONS --- */
+        /* ANIMATIONS */
         .hidden { opacity: 0; transform: translateY(30px); transition: all 1s; }
         .show { opacity: 1; transform: translateY(0); }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             .hero { flex-direction: column-reverse; text-align: center; height: auto; padding-top: 150px; padding-bottom: 50px; }
             .hero-text h1 { font-size: 2.5rem; }
@@ -401,46 +229,32 @@
             .img-wrapper { width: 250px; height: 250px; margin: 0 auto; }
             .nav-links { display: none; }
             nav { justify-content: space-between; }
+            .modal-box { padding: 24px; }
         }
     </style>
 </head>
 <body>
 
 <!-- ============================================================ -->
-<!--  ROCKET INTRO SCREEN                                         -->
+<!--  ROCKET INTRO                                                -->
 <!-- ============================================================ -->
 <div id="rocket-intro">
     <canvas id="stars-canvas"></canvas>
-
     <div class="deco-moon"></div>
     <div class="deco-planet"></div>
-
     <div id="intro-title">INITIALIZING LAUNCH SEQUENCE</div>
-
     <button id="skip-btn" onclick="skipIntro()">Skip ›</button>
-
-    <!-- Countdown -->
     <div id="countdown-display">
         <span style="font-size:0.85rem;letter-spacing:2px;">T-MINUS</span>
         <span id="countdown-number">3</span>
     </div>
-
-    <!-- Loading bar -->
     <div id="loading-bar-wrap">
         <div id="loading-label">SYSTEMS NOMINAL</div>
-        <div id="loading-bar-bg">
-            <div id="loading-bar-fill"></div>
-        </div>
+        <div id="loading-bar-bg"><div id="loading-bar-fill"></div></div>
     </div>
-
-    <!-- Smoke -->
     <div class="smoke-container" id="smoke-container"></div>
-
-    <!-- Rocket -->
     <div id="rocket-wrap">
-        <!-- SVG Rocket -->
         <svg class="rocket-svg" viewBox="0 0 70 130" xmlns="http://www.w3.org/2000/svg">
-            <!-- Body -->
             <defs>
                 <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="0">
                     <stop offset="0%" stop-color="#1a3a5c"/>
@@ -453,50 +267,29 @@
                     <stop offset="100%" stop-color="#1a3a5c"/>
                 </linearGradient>
             </defs>
-            <!-- Nose cone -->
             <path d="M35,5 Q45,35 45,55 L25,55 Q25,35 35,5Z" fill="url(#noseGrad)" stroke="#64ffda" stroke-width="0.5"/>
-            <!-- Body -->
             <rect x="22" y="54" width="26" height="50" rx="2" fill="url(#bodyGrad)" stroke="#2a5a8c" stroke-width="0.5"/>
-            <!-- Window -->
             <circle cx="35" cy="72" r="8" fill="#0a1f35" stroke="#64ffda" stroke-width="1"/>
             <circle cx="35" cy="72" r="5" fill="#0d2b4a"/>
             <circle cx="33" cy="70" r="1.5" fill="rgba(100,255,218,0.5)"/>
-            <!-- Stripe -->
             <rect x="22" y="90" width="26" height="6" rx="1" fill="#0f3060" stroke="#1a4070" stroke-width="0.5"/>
-            <!-- Accent line -->
             <line x1="35" y1="58" x2="35" y2="100" stroke="rgba(100,255,218,0.2)" stroke-width="0.5"/>
-            <!-- Left fin -->
             <path d="M22,92 L8,112 L22,105Z" fill="#0f2a48" stroke="#1a3a5c" stroke-width="0.5"/>
-            <!-- Right fin -->
             <path d="M48,92 L62,112 L48,105Z" fill="#0f2a48" stroke="#1a3a5c" stroke-width="0.5"/>
-            <!-- Nozzle -->
             <path d="M28,104 L42,104 L44,115 L26,115Z" fill="#0d2040" stroke="#1a3a5c" stroke-width="0.5"/>
-            <!-- Nozzle inner -->
             <path d="M30,104 L40,104 L41,112 L29,112Z" fill="#020c1b"/>
         </svg>
-
-        <!-- Flame -->
         <div class="flame-wrap" id="flame-wrap">
             <div class="flame flame-l"></div>
             <div class="flame flame-main"></div>
             <div class="flame flame-r"></div>
         </div>
     </div>
-
-    <!-- Launch pad -->
     <div class="launch-pad">
-        <div class="pad-legs">
-            <div class="pad-leg"></div>
-            <div class="pad-leg"></div>
-            <div class="pad-leg"></div>
-        </div>
+        <div class="pad-legs"><div class="pad-leg"></div><div class="pad-leg"></div><div class="pad-leg"></div></div>
         <div class="pad-base"></div>
     </div>
-
-    <!-- Ground -->
-    <div class="ground">
-        <div class="ground-detail"></div>
-    </div>
+    <div class="ground"><div class="ground-detail"></div></div>
 </div>
 
 <!-- ============================================================ -->
@@ -505,15 +298,13 @@
 <div id="main-page">
     <div class="zoom-container">
         <div class="wrapper">
-            <div class="content">
-                <section class="section zoom-bg"></section>
-            </div>
+            <div class="content"><section class="section zoom-bg"></section></div>
             <div class="image-container">
                 <img src="asset/laptop.png" alt="image" class="zoom-img">
             </div>
-        </div>   
-    </div> 
-    
+        </div>
+    </div>
+
     <nav>
         <div class="logo">&lt;Samuel Dev/&gt;</div>
         <div class="nav-right">
@@ -529,7 +320,7 @@
             </div>
         </div>
     </nav>
-    
+
     <section class="hero">
         <div class="hero-text">
             <h3 data-i18n="hero_greeting">Halo, nama saya</h3>
@@ -568,33 +359,83 @@
         </div>
     </section>
 
+    <!-- =================== PORTFOLIO =================== -->
     <section id="portfolio" class="content-section hidden">
         <h2 class="section-title"><span>02.</span> <span data-i18n="title_portfolio">Project Pilihan</span></h2>
         <div class="portfolio-grid">
-            <div class="project-card" onclick="window.location.href='preview-project.html'">
+
+            <!-- Card 1: E-Commerce -->
+            <div class="project-card">
                 <div class="folder-icon"><i class="far fa-folder"></i></div>
                 <h3 data-i18n="proj1_title">E-Commerce Dashboard</h3>
                 <p data-i18n="proj1_desc">Membangun dashboard admin untuk toko online dengan fitur analitik penjualan real-time, manajemen stok, dan integrasi payment gateway.</p>
                 <div class="tech-stack"><span>React</span><span>Firebase</span><span>Chart.js</span><span>Next.js</span></div>
+                <div class="card-actions">
+                    <button class="btn-see-all" onclick="openModal('ecommerce')">
+                        <i class="far fa-folder-open" style="font-size:0.8rem;"></i>
+                        <span data-i18n="btn_relevant">Lihat project relevan</span>
+                    </button>
+                    <a class="btn-go-page" href="projects.html?cat=ecommerce">
+                        <span data-i18n="btn_category">Halaman kategori</span>
+                        <i class="fas fa-arrow-right" style="font-size:0.7rem;"></i>
+                    </a>
+                </div>
             </div>
+
+            <!-- Card 2: Travel -->
             <div class="project-card">
                 <div class="folder-icon"><i class="far fa-folder"></i></div>
                 <h3 data-i18n="proj2_title">Travel Booking App</h3>
                 <p data-i18n="proj2_desc">Aplikasi web responsif untuk pemesanan tiket wisata lokal. Termasuk fitur pencarian, filter lokasi, dan sistem review user.</p>
                 <div class="tech-stack"><span>Vue.js</span><span>Laravel</span><span>MySQL</span></div>
+                <div class="card-actions">
+                    <button class="btn-see-all" onclick="openModal('travel')">
+                        <i class="far fa-folder-open" style="font-size:0.8rem;"></i>
+                        <span data-i18n="btn_relevant">Lihat project relevan</span>
+                    </button>
+                    <a class="btn-go-page" href="projects.html?cat=travel">
+                        <span data-i18n="btn_category">Halaman kategori</span>
+                        <i class="fas fa-arrow-right" style="font-size:0.7rem;"></i>
+                    </a>
+                </div>
             </div>
+
+            <!-- Card 3: AI Bot -->
             <div class="project-card">
                 <div class="folder-icon"><i class="far fa-folder"></i></div>
                 <h3 data-i18n="proj3_title">AI Chat Bot</h3>
                 <p data-i18n="proj3_desc">Bot sederhana yang terintegrasi dengan WhatsApp API untuk menjawab pertanyaan pelanggan secara otomatis menggunakan NLP dasar.</p>
                 <div class="tech-stack"><span>Python</span><span>Flask</span><span>OpenAI API</span></div>
+                <div class="card-actions">
+                    <button class="btn-see-all" onclick="openModal('aibot')">
+                        <i class="far fa-folder-open" style="font-size:0.8rem;"></i>
+                        <span data-i18n="btn_relevant">Lihat project relevan</span>
+                    </button>
+                    <a class="btn-go-page" href="projects.html?cat=aibot">
+                        <span data-i18n="btn_category">Halaman kategori</span>
+                        <i class="fas fa-arrow-right" style="font-size:0.7rem;"></i>
+                    </a>
+                </div>
             </div>
+
+            <!-- Card 4: Finance -->
             <div class="project-card">
                 <div class="folder-icon"><i class="far fa-folder"></i></div>
                 <h3 data-i18n="proj4_title">Personal Finance Tracker</h3>
                 <p data-i18n="proj4_desc">Membantu pengguna mencatat pengeluaran harian dan visualisasi budget bulanan agar keuangan tetap terkontrol.</p>
                 <div class="tech-stack"><span>Flutter</span><span>Dart</span><span>SQLite</span></div>
+                <div class="card-actions">
+                    <button class="btn-see-all" onclick="openModal('finance')">
+                        <i class="far fa-folder-open" style="font-size:0.8rem;"></i>
+                        <span data-i18n="btn_relevant">Lihat project relevan</span>
+                    </button>
+                    <a class="btn-go-page" href="projects.html?cat=finance">
+                        <span data-i18n="btn_category">Halaman kategori</span>
+                        <i class="fas fa-arrow-right" style="font-size:0.7rem;"></i>
+                    </a>
+                </div>
             </div>
+
         </div>
     </section>
 
@@ -617,8 +458,124 @@
     </section>
 </div><!-- end #main-page -->
 
+<!-- ============================================================ -->
+<!--  MODAL: RELEVANT PROJECTS                                    -->
+<!-- ============================================================ -->
+<div class="modal-overlay" id="project-modal" onclick="handleModalClick(event)">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <div class="modal-header-label" id="modal-label"></div>
+        <div class="modal-header-title" id="modal-title"></div>
+        <div class="modal-header-sub" id="modal-sub"></div>
+        <div class="modal-divider"></div>
+        <div class="modal-tag-row" id="modal-tags"></div>
+        <div class="modal-count" id="modal-count"></div>
+        <div class="modal-project-list" id="modal-list"></div>
+        <div class="modal-footer-actions">
+            <a class="modal-btn-primary" id="modal-btn-page" href="#">
+                <i class="fas fa-layer-group" style="font-size:0.8rem;"></i>
+                <span id="modal-btn-page-text">Lihat Halaman Kategori</span>
+            </a>
+            <button class="modal-btn-secondary" onclick="closeModal()">
+                <i class="fas fa-times" style="font-size:0.8rem;"></i>
+                <span data-i18n="modal_close_btn">Tutup</span>
+            </button>
+        </div>
+    </div>
+</div>
 
 <script>
+// ================================================================
+//  DATA
+// ================================================================
+const allProjects = [
+    {
+        id: 'ecommerce',
+        category: 'ecommerce',
+        titleID: 'E-Commerce Dashboard',
+        titleEN: 'E-Commerce Dashboard',
+        descID: 'Dashboard admin toko online dengan analitik real-time, manajemen stok, dan payment gateway.',
+        descEN: 'Admin dashboard for an online store with real-time analytics, inventory management, and payment gateway.',
+        stack: ['React', 'Firebase', 'Chart.js', 'Next.js'],
+        tags: ['frontend', 'fullstack', 'database', 'ui'],
+        badge: 'Web App'
+    },
+    {
+        id: 'travel',
+        category: 'travel',
+        titleID: 'Travel Booking App',
+        titleEN: 'Travel Booking App',
+        descID: 'Aplikasi web responsif pemesanan wisata lokal dengan pencarian, filter lokasi, dan sistem review.',
+        descEN: 'Responsive web app for local tourism booking with search, location filters, and user reviews.',
+        stack: ['Vue.js', 'Laravel', 'MySQL'],
+        tags: ['frontend', 'backend', 'database', 'ui'],
+        badge: 'Full Stack'
+    },
+    {
+        id: 'aibot',
+        category: 'aibot',
+        titleID: 'AI Chat Bot',
+        titleEN: 'AI Chat Bot',
+        descID: 'Bot WhatsApp otomatis menjawab pertanyaan pelanggan menggunakan NLP dasar.',
+        descEN: 'Automated WhatsApp bot handling customer queries using basic NLP.',
+        stack: ['Python', 'Flask', 'OpenAI API'],
+        tags: ['backend', 'ai', 'api', 'automation'],
+        badge: 'AI / Bot'
+    },
+    {
+        id: 'finance',
+        category: 'finance',
+        titleID: 'Personal Finance Tracker',
+        titleEN: 'Personal Finance Tracker',
+        descID: 'Aplikasi mobile mencatat pengeluaran harian dan visualisasi budget bulanan.',
+        descEN: 'Mobile app to track daily expenses and visualize monthly budgets.',
+        stack: ['Flutter', 'Dart', 'SQLite'],
+        tags: ['mobile', 'database', 'ui'],
+        badge: 'Mobile'
+    }
+];
+
+const modalMeta = {
+    ecommerce: {
+        labelID: '02. Project Pilihan', labelEN: '02. Featured Projects',
+        titleID: 'Project Serupa: Frontend & Fullstack',
+        titleEN: 'Related Projects: Frontend & Fullstack',
+        subID: 'Project yang menggunakan teknologi frontend, fullstack, atau database.',
+        subEN: 'Projects using frontend, fullstack, or database technologies.',
+        matchTags: ['frontend', 'fullstack', 'database', 'ui'],
+        pageURL: 'projects.html?cat=ecommerce'
+    },
+    travel: {
+        labelID: '02. Project Pilihan', labelEN: '02. Featured Projects',
+        titleID: 'Project Serupa: Web App & Backend',
+        titleEN: 'Related Projects: Web App & Backend',
+        subID: 'Project yang menggunakan stack backend, database, atau UI web.',
+        subEN: 'Projects using backend stack, database, or web UI.',
+        matchTags: ['frontend', 'backend', 'database', 'ui'],
+        pageURL: 'projects.html?cat=travel'
+    },
+    aibot: {
+        labelID: '02. Project Pilihan', labelEN: '02. Featured Projects',
+        titleID: 'Project Serupa: AI & Automation',
+        titleEN: 'Related Projects: AI & Automation',
+        subID: 'Project yang memanfaatkan AI, backend, API, atau otomasi.',
+        subEN: 'Projects using AI, backend, APIs, or automation.',
+        matchTags: ['backend', 'ai', 'api', 'automation'],
+        pageURL: 'projects.html?cat=aibot'
+    },
+    finance: {
+        labelID: '02. Project Pilihan', labelEN: '02. Featured Projects',
+        titleID: 'Project Serupa: Mobile & Data',
+        titleEN: 'Related Projects: Mobile & Data',
+        subID: 'Project mobile atau yang berfokus pada visualisasi data.',
+        subEN: 'Mobile projects or those focused on data visualization.',
+        matchTags: ['mobile', 'database', 'ui'],
+        pageURL: 'projects.html?cat=finance'
+    }
+};
+
+const allTags = ['frontend', 'backend', 'fullstack', 'mobile', 'ai', 'api', 'database', 'ui', 'automation'];
+
 // ================================================================
 //  TRANSLATIONS
 // ================================================================
@@ -634,17 +591,16 @@ const translations = {
         about_p2: "Hari ini, saya telah mengerjakan berbagai proyek mulai dari landing page sederhana hingga sistem manajemen yang kompleks, memastikan semuanya berjalan lancar di berbagai perangkat.",
         tech_title: "Teknologi yang saya gunakan:",
         title_portfolio: "Project Pilihan",
-        proj1_title: "E-Commerce Dashboard",
-        proj1_desc: "Membangun dashboard admin untuk toko online dengan fitur analitik penjualan real-time, manajemen stok, dan integrasi payment gateway.",
-        proj2_title: "Travel Booking App",
-        proj2_desc: "Aplikasi web responsif untuk pemesanan tiket wisata lokal. Termasuk fitur pencarian, filter lokasi, dan sistem review user.",
-        proj3_title: "AI Chat Bot",
-        proj3_desc: "Bot sederhana yang terintegrasi dengan WhatsApp API untuk menjawab pertanyaan pelanggan secara otomatis menggunakan NLP dasar.",
-        proj4_title: "Personal Finance Tracker",
-        proj4_desc: "Membantu pengguna mencatat pengeluaran harian dan visualisasi budget bulanan agar keuangan tetap terkontrol.",
+        proj1_title: "E-Commerce Dashboard", proj1_desc: "Membangun dashboard admin untuk toko online dengan fitur analitik penjualan real-time, manajemen stok, dan integrasi payment gateway.",
+        proj2_title: "Travel Booking App", proj2_desc: "Aplikasi web responsif untuk pemesanan tiket wisata lokal. Termasuk fitur pencarian, filter lokasi, dan sistem review user.",
+        proj3_title: "AI Chat Bot", proj3_desc: "Bot sederhana yang terintegrasi dengan WhatsApp API untuk menjawab pertanyaan pelanggan secara otomatis menggunakan NLP dasar.",
+        proj4_title: "Personal Finance Tracker", proj4_desc: "Membantu pengguna mencatat pengeluaran harian dan visualisasi budget bulanan agar keuangan tetap terkontrol.",
         contact_small: "03. Selanjutnya?", contact_big: "Hubungi Saya",
         contact_desc: "Saya sedang mencari peluang baru untuk kolaborasi. Baik Anda memiliki pertanyaan atau hanya ingin menyapa, inbox saya selalu terbuka!",
-        btn_contact: "Kirim Email", footer_text: "Dibuat dengan kode dan kopi oleh"
+        btn_contact: "Kirim Email", footer_text: "Dibuat dengan kode dan kopi oleh",
+        btn_relevant: "Lihat project relevan", btn_category: "Halaman kategori",
+        modal_close_btn: "Tutup", modal_page_btn: "Lihat Halaman Kategori",
+        modal_found: "Ditemukan", modal_found2: "project relevan"
     },
     en: {
         nav_about: "About", nav_portfolio: "Portfolio", nav_contact: "Contact",
@@ -657,21 +613,23 @@ const translations = {
         about_p2: "Fast-forward to today, and I've worked on various projects from simple landing pages to complex management systems, ensuring everything runs smoothly across devices.",
         tech_title: "Technologies I've been working with:",
         title_portfolio: "Featured Projects",
-        proj1_title: "E-Commerce Dashboard",
-        proj1_desc: "Built an admin dashboard for an online store featuring real-time sales analytics, inventory management, and payment gateway integration.",
-        proj2_title: "Travel Booking App",
-        proj2_desc: "A responsive web app for booking local tourism tickets. Includes search features, location filtering, and user review systems.",
-        proj3_title: "AI Chat Bot",
-        proj3_desc: "A simple bot integrated with WhatsApp API to answer customer queries automatically using basic NLP.",
-        proj4_title: "Personal Finance Tracker",
-        proj4_desc: "Helps users track daily expenses and visualize monthly budgets to keep finances under control.",
+        proj1_title: "E-Commerce Dashboard", proj1_desc: "Built an admin dashboard for an online store featuring real-time sales analytics, inventory management, and payment gateway integration.",
+        proj2_title: "Travel Booking App", proj2_desc: "A responsive web app for booking local tourism tickets. Includes search features, location filtering, and user review systems.",
+        proj3_title: "AI Chat Bot", proj3_desc: "A simple bot integrated with WhatsApp API to answer customer queries automatically using basic NLP.",
+        proj4_title: "Personal Finance Tracker", proj4_desc: "Helps users track daily expenses and visualize monthly budgets to keep finances under control.",
         contact_small: "03. What's Next?", contact_big: "Get In Touch",
         contact_desc: "I'm currently looking for new opportunities. Whether you have a question or just want to say hi, my inbox is always open!",
-        btn_contact: "Say Hello", footer_text: "Built with code and coffee by"
+        btn_contact: "Say Hello", footer_text: "Built with code and coffee by",
+        btn_relevant: "View related projects", btn_category: "Category page",
+        modal_close_btn: "Close", modal_page_btn: "View Category Page",
+        modal_found: "Found", modal_found2: "related projects"
     }
 };
 
+let currentLang = 'id';
+
 function setLanguage(lang) {
+    currentLang = lang;
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (translations[lang][key]) el.innerText = translations[lang][key];
@@ -682,30 +640,75 @@ function setLanguage(lang) {
 }
 
 // ================================================================
-//  STARS CANVAS
+//  MODAL
+// ================================================================
+function openModal(key) {
+    const meta = modalMeta[key];
+    const lang = currentLang;
+
+    document.getElementById('modal-label').textContent   = lang === 'en' ? meta.labelEN : meta.labelID;
+    document.getElementById('modal-title').textContent   = lang === 'en' ? meta.titleEN : meta.titleID;
+    document.getElementById('modal-sub').textContent     = lang === 'en' ? meta.subEN   : meta.subID;
+    document.getElementById('modal-btn-page').href       = meta.pageURL;
+    document.getElementById('modal-btn-page-text').textContent = translations[lang].modal_page_btn;
+
+    // Tags
+    const tagContainer = document.getElementById('modal-tags');
+    tagContainer.innerHTML = allTags.map(t =>
+        `<span class="modal-tag ${meta.matchTags.includes(t) ? 'active' : ''}">${t}</span>`
+    ).join('');
+
+    // Relevant projects (exclude self, at least 1 matching tag)
+    const relevant = allProjects.filter(p =>
+        p.id !== key && p.tags.some(t => meta.matchTags.includes(t))
+    );
+
+    const countEl = document.getElementById('modal-count');
+    countEl.innerHTML = `${translations[lang].modal_found} <strong>${relevant.length}</strong> ${translations[lang].modal_found2}`;
+
+    const listEl = document.getElementById('modal-list');
+    listEl.innerHTML = relevant.map(p => {
+        const stackHTML = p.stack.map(s => {
+            const isMatch = meta.matchTags.some(t => s.toLowerCase().replace(/\s/g,'').includes(t.replace(/\s/g,'')));
+            return `<span ${isMatch ? 'class="hl"' : ''}>${s}</span>`;
+        }).join('');
+        return `
+        <div class="modal-project-item" onclick="window.location.href='projects.html?cat=${p.category}'">
+            <div class="modal-item-top">
+                <div class="modal-item-title">${lang === 'en' ? p.titleEN : p.titleID}</div>
+                <div class="modal-item-badge">${p.badge}</div>
+            </div>
+            <div class="modal-item-desc">${lang === 'en' ? p.descEN : p.descID}</div>
+            <div class="modal-item-stack">${stackHTML}</div>
+        </div>`;
+    }).join('');
+
+    document.getElementById('project-modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    document.getElementById('project-modal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function handleModalClick(e) {
+    if (e.target === document.getElementById('project-modal')) closeModal();
+}
+
+// ================================================================
+//  STARS
 // ================================================================
 (function initStars() {
     const canvas = document.getElementById('stars-canvas');
     const ctx = canvas.getContext('2d');
     let stars = [];
-    
-    function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
     resize();
     window.addEventListener('resize', resize);
-
     for (let i = 0; i < 180; i++) {
-        stars.push({
-            x: Math.random(),
-            y: Math.random(),
-            r: Math.random() * 1.5 + 0.2,
-            alpha: Math.random() * 0.8 + 0.2,
-            speed: Math.random() * 0.3 + 0.1
-        });
+        stars.push({ x: Math.random(), y: Math.random(), r: Math.random() * 1.5 + 0.2, alpha: Math.random() * 0.8 + 0.2 });
     }
-
     function drawStars() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         stars.forEach(s => {
@@ -713,37 +716,29 @@ function setLanguage(lang) {
             ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
             ctx.fill();
-            // Twinkle
             s.alpha += (Math.random() - 0.5) * 0.03;
             s.alpha = Math.max(0.1, Math.min(1, s.alpha));
         });
-        if (document.getElementById('rocket-intro').style.display !== 'none') {
-            requestAnimationFrame(drawStars);
-        }
+        if (document.getElementById('rocket-intro').style.display !== 'none') requestAnimationFrame(drawStars);
     }
     drawStars();
 })();
 
 // ================================================================
-//  SMOKE PARTICLES
+//  SMOKE
 // ================================================================
 function spawnSmoke() {
     const container = document.getElementById('smoke-container');
     const puff = document.createElement('div');
     puff.className = 'smoke';
     const size = Math.random() * 20 + 10;
-    puff.style.cssText = `
-        width:${size}px; height:${size}px;
-        left:${Math.random() * 60 - 30}px;
-        bottom:0;
-        animation-duration:${Math.random() * 0.8 + 0.8}s;
-    `;
+    puff.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*60-30}px;bottom:0;animation-duration:${Math.random()*0.8+0.8}s;`;
     container.appendChild(puff);
     setTimeout(() => puff.remove(), 1600);
 }
 
 // ================================================================
-//  INTRO SEQUENCE
+//  INTRO
 // ================================================================
 let smokeInterval = null;
 let introSkipped = false;
@@ -769,29 +764,22 @@ function showMainPage() {
 }
 
 function runIntro() {
-    const countdownEl  = document.getElementById('countdown-number');
-    const barFill      = document.getElementById('loading-bar-fill');
-    const loadLabel    = document.getElementById('loading-label');
-    const flameWrap    = document.getElementById('flame-wrap');
-    const rocketWrap   = document.getElementById('rocket-wrap');
-    const introEl      = document.getElementById('rocket-intro');
+    const countdownEl = document.getElementById('countdown-number');
+    const barFill     = document.getElementById('loading-bar-fill');
+    const loadLabel   = document.getElementById('loading-label');
+    const flameWrap   = document.getElementById('flame-wrap');
+    const rocketWrap  = document.getElementById('rocket-wrap');
+    const introEl     = document.getElementById('rocket-intro');
+    const labels      = ['SYSTEMS NOMINAL', 'FUEL LOADED', 'IGNITION READY', 'ALL SYSTEMS GO'];
+    let barPct = 0, labelIdx = 0;
 
-    const labels = ['SYSTEMS NOMINAL', 'FUEL LOADED', 'IGNITION READY', 'ALL SYSTEMS GO'];
-    let barPct = 0;
-    let labelIdx = 0;
-
-    // Step 1: progress bar fills over 3s
     const barTimer = setInterval(() => {
-        barPct += 1;
+        barPct++;
         barFill.style.width = barPct + '%';
-        if (barPct % 25 === 0) {
-            labelIdx = Math.min(labelIdx + 1, labels.length - 1);
-            loadLabel.textContent = labels[labelIdx];
-        }
+        if (barPct % 25 === 0) { labelIdx = Math.min(labelIdx+1, labels.length-1); loadLabel.textContent = labels[labelIdx]; }
         if (barPct >= 100) clearInterval(barTimer);
     }, 30);
 
-    // Step 2: countdown 3-2-1-LAUNCH at t=3s
     setTimeout(() => {
         let count = 3;
         const cdTimer = setInterval(() => {
@@ -805,23 +793,14 @@ function runIntro() {
                 countdownEl.textContent = '';
                 countdownEl.style.fontSize = '2.5rem';
                 document.getElementById('countdown-display').querySelector('span').textContent = 'LAUNCH!';
-
-                // Ignite flame
                 flameWrap.style.opacity = '1';
                 smokeInterval = setInterval(spawnSmoke, 120);
-
-                // Shake
                 let shakes = 0;
                 const shakeTimer = setInterval(() => {
-                    const dx = (Math.random() - 0.5) * 6;
-                    const dy = (Math.random() - 0.5) * 3;
+                    const dx = (Math.random()-0.5)*6, dy = (Math.random()-0.5)*3;
                     rocketWrap.style.transform = `translateX(calc(-50% + ${dx}px)) translateY(${dy}px)`;
                     shakes++;
-                    if (shakes > 20) {
-                        clearInterval(shakeTimer);
-                        rocketWrap.style.transform = 'translateX(-50%)';
-                        launchRocket();
-                    }
+                    if (shakes > 20) { clearInterval(shakeTimer); rocketWrap.style.transform='translateX(-50%)'; launchRocket(); }
                 }, 60);
             }
         }, 1000);
@@ -829,14 +808,10 @@ function runIntro() {
 
     function launchRocket() {
         clearInterval(smokeInterval);
-
-        // Rocket flies up
         const vh = window.innerHeight;
-        rocketWrap.style.transition = 'bottom 1.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease 1.3s';
+        rocketWrap.style.transition = 'bottom 1.6s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease 1.3s';
         rocketWrap.style.bottom = (vh + 150) + 'px';
         rocketWrap.style.opacity = '0';
-
-        // Screen flash white then fade out intro
         setTimeout(() => {
             introEl.style.transition = 'opacity 0.7s ease';
             introEl.style.opacity = '0';
@@ -846,50 +821,28 @@ function runIntro() {
 }
 
 // ================================================================
-//  MAIN PAGE INIT (GSAP + typing + scroll observer)
+//  MAIN PAGE INIT
 // ================================================================
 function initMainPage() {
     gsap.registerPlugin(ScrollTrigger);
+    gsap.timeline({ scrollTrigger: { trigger: ".wrapper", start: "top top", end: "+=150%", pin: true, scrub: true } })
+        .to(".zoom-img", { scale: 2, z: 350, transformOrigin: "center center", ease: "power1.inOut" })
+        .to(".zoom-bg",  { scale: 1.1, transformOrigin: "center center", ease: "power1.inOut" }, "<");
 
-    // GSAP zoom
-    gsap.timeline({
-        scrollTrigger: {
-            trigger: ".wrapper",
-            start: "top top",
-            end: "+=150%",
-            pin: true,
-            scrub: true,
-            markers: false
-        }
-    })
-    .to(".zoom-img", { scale: 2, z: 350, transformOrigin: "center center", ease: "power1.inOut" })
-    .to(".zoom-bg",  { scale: 1.1, transformOrigin: "center center", ease: "power1.inOut" }, "<");
-
-    // Typing effect
     const textElement = document.getElementById('typing-text');
-    const textToType = "Samuel Andi Winata.";
+    const textToType  = "Samuel Andi Winata.";
     let idx = 0;
     function typeWriter() {
-        if (idx < textToType.length) {
-            textElement.innerHTML += textToType.charAt(idx);
-            idx++;
-            setTimeout(typeWriter, 100);
-        }
+        if (idx < textToType.length) { textElement.innerHTML += textToType.charAt(idx++); setTimeout(typeWriter, 100); }
     }
     typeWriter();
 
-    // Scroll observer
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('show');
-        });
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
     });
     document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
 }
 
-// ================================================================
-//  START
-// ================================================================
 window.addEventListener('load', runIntro);
 </script>
 </body>
