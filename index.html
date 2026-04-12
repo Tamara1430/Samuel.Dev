@@ -4,434 +4,1239 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Samuel Andi Winata | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
+        /* ============================================================ */
+        /*  RESET & ROOT                                                */
+        /* ============================================================ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --bg-color: #0a192f;
-            --light-bg: #112240;
-            --text-primary: #ccd6f6;
-            --text-secondary: #8892b0;
-            --accent: #64ffda;
-            --white: #ffffff;
+            --bg:      #050810;
+            --surface: #0c1020;
+            --card:    #0f1525;
+            --border:  rgba(100,210,255,0.10);
+            --accent:  #00d4ff;
+            --accent2: #7b5cff;
+            --accent3: #00ffb3;
+            --white:   #f0f4ff;
+            --muted:   #6b7a99;
+            --text:    #c8d0e8;
+            --glow:    rgba(0,212,255,0.25);
+            --glow2:   rgba(123,92,255,0.20);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
-
-        /* ========== ROCKET INTRO ========== */
-        #rocket-intro { position: fixed; inset: 0; z-index: 9999; background: #020c1b; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
-        #stars-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-        .ground { position: absolute; bottom: 0; left: 0; width: 100%; height: 80px; background: linear-gradient(to top, #0d2137, #0a192f); border-top: 2px solid #1a3a5c; z-index: 2; }
-        .ground-detail { position: absolute; bottom: 0; left: 0; width: 100%; height: 80px; background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(100,255,218,0.03) 40px, rgba(100,255,218,0.03) 41px); }
-        .launch-pad { position: absolute; bottom: 78px; left: 50%; transform: translateX(-50%); z-index: 3; }
-        .pad-base { width: 120px; height: 16px; background: #1e3a5f; border: 1px solid #2a5080; border-radius: 4px; margin: 0 auto; }
-        .pad-legs { display: flex; justify-content: space-between; width: 90px; margin: 0 auto; }
-        .pad-leg { width: 6px; height: 20px; background: #1a3355; border-radius: 0 0 3px 3px; }
-        #rocket-wrap { position: absolute; bottom: 94px; left: 50%; transform: translateX(-50%); z-index: 10; display: flex; flex-direction: column; align-items: center; }
-        .rocket-svg { width: 70px; filter: drop-shadow(0 0 8px rgba(100,255,218,0.3)); }
-        .flame-wrap { margin-top: -4px; display: flex; gap: 4px; align-items: flex-start; opacity: 0; }
-        .flame { border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; animation: flicker 0.1s infinite alternate; }
-        .flame-main { width: 22px; height: 40px; background: linear-gradient(to bottom, #fff5c0, #ffaa00, #ff5500, transparent); }
-        .flame-l, .flame-r { width: 12px; height: 24px; background: linear-gradient(to bottom, #ffcc44, #ff7700, transparent); }
-        .flame-l { animation-delay: 0.05s; transform: rotate(-10deg); }
-        .flame-r { animation-delay: 0.03s; transform: rotate(10deg); }
-        @keyframes flicker { from { transform: scaleY(1) scaleX(1); } to { transform: scaleY(0.93) scaleX(1.05); } }
-        .smoke-container { position: absolute; bottom: 90px; left: 50%; transform: translateX(-50%); z-index: 5; pointer-events: none; }
-        .smoke { position: absolute; border-radius: 50%; background: rgba(150,180,210,0.15); animation: smokeRise 1.5s ease-out forwards; }
-        @keyframes smokeRise { 0% { transform: translateY(0) scale(0.5); opacity: 0.5; } 100% { transform: translateY(-60px) scale(3); opacity: 0; } }
-        #countdown-display { position: absolute; bottom: 180px; left: 50%; transform: translateX(-50%); font-family: 'Fira Code', monospace; font-size: 1.1rem; color: var(--accent); z-index: 20; text-align: center; letter-spacing: 2px; white-space: nowrap; }
-        #countdown-number { font-size: 3rem; font-weight: 700; display: block; color: var(--white); text-shadow: 0 0 20px rgba(100,255,218,0.6); }
-        #loading-bar-wrap { position: absolute; bottom: 140px; left: 50%; transform: translateX(-50%); z-index: 20; width: 220px; }
-        #loading-label { font-family: 'Fira Code', monospace; font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 6px; text-align: center; letter-spacing: 1px; }
-        #loading-bar-bg { height: 3px; background: rgba(100,255,218,0.1); border-radius: 2px; overflow: hidden; }
-        #loading-bar-fill { height: 100%; width: 0%; background: var(--accent); border-radius: 2px; transition: width 0.1s linear; box-shadow: 0 0 8px rgba(100,255,218,0.5); }
-        #skip-btn { position: absolute; top: 28px; right: 32px; z-index: 9999; font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--text-secondary); border: 1px solid rgba(136,146,176,0.3); padding: 6px 14px; border-radius: 4px; cursor: pointer; background: transparent; transition: 0.3s; }
-        #skip-btn:hover { color: var(--accent); border-color: var(--accent); }
-        .deco-moon { position: absolute; top: 10%; right: 15%; width: 50px; height: 50px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #2a4a6a, #0d1f35); border: 1px solid #1e3a5a; opacity: 0.6; }
-        .deco-planet { position: absolute; top: 20%; left: 12%; width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 40% 40%, #1a3a2a, #0a1f10); border: 1px solid rgba(100,255,218,0.2); opacity: 0.5; }
-        #intro-title { position: absolute; top: 28px; left: 50%; transform: translateX(-50%); font-family: 'Fira Code', monospace; font-size: 1rem; color: var(--accent); letter-spacing: 3px; white-space: nowrap; z-index: 20; }
-
-        /* ========== MAIN PAGE ========== */
-        #main-page { display: none; }
-
-        /* NAVBAR */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; position: sticky; width: 100%; background: rgba(10, 25, 47, 0.95); backdrop-filter: blur(10px); z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.3); top: 0; }
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent); font-family: 'Fira Code', monospace; }
-        .nav-right { display: flex; align-items: center; gap: 30px; }
-        .nav-links { list-style: none; display: flex; gap: 30px; }
-        .nav-links a { font-size: 0.9rem; font-family: 'Fira Code', monospace; }
-        .nav-links a:hover { color: var(--accent); }
-        .lang-switch { font-family: 'Fira Code', monospace; font-size: 0.9rem; border: 1px solid var(--accent); padding: 5px 10px; border-radius: 4px; cursor: pointer; display: flex; gap: 10px; }
-        .lang-opt { opacity: 0.5; transition: 0.3s; }
-        .lang-opt:hover { opacity: 1; }
-        .lang-opt.active { opacity: 1; color: var(--accent); font-weight: bold; text-decoration: underline; }
-        .divider { color: var(--text-secondary); }
-
-        /* ZOOM HERO */
-        .zoom-container { overflow: hidden; width: 100%; }
-        .wrapper, .content { position: relative; width: 100%; z-index: 1; overflow: hidden; }
-        .wrapper { height: 100vh; }
-        .content .section { width: 100%; height: 100vh; }
-        .content .section.zoom-bg { background-image: url('asset/Welcome.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; }
-        .image-container { width: 100%; height: 100vh; position: absolute; top: 0; left: 0; right: 0; z-index: 2; perspective: 500px; overflow: hidden; }
-        .image-container img.zoom-img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
-
-        /* HERO */
-        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 100px 10% 0; gap: 50px; position: relative; z-index: 10; }
-        .hero-text { flex: 1; animation: fadeIn 1.5s ease-in-out; }
-        .hero-text h3 { color: var(--accent); font-family: 'Fira Code', monospace; font-size: 1.2rem; margin-bottom: 10px; }
-        .hero-text h1 { font-size: 3.5rem; color: var(--white); line-height: 1.1; margin-bottom: 10px; min-height: 60px; }
-        .hero-text h2 { font-size: 2.5rem; color: var(--text-secondary); line-height: 1.1; margin-bottom: 20px; }
-        .hero-text p { color: var(--text-secondary); margin-bottom: 30px; max-width: 500px; font-size: 1.1rem; }
-        .highlight { color: var(--accent); font-family: 'Fira Code', monospace; }
-        h1, h2, h3 { font-weight: 700; }
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
-        .btn { display: inline-block; padding: 12px 28px; border: 1px solid var(--accent); color: var(--accent); border-radius: 4px; font-family: 'Fira Code', monospace; position: relative; overflow: hidden; z-index: 1; }
-        .btn::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; right: 0; background: var(--accent); z-index: -1; transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease-out; }
-        .btn:hover::before { transform: scaleX(1); }
-        .btn:hover { color: var(--bg-color); box-shadow: 0 0 20px rgba(100,255,218,0.4); }
-        .hero-img { flex: 1; display: flex; justify-content: center; position: relative; }
-        .img-wrapper { width: 300px; height: 300px; position: relative; z-index: 10; }
-        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; border-radius: 15px; filter: grayscale(100%) contrast(1.1); transition: 0.3s; position: relative; z-index: 2; }
-        .img-wrapper::after { content: ''; position: absolute; width: 100%; height: 100%; border: 2px solid var(--accent); border-radius: 15px; top: 20px; left: 20px; z-index: 1; transition: 0.3s; }
-        .img-wrapper:hover img { filter: none; transform: translate(-5px, -5px); }
-        .img-wrapper:hover::after { transform: translate(5px, 5px); }
-
-        /* SECTIONS */
-        section.content-section { padding: 100px 10%; }
-        .section-title { display: flex; align-items: center; margin-bottom: 40px; font-size: 1.8rem; color: var(--white); }
-        .section-title span { color: var(--accent); font-family: 'Fira Code', monospace; margin-right: 10px; font-size: 1.5rem; }
-        .section-title::after { content: ""; display: block; width: 200px; height: 1px; background: #233554; margin-left: 20px; }
-
-        /* PORTFOLIO GRID */
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .project-card { background-color: var(--light-bg); border-radius: 8px; padding: 25px; transition: transform 0.3s ease, box-shadow 0.3s ease; height: 100%; display: flex; flex-direction: column; }
-        .project-card:hover { transform: translateY(-6px); box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7); }
-        .folder-icon { color: var(--accent); font-size: 2.5rem; margin-bottom: 20px; }
-        .project-card h3 { color: var(--white); margin-bottom: 10px; font-size: 1.4rem; }
-        .project-card p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
-        .tech-stack { display: flex; flex-wrap: wrap; gap: 15px; font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--text-secondary); }
-
-        /* TOMBOL LIHAT SEMUA */
-        .card-actions { display: flex; align-items: center; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
-        .btn-see-all {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.78rem;
-            color: var(--accent);
-            border: 1px solid rgba(100,255,218,0.35);
-            padding: 7px 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            background: transparent;
-            transition: 0.25s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: 'Syne', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
         }
-        .btn-see-all:hover { background: rgba(100,255,218,0.08); border-color: var(--accent); letter-spacing: 0.5px; }
-        .btn-go-page {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.78rem;
-            color: var(--text-secondary);
-            border: 1px solid rgba(136,146,176,0.25);
-            padding: 7px 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            background: transparent;
-            transition: 0.25s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            text-decoration: none;
-        }
-        .btn-go-page:hover { color: var(--accent); border-color: rgba(100,255,218,0.4); }
+        a { text-decoration: none; color: inherit; transition: .3s; }
+        ::selection { background: rgba(0,212,255,0.25); color: var(--white); }
 
-        /* MODAL */
-        .modal-overlay {
-            display: none;
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--accent2); border-radius: 4px; }
+
+        /* ============================================================ */
+        /*  NOISE OVERLAY                                               */
+        /* ============================================================ */
+        body::before {
+            content: '';
             position: fixed;
             inset: 0;
-            background: rgba(2, 12, 27, 0.88);
-            backdrop-filter: blur(8px);
-            z-index: 5000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+            background-size: 200px;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.6;
+        }
+
+        /* ============================================================ */
+        /*  CURSOR GLOW                                                 */
+        /* ============================================================ */
+        #cursor-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9997;
+            transition: opacity .3s;
+        }
+
+        /* ============================================================ */
+        /*  INTRO SCREEN                                                */
+        /* ============================================================ */
+        #intro {
+            position: fixed; inset: 0; z-index: 9999;
+            background: var(--bg);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        #intro-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+        .intro-content {
+            position: relative; z-index: 10;
+            display: flex; flex-direction: column;
+            align-items: center; gap: 32px;
+            text-align: center;
+        }
+
+        .intro-logo {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: introFadeUp 1s .2s ease forwards;
+        }
+
+        .intro-sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .9rem;
+            color: var(--muted);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: introFadeUp 1s .5s ease forwards;
+        }
+
+        .intro-progress {
+            width: 240px;
+            opacity: 0;
+            animation: introFadeUp .8s .8s ease forwards;
+        }
+        .intro-bar-track {
+            height: 2px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .intro-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            border-radius: 2px;
+            width: 0%;
+            transition: width .05s linear;
+            box-shadow: 0 0 10px var(--accent);
+        }
+        .intro-pct {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .75rem;
+            color: var(--muted);
+            text-align: right;
+        }
+
+        /* Rocket redesign */
+        #rocket-wrap {
+            position: absolute;
+            bottom: 80px; left: 50%;
+            transform: translateX(-50%);
+            z-index: 15;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .rocket-body {
+            width: 48px; height: 80px;
+            background: linear-gradient(180deg, #c8d8f0 0%, #8898b8 100%);
+            border-radius: 50% 50% 20% 20% / 60% 60% 20% 20%;
+            position: relative;
+            box-shadow: 0 0 20px rgba(200,216,240,0.3);
+        }
+        .rocket-window {
+            position: absolute;
+            top: 24px; left: 50%;
+            transform: translateX(-50%);
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #00d4ff, #003355);
+            border: 2px solid rgba(255,255,255,0.2);
+            box-shadow: 0 0 10px rgba(0,212,255,0.5);
+        }
+        .rocket-fins {
+            display: flex; justify-content: space-between;
+            width: 70px; margin-top: -4px;
+        }
+        .fin {
+            width: 18px; height: 28px;
+            background: linear-gradient(135deg, #7b5cff, #3a3060);
+            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+        }
+        .fin.right { transform: scaleX(-1); }
+        .rocket-flames {
+            display: flex; gap: 3px; justify-content: center;
+            margin-top: 2px; opacity: 0;
+            transition: opacity .3s;
+        }
+        .rocket-flame {
+            border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
+            animation: flameFlicker .08s infinite alternate;
+        }
+        .flame-c { width: 16px; height: 36px; background: linear-gradient(180deg, #fff5c0, #ff8800, transparent); }
+        .flame-s { width: 9px; height: 22px; background: linear-gradient(180deg, #ffcc44, #ff4400, transparent); }
+        @keyframes flameFlicker {
+            from { transform: scaleY(1) scaleX(1); }
+            to   { transform: scaleY(.9) scaleX(1.08); }
+        }
+
+        .pad {
+            position: absolute; bottom: 60px; left: 50%;
+            transform: translateX(-50%);
+            z-index: 12;
+        }
+        .pad-base {
+            width: 100px; height: 10px;
+            background: linear-gradient(90deg, #1a2a4a, #2a4060, #1a2a4a);
+            border-radius: 3px;
+            border: 1px solid rgba(0,212,255,0.2);
+            box-shadow: 0 0 15px rgba(0,212,255,0.1);
+        }
+        .pad-arm {
+            display: flex; gap: 72px; margin-top: -1px; justify-content: center;
+        }
+        .pad-arm span {
+            width: 5px; height: 16px;
+            background: #1a2a4a;
+            border-radius: 0 0 3px 3px;
+        }
+
+        .smoke-area {
+            position: absolute; bottom: 70px; left: 50%;
+            transform: translateX(-50%);
+            z-index: 11; pointer-events: none;
+        }
+        .puff {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(180,200,220,0.12), transparent);
+            animation: puffRise 1.8s ease-out forwards;
+        }
+        @keyframes puffRise {
+            0%   { transform: translateY(0) scale(.5); opacity: .4; }
+            100% { transform: translateY(-80px) scale(3); opacity: 0; }
+        }
+
+        /* Grid lines in intro bg */
+        .intro-grid {
+            position: absolute; inset: 0; z-index: 1;
+            background-image:
+                linear-gradient(rgba(0,212,255,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,212,255,0.025) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        #skip-btn {
+            position: absolute; top: 24px; right: 28px; z-index: 9999;
+            font-family: 'JetBrains Mono', monospace; font-size: .75rem;
+            color: var(--muted); border: 1px solid rgba(107,122,153,.3);
+            padding: 7px 16px; border-radius: 3px; cursor: pointer;
+            background: transparent; transition: .3s; letter-spacing: 1px;
+        }
+        #skip-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+        @keyframes introFadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============================================================ */
+        /*  MAIN PAGE                                                   */
+        /* ============================================================ */
+        #main-page { display: none; }
+
+        /* ============================================================ */
+        /*  NAVBAR                                                      */
+        /* ============================================================ */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            padding: 0 5%;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 70px;
+            background: rgba(5,8,16,0);
+            backdrop-filter: blur(0px);
+            border-bottom: 1px solid transparent;
+            transition: background .4s, backdrop-filter .4s, border-color .4s;
+        }
+        nav.scrolled {
+            background: rgba(5,8,16,0.85);
+            backdrop-filter: blur(20px);
+            border-color: var(--border);
+        }
+        .logo {
+            font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; letter-spacing: -0.5px;
+        }
+        .nav-center {
+            display: flex; gap: 8px;
+        }
+        .nav-link {
+            font-family: 'JetBrains Mono', monospace; font-size: .78rem;
+            color: var(--muted); padding: 8px 16px; border-radius: 50px;
+            letter-spacing: .5px; transition: .3s;
+            position: relative;
+        }
+        .nav-link:hover { color: var(--white); }
+        .nav-link.active { color: var(--accent); }
+        .nav-right { display: flex; align-items: center; gap: 16px; }
+        .lang-btn {
+            font-family: 'JetBrains Mono', monospace; font-size: .75rem;
+            border: 1px solid var(--border); border-radius: 50px;
+            padding: 6px 14px; cursor: pointer;
+            display: flex; gap: 8px; align-items: center;
+            color: var(--muted); background: transparent; transition: .3s;
+        }
+        .lang-btn:hover { border-color: var(--accent); }
+        .lang-opt { transition: .3s; }
+        .lang-opt.active { color: var(--accent); font-weight: 700; }
+        .lang-divider { color: rgba(107,122,153,0.4); }
+
+        /* ============================================================ */
+        /*  HERO                                                        */
+        /* ============================================================ */
+        #hero {
+            min-height: 100vh;
+            display: flex; align-items: center;
+            padding: 100px 8% 60px;
+            position: relative; overflow: hidden;
+        }
+
+        /* Animated background mesh */
+        .hero-mesh {
+            position: absolute; inset: 0; z-index: 0;
+            overflow: hidden;
+        }
+        .mesh-blob {
+            position: absolute; border-radius: 50%;
+            filter: blur(80px); opacity: .5;
+            animation: blobDrift 12s ease-in-out infinite alternate;
+        }
+        .blob-1 {
+            width: 500px; height: 500px;
+            background: rgba(0,212,255,0.08);
+            top: -100px; right: -100px;
+        }
+        .blob-2 {
+            width: 400px; height: 400px;
+            background: rgba(123,92,255,0.08);
+            bottom: -80px; left: -80px;
+            animation-delay: -4s; animation-direction: alternate-reverse;
+        }
+        .blob-3 {
+            width: 300px; height: 300px;
+            background: rgba(0,255,179,0.05);
+            top: 50%; left: 40%;
+            animation-delay: -8s;
+        }
+        @keyframes blobDrift {
+            from { transform: translate(0,0) scale(1); }
+            to   { transform: translate(30px, 20px) scale(1.1); }
+        }
+
+        /* Grid overlay on hero */
+        .hero-grid {
+            position: absolute; inset: 0; z-index: 0;
+            background-image:
+                linear-gradient(rgba(0,212,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,212,255,0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .hero-inner {
+            position: relative; z-index: 2;
+            display: flex; align-items: center;
+            gap: 80px; width: 100%;
+        }
+        .hero-text { flex: 1; }
+
+        .hero-eyebrow {
+            font-family: 'JetBrains Mono', monospace; font-size: .85rem;
+            color: var(--accent); letter-spacing: 3px; text-transform: uppercase;
+            margin-bottom: 18px;
+            display: flex; align-items: center; gap: 14px;
+            opacity: 0; transform: translateY(20px);
+        }
+        .hero-eyebrow::before {
+            content: '';
+            display: block; width: 40px; height: 1px;
+            background: var(--accent); flex-shrink: 0;
+        }
+
+        .hero-name {
+            font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 800;
+            color: var(--white); line-height: 1.05; letter-spacing: -2px;
+            margin-bottom: 8px;
+            opacity: 0; transform: translateY(30px);
+        }
+
+        .hero-role {
+            font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; letter-spacing: -1px;
+            margin-bottom: 28px;
+            opacity: 0; transform: translateY(30px);
+        }
+
+        .hero-desc {
+            font-size: 1.05rem; color: var(--muted); max-width: 480px;
+            line-height: 1.8; margin-bottom: 40px;
+            opacity: 0; transform: translateY(20px);
+        }
+
+        .hero-actions {
+            display: flex; gap: 16px; flex-wrap: wrap;
+            opacity: 0; transform: translateY(20px);
+        }
+
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 14px 32px; border-radius: 4px; font-weight: 600;
+            font-size: .9rem; cursor: pointer; transition: .3s;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: var(--bg); border: none; letter-spacing: .3px;
+            position: relative; overflow: hidden;
+        }
+        .btn-primary::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: white;
+            opacity: 0; transition: opacity .3s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--glow); }
+        .btn-primary:hover::after { opacity: .08; }
+
+        .btn-outline {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 13px 30px; border-radius: 4px; font-weight: 500;
+            font-size: .9rem; cursor: pointer; transition: .3s;
+            border: 1px solid var(--border); color: var(--text);
+            background: transparent; letter-spacing: .3px;
+        }
+        .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+        /* Profile photo card */
+        .hero-img { flex-shrink: 0; position: relative; }
+        .photo-frame {
+            width: 300px; height: 340px; position: relative;
+            opacity: 0; transform: scale(.95);
+        }
+        .photo-frame::before {
+            content: '';
+            position: absolute; inset: 0;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(123,92,255,0.10));
+            border: 1px solid rgba(0,212,255,0.15);
+        }
+        .photo-inner {
+            position: absolute; inset: 2px;
+            border-radius: 11px; overflow: hidden;
+            background: var(--card);
+        }
+        .photo-inner img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: grayscale(100%) contrast(1.1) brightness(.9);
+            transition: filter .5s;
+            display: block;
+        }
+        .photo-frame:hover .photo-inner img { filter: none; }
+
+        .photo-overlay {
+            position: absolute; inset: 0; border-radius: 11px;
+            background: linear-gradient(0deg, rgba(0,212,255,0.12) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Corner decorations */
+        .corner {
+            position: absolute; width: 24px; height: 24px;
+            border-color: var(--accent); border-style: solid;
+        }
+        .corner-tl { top: -6px; left: -6px; border-width: 2px 0 0 2px; }
+        .corner-tr { top: -6px; right: -6px; border-width: 2px 2px 0 0; }
+        .corner-bl { bottom: -6px; left: -6px; border-width: 0 0 2px 2px; }
+        .corner-br { bottom: -6px; right: -6px; border-width: 0 2px 2px 0; }
+
+        /* Status badge */
+        .status-badge {
+            position: absolute; bottom: -16px; left: 50%;
+            transform: translateX(-50%);
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 50px; padding: 8px 18px;
+            display: flex; align-items: center; gap: 8px;
+            white-space: nowrap;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+        }
+        .status-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--accent3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0,255,179,0.5); }
+            50% { box-shadow: 0 0 0 8px rgba(0,255,179,0); }
+        }
+        .status-text {
+            font-family: 'JetBrains Mono', monospace; font-size: .72rem;
+            color: var(--muted);
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute; bottom: 30px; left: 50%;
+            transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            opacity: 0; animation: fadeIn 1s 2.5s ease forwards;
+        }
+        .scroll-line {
+            width: 1px; height: 50px;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+        @keyframes scrollPulse {
+            0%, 100% { opacity: .3; transform: scaleY(1); }
+            50% { opacity: 1; transform: scaleY(1.1); }
+        }
+        .scroll-text {
+            font-family: 'JetBrains Mono', monospace; font-size: .65rem;
+            color: var(--muted); letter-spacing: 2px; text-transform: uppercase;
+            writing-mode: vertical-rl; transform: rotate(180deg);
+        }
+
+        /* ============================================================ */
+        /*  SECTIONS                                                    */
+        /* ============================================================ */
+        .section { padding: 120px 8%; position: relative; }
+
+        .section-tag {
+            font-family: 'JetBrains Mono', monospace; font-size: .78rem;
+            color: var(--accent); letter-spacing: 3px; text-transform: uppercase;
+            margin-bottom: 14px; display: flex; align-items: center; gap: 12px;
+        }
+        .section-tag::before {
+            content: '';
+            width: 30px; height: 1px; background: var(--accent); flex-shrink: 0;
+        }
+
+        .section-heading {
+            font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 800;
+            color: var(--white); letter-spacing: -1px;
+            margin-bottom: 60px; line-height: 1.1;
+        }
+        .section-heading span {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ============================================================ */
+        /*  ABOUT                                                       */
+        /* ============================================================ */
+        #about { background: var(--bg); }
+
+        .about-grid {
+            display: grid; grid-template-columns: 1.3fr 1fr; gap: 80px;
+            align-items: start;
+        }
+
+        .about-text p { color: var(--muted); font-size: 1.05rem; line-height: 1.9; margin-bottom: 20px; }
+
+        .skills-heading {
+            font-size: .85rem; font-weight: 600; color: var(--text);
+            letter-spacing: 1px; margin: 36px 0 16px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .skill-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+        }
+        .skill-item {
+            display: flex; align-items: center; gap: 10px;
+            font-family: 'JetBrains Mono', monospace; font-size: .82rem;
+            color: var(--muted); transition: .3s; cursor: default;
+        }
+        .skill-item::before {
+            content: '▸';
+            color: var(--accent); font-size: .7rem; flex-shrink: 0;
+        }
+        .skill-item:hover { color: var(--accent); transform: translateX(4px); }
+
+        /* Stats cards */
+        .about-stats { display: flex; flex-direction: column; gap: 16px; }
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px; padding: 24px 28px;
+            transition: .3s; position: relative; overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 3px; height: 100%;
+            background: linear-gradient(to bottom, var(--accent), var(--accent2));
+            opacity: 0; transition: .3s;
+        }
+        .stat-card:hover { border-color: rgba(0,212,255,0.2); transform: translateX(4px); }
+        .stat-card:hover::before { opacity: 1; }
+        .stat-number {
+            font-size: 2.5rem; font-weight: 800; color: var(--white);
+            line-height: 1; margin-bottom: 4px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .stat-label { font-size: .85rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+
+        /* ============================================================ */
+        /*  PORTFOLIO                                                   */
+        /* ============================================================ */
+        #portfolio { background: var(--surface); }
+
+        .portfolio-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px; padding: 30px;
+            display: flex; flex-direction: column;
+            transition: .4s cubic-bezier(.23,1,.32,1);
+            position: relative; overflow: hidden;
+            cursor: default;
+        }
+        .project-card::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(0,212,255,0.04) 0%, rgba(123,92,255,0.04) 100%);
+            opacity: 0; transition: .4s;
+        }
+        .project-card::after {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0; transition: .4s;
+        }
+        .project-card:hover {
+            border-color: rgba(0,212,255,0.2);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,212,255,0.05);
+        }
+        .project-card:hover::before { opacity: 1; }
+        .project-card:hover::after { opacity: 1; }
+
+        .card-top {
+            display: flex; justify-content: space-between;
+            align-items: flex-start; margin-bottom: 24px;
+        }
+        .card-icon {
+            width: 46px; height: 46px; border-radius: 10px;
+            background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(123,92,255,0.10));
+            border: 1px solid rgba(0,212,255,0.15);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; color: var(--accent);
+        }
+        .card-links { display: flex; gap: 10px; }
+        .card-link {
+            color: var(--muted); font-size: 1rem; transition: .3s;
+        }
+        .card-link:hover { color: var(--accent); transform: translateY(-2px); }
+
+        .card-badge {
+            display: inline-flex; align-items: center;
+            font-family: 'JetBrains Mono', monospace; font-size: .68rem;
+            letter-spacing: 1px; color: var(--accent2);
+            background: rgba(123,92,255,0.1);
+            border: 1px solid rgba(123,92,255,0.2);
+            border-radius: 50px; padding: 3px 12px;
+            margin-bottom: 10px; text-transform: uppercase;
+        }
+
+        .card-title {
+            font-size: 1.25rem; font-weight: 700; color: var(--white);
+            margin-bottom: 10px; letter-spacing: -.3px;
+        }
+        .card-desc {
+            font-size: .9rem; color: var(--muted); line-height: 1.7;
+            flex-grow: 1; margin-bottom: 24px;
+        }
+        .card-stack {
+            display: flex; flex-wrap: wrap; gap: 8px;
+            margin-bottom: 20px;
+        }
+        .stack-tag {
+            font-family: 'JetBrains Mono', monospace; font-size: .72rem;
+            color: var(--muted); background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 3px; padding: 4px 10px;
+            transition: .3s;
+        }
+        .stack-tag:hover { color: var(--accent); border-color: rgba(0,212,255,.2); }
+
+        .card-actions-row {
+            display: flex; gap: 10px; flex-wrap: wrap;
+        }
+        .card-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-family: 'JetBrains Mono', monospace; font-size: .75rem;
+            padding: 8px 16px; border-radius: 4px; cursor: pointer;
+            transition: .3s; letter-spacing: .3px;
+        }
+        .card-btn-primary {
+            background: rgba(0,212,255,0.1);
+            border: 1px solid rgba(0,212,255,0.25);
+            color: var(--accent);
+        }
+        .card-btn-primary:hover { background: rgba(0,212,255,.18); border-color: var(--accent); }
+        .card-btn-ghost {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+        }
+        .card-btn-ghost:hover { color: var(--accent); border-color: rgba(0,212,255,.2); }
+
+        /* ============================================================ */
+        /*  CONTACT                                                     */
+        /* ============================================================ */
+        #contact {
+            background: var(--bg);
+            text-align: center;
+        }
+        .contact-inner { max-width: 640px; margin: 0 auto; }
+
+        .contact-email {
+            display: inline-flex; align-items: center; gap: 12px;
+            font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700;
+            color: var(--white); letter-spacing: -.5px; margin: 30px 0;
+            padding: 20px 40px; border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            transition: .4s; position: relative; overflow: hidden;
+        }
+        .contact-email::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(0,212,255,0.07), rgba(123,92,255,0.07));
+            opacity: 0; transition: .4s;
+        }
+        .contact-email:hover {
+            border-color: rgba(0,212,255,0.3);
+            color: var(--accent); transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,212,255,0.1);
+        }
+        .contact-email:hover::before { opacity: 1; }
+        .contact-email i { font-size: 1.4rem; color: var(--accent); position: relative; }
+        .contact-email span { position: relative; }
+
+        .social-row {
+            display: flex; justify-content: center; gap: 12px;
+            margin-top: 48px;
+        }
+        .social-btn {
+            width: 48px; height: 48px; border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--muted); font-size: 1.1rem; transition: .3s;
+            background: var(--card);
+        }
+        .social-btn:hover {
+            color: var(--accent); border-color: rgba(0,212,255,.3);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,212,255,0.15);
+        }
+
+        /* ============================================================ */
+        /*  FOOTER                                                      */
+        /* ============================================================ */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 28px 8%;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .footer-text {
+            font-family: 'JetBrains Mono', monospace; font-size: .72rem;
+            color: var(--muted);
+        }
+        .footer-credit {
+            font-family: 'JetBrains Mono', monospace; font-size: .72rem;
+            color: var(--muted);
+        }
+        .footer-credit span { color: var(--accent); }
+
+        /* ============================================================ */
+        /*  DIVIDERS & DECORATIVE                                       */
+        /* ============================================================ */
+        .section-divider {
+            width: 100%; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+        }
+
+        /* ============================================================ */
+        /*  MODAL                                                       */
+        /* ============================================================ */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(5,8,16,0.85);
+            backdrop-filter: blur(12px);
+            z-index: 6000;
+            align-items: center; justify-content: center; padding: 20px;
         }
         .modal-overlay.active { display: flex; }
+
         .modal-box {
-            background: var(--light-bg);
-            border: 1px solid rgba(100, 255, 218, 0.18);
-            border-radius: 14px;
-            padding: 38px;
-            max-width: 680px;
-            width: 100%;
-            max-height: 82vh;
-            overflow-y: auto;
+            background: var(--card);
+            border: 1px solid rgba(0,212,255,0.15);
+            border-radius: 14px; padding: 40px;
+            max-width: 680px; width: 100%;
+            max-height: 85vh; overflow-y: auto;
             position: relative;
-            animation: modalIn 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+            animation: modalSlide .35s cubic-bezier(.22,1,.36,1);
             scrollbar-width: thin;
-            scrollbar-color: rgba(100,255,218,0.2) transparent;
+            scrollbar-color: rgba(0,212,255,0.2) transparent;
         }
         .modal-box::-webkit-scrollbar { width: 4px; }
-        .modal-box::-webkit-scrollbar-thumb { background: rgba(100,255,218,0.2); border-radius: 4px; }
-        @keyframes modalIn { from { opacity: 0; transform: translateY(24px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        .modal-close { position: absolute; top: 16px; right: 18px; background: none; border: none; color: var(--text-secondary); font-size: 1.3rem; cursor: pointer; line-height: 1; transition: 0.2s; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
-        .modal-close:hover { color: var(--accent); background: rgba(100,255,218,0.08); }
-        .modal-header-label { font-family: 'Fira Code', monospace; font-size: 0.78rem; color: var(--accent); letter-spacing: 2px; margin-bottom: 6px; }
-        .modal-header-title { font-size: 1.35rem; color: var(--white); font-weight: 700; margin-bottom: 6px; }
-        .modal-header-sub { font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 22px; }
-        .modal-divider { height: 1px; background: rgba(100,255,218,0.08); margin-bottom: 22px; }
-        .modal-tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
-        .modal-tag { font-family: 'Fira Code', monospace; font-size: 0.72rem; padding: 4px 11px; border-radius: 50px; border: 1px solid rgba(136,146,176,0.2); color: var(--text-secondary); background: rgba(255,255,255,0.02); }
-        .modal-tag.active { border-color: var(--accent); color: var(--accent); background: rgba(100,255,218,0.07); }
-        .modal-count { font-family: 'Fira Code', monospace; font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 16px; }
+        .modal-box::-webkit-scrollbar-thumb { background: rgba(0,212,255,0.2); border-radius: 4px; }
+        @keyframes modalSlide {
+            from { opacity: 0; transform: translateY(30px) scale(.97); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .modal-close {
+            position: absolute; top: 18px; right: 20px;
+            background: rgba(255,255,255,.05); border: 1px solid var(--border);
+            color: var(--muted); font-size: 1rem; cursor: pointer;
+            width: 34px; height: 34px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: .3s;
+        }
+        .modal-close:hover { color: var(--accent); border-color: rgba(0,212,255,.3); }
+        .modal-label {
+            font-family: 'JetBrains Mono', monospace; font-size: .72rem;
+            color: var(--accent); letter-spacing: 2px; text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .modal-title { font-size: 1.4rem; color: var(--white); font-weight: 700; margin-bottom: 6px; letter-spacing: -.3px; }
+        .modal-sub { font-size: .88rem; color: var(--muted); margin-bottom: 24px; }
+        .modal-hr { height: 1px; background: var(--border); margin-bottom: 24px; }
+        .modal-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .modal-tag {
+            font-family: 'JetBrains Mono', monospace; font-size: .7rem;
+            padding: 5px 13px; border-radius: 50px;
+            border: 1px solid var(--border); color: var(--muted);
+            background: rgba(255,255,255,0.02); transition: .2s;
+        }
+        .modal-tag.active { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,0.07); }
+        .modal-count { font-family: 'JetBrains Mono', monospace; font-size: .78rem; color: var(--muted); margin-bottom: 16px; }
         .modal-count strong { color: var(--accent); }
-        .modal-project-list { display: flex; flex-direction: column; gap: 14px; }
-        .modal-project-item { background: rgba(255,255,255,0.02); border: 1px solid rgba(100,255,218,0.07); border-radius: 10px; padding: 20px; transition: all 0.2s ease; cursor: pointer; position: relative; overflow: hidden; }
-        .modal-project-item::before { content: ''; position: absolute; left: 0; top: 0; width: 3px; height: 100%; background: var(--accent); transform: scaleY(0); transition: transform 0.2s ease; border-radius: 3px 0 0 3px; }
-        .modal-project-item:hover { border-color: rgba(100,255,218,0.2); transform: translateX(4px); background: rgba(100,255,218,0.03); }
-        .modal-project-item:hover::before { transform: scaleY(1); }
+        .modal-list { display: flex; flex-direction: column; gap: 12px; }
+        .modal-item {
+            background: rgba(255,255,255,0.025); border: 1px solid var(--border);
+            border-radius: 10px; padding: 20px; transition: .25s;
+            cursor: pointer; position: relative; overflow: hidden;
+        }
+        .modal-item::before {
+            content: ''; position: absolute; left: 0; top: 0;
+            width: 3px; height: 100%;
+            background: linear-gradient(to bottom, var(--accent), var(--accent2));
+            transform: scaleY(0); transition: .25s;
+        }
+        .modal-item:hover { border-color: rgba(0,212,255,0.2); transform: translateX(6px); background: rgba(0,212,255,.03); }
+        .modal-item:hover::before { transform: scaleY(1); }
         .modal-item-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
         .modal-item-title { font-size: 1rem; color: var(--white); font-weight: 600; }
-        .modal-item-badge { font-family: 'Fira Code', monospace; font-size: 0.68rem; color: var(--accent); border: 1px solid rgba(100,255,218,0.3); padding: 3px 9px; border-radius: 50px; white-space: nowrap; flex-shrink: 0; }
-        .modal-item-desc { font-size: 0.87rem; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.5; }
+        .modal-item-badge {
+            font-family: 'JetBrains Mono', monospace; font-size: .68rem;
+            color: var(--accent2); border: 1px solid rgba(123,92,255,.3);
+            padding: 3px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0;
+        }
+        .modal-item-desc { font-size: .87rem; color: var(--muted); margin-bottom: 12px; line-height: 1.6; }
         .modal-item-stack { display: flex; gap: 8px; flex-wrap: wrap; }
-        .modal-item-stack span { font-family: 'Fira Code', monospace; font-size: 0.72rem; color: var(--text-secondary); }
-        .modal-item-stack span.hl { color: var(--accent); }
-        .modal-footer-actions { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
-        .modal-btn-primary { font-family: 'Fira Code', monospace; font-size: 0.82rem; color: var(--bg-color); background: var(--accent); border: none; padding: 10px 22px; border-radius: 5px; cursor: pointer; transition: 0.25s; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 7px; }
-        .modal-btn-primary:hover { background: #4de8c5; box-shadow: 0 0 18px rgba(100,255,218,0.3); }
-        .modal-btn-secondary { font-family: 'Fira Code', monospace; font-size: 0.82rem; color: var(--accent); background: transparent; border: 1px solid rgba(100,255,218,0.35); padding: 10px 22px; border-radius: 5px; cursor: pointer; transition: 0.25s; text-decoration: none; display: inline-flex; align-items: center; gap: 7px; }
-        .modal-btn-secondary:hover { background: rgba(100,255,218,0.07); border-color: var(--accent); }
+        .modal-item-stack span { font-family: 'JetBrains Mono', monospace; font-size: .72rem; color: var(--muted); }
+        .modal-item-stack .hl { color: var(--accent); }
+        .modal-footer {
+            display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap;
+        }
+        .modal-btn-p {
+            font-family: 'JetBrains Mono', monospace; font-size: .82rem;
+            color: var(--bg); background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border: none; padding: 11px 24px; border-radius: 5px; cursor: pointer;
+            transition: .25s; font-weight: 700;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 7px;
+        }
+        .modal-btn-p:hover { transform: translateY(-2px); box-shadow: 0 8px 24px var(--glow); }
+        .modal-btn-s {
+            font-family: 'JetBrains Mono', monospace; font-size: .82rem;
+            color: var(--muted); background: transparent;
+            border: 1px solid var(--border); padding: 11px 24px; border-radius: 5px;
+            cursor: pointer; transition: .25s;
+            display: inline-flex; align-items: center; gap: 7px;
+        }
+        .modal-btn-s:hover { color: var(--accent); border-color: rgba(0,212,255,.3); }
 
-        /* SKILLS */
-        .skills-container { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px; }
-        .skill-tag { border: 1px solid var(--accent); color: var(--accent); padding: 8px 15px; border-radius: 50px; font-size: 0.9rem; }
+        /* ============================================================ */
+        /*  ANIMATIONS                                                  */
+        /* ============================================================ */
+        .reveal {
+            opacity: 0; transform: translateY(40px);
+            transition: opacity .8s ease, transform .8s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-left {
+            opacity: 0; transform: translateX(-40px);
+            transition: opacity .8s ease, transform .8s ease;
+        }
+        .reveal-left.visible { opacity: 1; transform: translateX(0); }
+        .reveal-right {
+            opacity: 0; transform: translateX(40px);
+            transition: opacity .8s ease, transform .8s ease;
+        }
+        .reveal-right.visible { opacity: 1; transform: translateX(0); }
 
-        /* CONTACT */
-        .contact { text-align: center; max-width: 600px; margin: 0 auto 100px; }
-        .social-icons { margin-top: 30px; display: flex; justify-content: center; gap: 20px; }
-        .social-icons a { font-size: 1.5rem; color: var(--text-secondary); }
-        .social-icons a:hover { color: var(--accent); transform: translateY(-3px); }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* ANIMATIONS */
-        .hidden { opacity: 0; transform: translateY(30px); transition: all 1s; }
-        .show { opacity: 1; transform: translateY(0); }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        /* Stagger children */
+        .stagger > * { transition-delay: calc(var(--i, 0) * 100ms); }
 
-        @media (max-width: 768px) {
-            .hero { flex-direction: column-reverse; text-align: center; height: auto; padding-top: 150px; padding-bottom: 50px; }
-            .hero-text h1 { font-size: 2.5rem; }
-            .hero-text h2 { font-size: 1.5rem; }
-            .img-wrapper { width: 250px; height: 250px; margin: 0 auto; }
-            .nav-links { display: none; }
-            nav { justify-content: space-between; }
-            .modal-box { padding: 24px; }
+        /* ============================================================ */
+        /*  TYPING CURSOR                                               */
+        /* ============================================================ */
+        .cursor-blink {
+            display: inline-block; width: 3px; height: .85em;
+            background: var(--accent); margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: blink .7s step-end infinite;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* ============================================================ */
+        /*  RESPONSIVE                                                  */
+        /* ============================================================ */
+        @media (max-width: 900px) {
+            .hero-inner { flex-direction: column-reverse; text-align: center; gap: 50px; }
+            .hero-eyebrow { justify-content: center; }
+            .hero-eyebrow::before { display: none; }
+            .hero-actions { justify-content: center; }
+            .hero-desc { max-width: 100%; }
+            .photo-frame { width: 240px; height: 270px; }
+            .about-grid { grid-template-columns: 1fr; gap: 50px; }
+            footer { flex-direction: column; gap: 8px; text-align: center; }
+        }
+        @media (max-width: 600px) {
+            .section { padding: 80px 5%; }
+            nav { padding: 0 5%; }
+            .nav-center { display: none; }
+            .hero-name { letter-spacing: -1px; }
         }
     </style>
 </head>
 <body>
 
-<!-- ============================================================ -->
-<!--  ROCKET INTRO                                                -->
-<!-- ============================================================ -->
-<div id="rocket-intro">
-    <canvas id="stars-canvas"></canvas>
-    <div class="deco-moon"></div>
-    <div class="deco-planet"></div>
-    <div id="intro-title">INITIALIZING LAUNCH SEQUENCE</div>
-    <button id="skip-btn" onclick="skipIntro()">Skip ›</button>
-    <div id="countdown-display">
-        <span style="font-size:0.85rem;letter-spacing:2px;">T-MINUS</span>
-        <span id="countdown-number">3</span>
-    </div>
-    <div id="loading-bar-wrap">
-        <div id="loading-label">SYSTEMS NOMINAL</div>
-        <div id="loading-bar-bg"><div id="loading-bar-fill"></div></div>
-    </div>
-    <div class="smoke-container" id="smoke-container"></div>
-    <div id="rocket-wrap">
-        <svg class="rocket-svg" viewBox="0 0 70 130" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stop-color="#1a3a5c"/>
-                    <stop offset="50%" stop-color="#2a5a8c"/>
-                    <stop offset="100%" stop-color="#1a3a5c"/>
-                </linearGradient>
-                <linearGradient id="noseGrad" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stop-color="#1a3a5c"/>
-                    <stop offset="50%" stop-color="#64ffda"/>
-                    <stop offset="100%" stop-color="#1a3a5c"/>
-                </linearGradient>
-            </defs>
-            <path d="M35,5 Q45,35 45,55 L25,55 Q25,35 35,5Z" fill="url(#noseGrad)" stroke="#64ffda" stroke-width="0.5"/>
-            <rect x="22" y="54" width="26" height="50" rx="2" fill="url(#bodyGrad)" stroke="#2a5a8c" stroke-width="0.5"/>
-            <circle cx="35" cy="72" r="8" fill="#0a1f35" stroke="#64ffda" stroke-width="1"/>
-            <circle cx="35" cy="72" r="5" fill="#0d2b4a"/>
-            <circle cx="33" cy="70" r="1.5" fill="rgba(100,255,218,0.5)"/>
-            <rect x="22" y="90" width="26" height="6" rx="1" fill="#0f3060" stroke="#1a4070" stroke-width="0.5"/>
-            <line x1="35" y1="58" x2="35" y2="100" stroke="rgba(100,255,218,0.2)" stroke-width="0.5"/>
-            <path d="M22,92 L8,112 L22,105Z" fill="#0f2a48" stroke="#1a3a5c" stroke-width="0.5"/>
-            <path d="M48,92 L62,112 L48,105Z" fill="#0f2a48" stroke="#1a3a5c" stroke-width="0.5"/>
-            <path d="M28,104 L42,104 L44,115 L26,115Z" fill="#0d2040" stroke="#1a3a5c" stroke-width="0.5"/>
-            <path d="M30,104 L40,104 L41,112 L29,112Z" fill="#020c1b"/>
-        </svg>
-        <div class="flame-wrap" id="flame-wrap">
-            <div class="flame flame-l"></div>
-            <div class="flame flame-main"></div>
-            <div class="flame flame-r"></div>
+<!-- ====================================================== -->
+<!--  CURSOR GLOW                                           -->
+<!-- ====================================================== -->
+<div id="cursor-glow"></div>
+
+<!-- ====================================================== -->
+<!--  INTRO                                                 -->
+<!-- ====================================================== -->
+<div id="intro">
+    <canvas id="intro-canvas"></canvas>
+    <div class="intro-grid"></div>
+
+    <div class="intro-content">
+        <div class="intro-logo">Samuel A. W.</div>
+        <div class="intro-sub">Initializing Portfolio</div>
+        <div class="intro-progress">
+            <div class="intro-bar-track">
+                <div class="intro-bar-fill" id="bar-fill"></div>
+            </div>
+            <div class="intro-pct" id="bar-pct">0%</div>
         </div>
     </div>
-    <div class="launch-pad">
-        <div class="pad-legs"><div class="pad-leg"></div><div class="pad-leg"></div><div class="pad-leg"></div></div>
-        <div class="pad-base"></div>
+
+    <!-- Rocket -->
+    <div id="rocket-wrap">
+        <div class="rocket-body">
+            <div class="rocket-window"></div>
+        </div>
+        <div class="rocket-fins">
+            <div class="fin left"></div>
+            <div class="fin right"></div>
+        </div>
+        <div class="rocket-flames" id="flames">
+            <div class="rocket-flame flame-s"></div>
+            <div class="rocket-flame flame-c"></div>
+            <div class="rocket-flame flame-s"></div>
+        </div>
     </div>
-    <div class="ground"><div class="ground-detail"></div></div>
+
+    <!-- Launch pad -->
+    <div class="pad">
+        <div class="pad-base"></div>
+        <div class="pad-arm"><span></span><span></span></div>
+    </div>
+    <div class="smoke-area" id="smoke-area"></div>
+
+    <button id="skip-btn" onclick="skipIntro()">SKIP</button>
 </div>
 
-<!-- ============================================================ -->
-<!--  MAIN PAGE                                                   -->
-<!-- ============================================================ -->
+<!-- ====================================================== -->
+<!--  MAIN PAGE                                             -->
+<!-- ====================================================== -->
 <div id="main-page">
-    <div class="zoom-container">
-        <div class="wrapper">
-            <div class="content"><section class="section zoom-bg"></section></div>
-            <div class="image-container">
-                <img src="asset/laptop.png" alt="image" class="zoom-img">
-            </div>
-        </div>
-    </div>
 
-    <nav>
-        <div class="logo">&lt;Samuel Dev/&gt;</div>
+    <!-- NAVBAR -->
+    <nav id="nav">
+        <div class="logo">SAW.</div>
+        <div class="nav-center">
+            <a href="#about"     class="nav-link" data-i18n="nav_about">Tentang</a>
+            <a href="#portfolio" class="nav-link" data-i18n="nav_portfolio">Portofolio</a>
+            <a href="#contact"   class="nav-link" data-i18n="nav_contact">Kontak</a>
+        </div>
         <div class="nav-right">
-            <ul class="nav-links">
-                <li><a href="#about"><span class="highlight">01.</span> <span data-i18n="nav_about">Tentang</span></a></li>
-                <li><a href="#portfolio"><span class="highlight">02.</span> <span data-i18n="nav_portfolio">Portofolio</span></a></li>
-                <li><a href="#contact"><span class="highlight">03.</span> <span data-i18n="nav_contact">Kontak</span></a></li>
-            </ul>
-            <div class="lang-switch">
+            <div class="lang-btn">
                 <span class="lang-opt active" id="lang-id" onclick="setLanguage('id')">ID</span>
-                <span class="divider">|</span>
+                <span class="lang-divider">/</span>
                 <span class="lang-opt" id="lang-en" onclick="setLanguage('en')">EN</span>
             </div>
         </div>
     </nav>
 
-    <section class="hero">
-        <div class="hero-text">
-            <h3 data-i18n="hero_greeting">Halo, nama saya</h3>
-            <h1 id="typing-text"></h1>
-            <h2 data-i18n="hero_subtitle">Saya membangun solusi digital.</h2>
-            <p data-i18n="hero_desc">Saya seorang Software Engineer yang berfokus membangun pengalaman digital yang (terkadang) luar biasa. Fokus pada produk yang responsif dan user-friendly.</p>
-            <a href="#portfolio" class="btn" data-i18n="btn_hero">Lihat Project Saya!</a>
+    <!-- HERO -->
+    <section id="hero">
+        <div class="hero-mesh">
+            <div class="mesh-blob blob-1"></div>
+            <div class="mesh-blob blob-2"></div>
+            <div class="mesh-blob blob-3"></div>
         </div>
-        <div class="hero-img">
-            <div class="img-wrapper">
-                <img src="asset/foto.jpeg" alt="Samuel Andi Winata">
+        <div class="hero-grid"></div>
+
+        <div class="hero-inner">
+            <div class="hero-text">
+                <div class="hero-eyebrow" id="hero-eyebrow" data-i18n="hero_greeting">Halo, nama saya</div>
+                <h1 class="hero-name" id="hero-name"><span id="typing-text"></span><span class="cursor-blink" id="cursor"></span></h1>
+                <h2 class="hero-role" id="hero-role" data-i18n="hero_subtitle">Saya membangun solusi digital.</h2>
+                <p class="hero-desc" id="hero-desc" data-i18n="hero_desc">Saya seorang Software Engineer yang berfokus membangun pengalaman digital yang (terkadang) luar biasa. Fokus pada produk yang responsif dan user-friendly.</p>
+                <div class="hero-actions" id="hero-actions">
+                    <a href="#portfolio" class="btn-primary" data-i18n="btn_hero">
+                        <i class="fas fa-arrow-right"></i>
+                        Lihat Project Saya!
+                    </a>
+                    <a href="#contact" class="btn-outline">
+                        <i class="far fa-envelope"></i>
+                        <span data-i18n="btn_contact">Kirim Email</span>
+                    </a>
+                </div>
             </div>
+
+            <div class="hero-img">
+                <div class="photo-frame" id="photo-frame">
+                    <div class="photo-inner">
+                        <img src="asset/foto.jpeg" alt="Samuel Andi Winata">
+                        <div class="photo-overlay"></div>
+                    </div>
+                    <div class="corner corner-tl"></div>
+                    <div class="corner corner-tr"></div>
+                    <div class="corner corner-bl"></div>
+                    <div class="corner corner-br"></div>
+                    <div class="status-badge">
+                        <div class="status-dot"></div>
+                        <span class="status-text" data-i18n="status">Available for work</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+            <span class="scroll-text">scroll</span>
         </div>
     </section>
 
-    <section id="about" class="content-section hidden">
-        <h2 class="section-title"><span>01.</span> <span data-i18n="title_about">Tentang Saya</span></h2>
-        <div style="max-width: 700px;">
-            <p style="color: var(--text-secondary); margin-bottom: 20px;" data-i18n="about_p1">
-                Halo! Nama saya Samuel Andi Winata dan saya senang membuat sesuatu yang hidup di internet. Ketertarikan saya pada pengembangan web dimulai ketika saya mencoba mengedit kode HTML sederhana.
-            </p>
-            <p style="color: var(--text-secondary);" data-i18n="about_p2">
-                Hari ini, saya telah mengerjakan berbagai proyek mulai dari landing page sederhana hingga sistem manajemen yang kompleks, memastikan semuanya berjalan lancar di berbagai perangkat.
-            </p>
-            <div style="margin-top: 30px;">
-                <h4 style="color:white; margin-bottom:15px;" data-i18n="tech_title">Teknologi yang saya gunakan:</h4>
-                <div class="skills-container">
-                    <span class="skill-tag">JavaScript (ES6+)</span>
-                    <span class="skill-tag">React JS</span>
-                    <span class="skill-tag">Node.js</span>
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">Tailwind CSS</span>
-                    <span class="skill-tag">Git</span>
+    <div class="section-divider"></div>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+        <div class="section-tag reveal">01.</div>
+        <h2 class="section-heading reveal" data-i18n="title_about">Tentang <span>Saya</span></h2>
+
+        <div class="about-grid">
+            <div class="about-text reveal-left">
+                <p data-i18n="about_p1">Halo! Nama saya Samuel Andi Winata dan saya senang membuat sesuatu yang hidup di internet. Ketertarikan saya pada pengembangan web dimulai ketika saya mencoba mengedit kode HTML sederhana.</p>
+                <p data-i18n="about_p2">Hari ini, saya telah mengerjakan berbagai proyek mulai dari landing page sederhana hingga sistem manajemen yang kompleks, memastikan semuanya berjalan lancar di berbagai perangkat.</p>
+
+                <div class="skills-heading" data-i18n="tech_title">Teknologi yang saya gunakan:</div>
+                <div class="skill-grid stagger" id="skill-grid">
+                    <div class="skill-item" style="--i:0">JavaScript (ES6+)</div>
+                    <div class="skill-item" style="--i:1">React JS</div>
+                    <div class="skill-item" style="--i:2">Node.js</div>
+                    <div class="skill-item" style="--i:3">Python</div>
+                    <div class="skill-item" style="--i:4">Tailwind CSS</div>
+                    <div class="skill-item" style="--i:5">Git & GitHub</div>
+                    <div class="skill-item" style="--i:6">Vue.js</div>
+                    <div class="skill-item" style="--i:7">Flutter</div>
+                </div>
+            </div>
+
+            <div class="about-stats reveal-right stagger">
+                <div class="stat-card" style="--i:0">
+                    <div class="stat-number">4+</div>
+                    <div class="stat-label" data-i18n="stat1">Tahun Pengalaman</div>
+                </div>
+                <div class="stat-card" style="--i:1">
+                    <div class="stat-number">20+</div>
+                    <div class="stat-label" data-i18n="stat2">Project Selesai</div>
+                </div>
+                <div class="stat-card" style="--i:2">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label" data-i18n="stat3">Klien Puas</div>
+                </div>
+                <div class="stat-card" style="--i:3">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label" data-i18n="stat4">Cangkir Kopi</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- =================== PORTFOLIO =================== -->
-    <section id="portfolio" class="content-section hidden">
-        <h2 class="section-title"><span>02.</span> <span data-i18n="title_portfolio">Project Pilihan</span></h2>
+    <div class="section-divider"></div>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="section">
+        <div class="section-tag reveal">02.</div>
+        <h2 class="section-heading reveal" data-i18n="title_portfolio">Project <span>Pilihan</span></h2>
+
         <div class="portfolio-grid">
 
-            <!-- Card 1: E-Commerce -->
-            <div class="project-card">
-                <div class="folder-icon"><i class="far fa-folder"></i></div>
-                <h3 data-i18n="proj1_title">E-Commerce Dashboard</h3>
-                <p data-i18n="proj1_desc">Membangun dashboard admin untuk toko online dengan fitur analitik penjualan real-time, manajemen stok, dan integrasi payment gateway.</p>
-                <div class="tech-stack"><span>React</span><span>Firebase</span><span>Chart.js</span><span>Next.js</span></div>
-                <div class="card-actions">
-                    <button class="btn-see-all" onclick="openModal('ecommerce')">
-                        <i class="far fa-folder-open" style="font-size:0.8rem;"></i>
+            <!-- Card 1 -->
+            <div class="project-card reveal" style="transition-delay:.0s">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="card-links">
+                        <a class="card-link" href="#"><i class="fas fa-external-link-alt"></i></a>
+                        <a class="card-link" href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="card-badge">Web App</div>
+                <div class="card-title" data-i18n="proj1_title">E-Commerce Dashboard</div>
+                <div class="card-desc" data-i18n="proj1_desc">Membangun dashboard admin untuk toko online dengan fitur analitik penjualan real-time, manajemen stok, dan integrasi payment gateway.</div>
+                <div class="card-stack">
+                    <span class="stack-tag">React</span>
+                    <span class="stack-tag">Firebase</span>
+                    <span class="stack-tag">Chart.js</span>
+                    <span class="stack-tag">Next.js</span>
+                </div>
+                <div class="card-actions-row">
+                    <button class="card-btn card-btn-primary" onclick="openModal('ecommerce')">
+                        <i class="far fa-folder-open"></i>
                         <span data-i18n="btn_relevant">Lihat project relevan</span>
                     </button>
-                    <a class="btn-go-page" href="project-ecommerce.html">
+                    <a class="card-btn card-btn-ghost" href="project-ecommerce.html">
                         <span data-i18n="btn_category">Halaman kategori</span>
-                        <i class="fas fa-arrow-right" style="font-size:0.7rem;"></i>
+                        <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
 
-            <!-- Card 2: Travel -->
-            <div class="project-card">
-                <div class="folder-icon"><i class="far fa-folder"></i></div>
-                <h3 data-i18n="proj2_title">Travel Booking App</h3>
-                <p data-i18n="proj2_desc">Aplikasi web responsif untuk pemesanan tiket wisata lokal. Termasuk fitur pencarian, filter lokasi, dan sistem review user.</p>
-                <div class="tech-stack"><span>Vue.js</span><span>Laravel</span><span>MySQL</span></div>
-                <div class="card-actions">
-                    <button class="btn-see-all" onclick="openModal('travel')">
-                        <i class="far fa-folder-open" style="font-size:0.8rem;"></i>
+            <!-- Card 2 -->
+            <div class="project-card reveal" style="transition-delay:.1s">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-map-marked-alt"></i></div>
+                    <div class="card-links">
+                        <a class="card-link" href="#"><i class="fas fa-external-link-alt"></i></a>
+                        <a class="card-link" href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="card-badge">Full Stack</div>
+                <div class="card-title" data-i18n="proj2_title">Travel Booking App</div>
+                <div class="card-desc" data-i18n="proj2_desc">Aplikasi web responsif untuk pemesanan tiket wisata lokal. Termasuk fitur pencarian, filter lokasi, dan sistem review user.</div>
+                <div class="card-stack">
+                    <span class="stack-tag">Vue.js</span>
+                    <span class="stack-tag">Laravel</span>
+                    <span class="stack-tag">MySQL</span>
+                </div>
+                <div class="card-actions-row">
+                    <button class="card-btn card-btn-primary" onclick="openModal('travel')">
+                        <i class="far fa-folder-open"></i>
                         <span data-i18n="btn_relevant">Lihat project relevan</span>
                     </button>
-                    <a class="btn-go-page" href="projects.html?cat=travel">
+                    <a class="card-btn card-btn-ghost" href="projects.html?cat=travel">
                         <span data-i18n="btn_category">Halaman kategori</span>
-                        <i class="fas fa-arrow-right" style="font-size:0.7rem;"></i>
+                        <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
 
-            <!-- Card 3: AI Bot -->
-            <div class="project-card">
-                <div class="folder-icon"><i class="far fa-folder"></i></div>
-                <h3 data-i18n="proj3_title">AI Chat Bot</h3>
-                <p data-i18n="proj3_desc">Bot sederhana yang terintegrasi dengan WhatsApp API untuk menjawab pertanyaan pelanggan secara otomatis menggunakan NLP dasar.</p>
-                <div class="tech-stack"><span>Python</span><span>Flask</span><span>OpenAI API</span></div>
-                <div class="card-actions">
-                    <button class="btn-see-all" onclick="openModal('aibot')">
-                        <i class="far fa-folder-open" style="font-size:0.8rem;"></i>
+            <!-- Card 3 -->
+            <div class="project-card reveal" style="transition-delay:.2s">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-robot"></i></div>
+                    <div class="card-links">
+                        <a class="card-link" href="#"><i class="fas fa-external-link-alt"></i></a>
+                        <a class="card-link" href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="card-badge">AI / Bot</div>
+                <div class="card-title" data-i18n="proj3_title">AI Chat Bot</div>
+                <div class="card-desc" data-i18n="proj3_desc">Bot sederhana yang terintegrasi dengan WhatsApp API untuk menjawab pertanyaan pelanggan secara otomatis menggunakan NLP dasar.</div>
+                <div class="card-stack">
+                    <span class="stack-tag">Python</span>
+                    <span class="stack-tag">Flask</span>
+                    <span class="stack-tag">OpenAI API</span>
+                </div>
+                <div class="card-actions-row">
+                    <button class="card-btn card-btn-primary" onclick="openModal('aibot')">
+                        <i class="far fa-folder-open"></i>
                         <span data-i18n="btn_relevant">Lihat project relevan</span>
                     </button>
-                    <a class="btn-go-page" href="projects.html?cat=aibot">
+                    <a class="card-btn card-btn-ghost" href="projects.html?cat=aibot">
                         <span data-i18n="btn_category">Halaman kategori</span>
-                        <i class="fas fa-arrow-right" style="font-size:0.7rem;"></i>
+                        <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
 
-            <!-- Card 4: Finance -->
-            <div class="project-card">
-                <div class="folder-icon"><i class="far fa-folder"></i></div>
-                <h3 data-i18n="proj4_title">Personal Finance Tracker</h3>
-                <p data-i18n="proj4_desc">Membantu pengguna mencatat pengeluaran harian dan visualisasi budget bulanan agar keuangan tetap terkontrol.</p>
-                <div class="tech-stack"><span>Flutter</span><span>Dart</span><span>SQLite</span></div>
-                <div class="card-actions">
-                    <button class="btn-see-all" onclick="openModal('finance')">
-                        <i class="far fa-folder-open" style="font-size:0.8rem;"></i>
+            <!-- Card 4 -->
+            <div class="project-card reveal" style="transition-delay:.3s">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-wallet"></i></div>
+                    <div class="card-links">
+                        <a class="card-link" href="#"><i class="fas fa-external-link-alt"></i></a>
+                        <a class="card-link" href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="card-badge">Mobile</div>
+                <div class="card-title" data-i18n="proj4_title">Personal Finance Tracker</div>
+                <div class="card-desc" data-i18n="proj4_desc">Membantu pengguna mencatat pengeluaran harian dan visualisasi budget bulanan agar keuangan tetap terkontrol.</div>
+                <div class="card-stack">
+                    <span class="stack-tag">Flutter</span>
+                    <span class="stack-tag">Dart</span>
+                    <span class="stack-tag">SQLite</span>
+                </div>
+                <div class="card-actions-row">
+                    <button class="card-btn card-btn-primary" onclick="openModal('finance')">
+                        <i class="far fa-folder-open"></i>
                         <span data-i18n="btn_relevant">Lihat project relevan</span>
                     </button>
-                    <a class="btn-go-page" href="projects.html?cat=finance">
+                    <a class="card-btn card-btn-ghost" href="projects.html?cat=finance">
                         <span data-i18n="btn_category">Halaman kategori</span>
-                        <i class="fas fa-arrow-right" style="font-size:0.7rem;"></i>
+                        <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
@@ -439,241 +1244,390 @@
         </div>
     </section>
 
-    <section id="contact" class="content-section hidden">
-        <div class="contact">
-            <h2 style="color: var(--accent); font-family: 'Fira Code'; font-size: 1rem; margin-bottom: 20px;" data-i18n="contact_small">03. Selanjutnya?</h2>
-            <h1 style="font-size: 3rem; color: var(--white); margin-bottom: 20px;" data-i18n="contact_big">Hubungi Saya</h1>
-            <p style="color: var(--text-secondary); margin-bottom: 40px;" data-i18n="contact_desc">Saya sedang mencari peluang baru untuk kolaborasi. Baik Anda memiliki pertanyaan atau hanya ingin menyapa, inbox saya selalu terbuka!</p>
-            <a href="mailto:samuel@example.com" class="btn" data-i18n="btn_contact">Kirim Email</a>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
+    <div class="section-divider"></div>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+        <div class="contact-inner">
+            <div class="section-tag reveal" style="justify-content:center">03.</div>
+            <h2 class="section-heading reveal" style="text-align:center; margin-bottom:20px" data-i18n="contact_big">Hubungi <span>Saya</span></h2>
+            <p class="reveal" style="color:var(--muted); font-size:1rem; text-align:center; margin-bottom:32px; max-width:500px; margin-left:auto; margin-right:auto;" data-i18n="contact_desc">
+                Saya sedang mencari peluang baru untuk kolaborasi. Baik Anda memiliki pertanyaan atau hanya ingin menyapa, inbox saya selalu terbuka!
+            </p>
+            <div class="reveal" style="display:flex; justify-content:center;">
+                <a href="mailto:samuel@example.com" class="contact-email">
+                    <i class="far fa-envelope"></i>
+                    <span>samuel@example.com</span>
+                </a>
+            </div>
+
+            <div class="social-row reveal">
+                <a class="social-btn" href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                <a class="social-btn" href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a class="social-btn" href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a class="social-btn" href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
             </div>
         </div>
-        <p style="text-align: center; color: var(--text-secondary); font-size: 0.8rem; font-family: 'Fira Code';">
-            <span data-i18n="footer_text">Dibuat dengan kode dan kopi oleh</span> Samuel A.W.
-        </p>
     </section>
+
+    <!-- FOOTER -->
+    <footer class="reveal">
+        <div class="footer-text">Samuel Andi Winata &copy; 2024</div>
+        <div class="footer-credit">
+            <span data-i18n="footer_text">Dibuat dengan kode dan kopi oleh</span>
+            <span> </span><span style="color:var(--accent)">SAW.</span>
+        </div>
+    </footer>
+
 </div><!-- end #main-page -->
 
-<!-- ============================================================ -->
-<!--  MODAL: RELEVANT PROJECTS                                    -->
-<!-- ============================================================ -->
+<!-- ====================================================== -->
+<!--  MODAL                                                 -->
+<!-- ====================================================== -->
 <div class="modal-overlay" id="project-modal" onclick="handleModalClick(event)">
     <div class="modal-box">
         <button class="modal-close" onclick="closeModal()">✕</button>
-        <div class="modal-header-label" id="modal-label"></div>
-        <div class="modal-header-title" id="modal-title"></div>
-        <div class="modal-header-sub" id="modal-sub"></div>
-        <div class="modal-divider"></div>
-        <div class="modal-tag-row" id="modal-tags"></div>
+        <div class="modal-label" id="modal-label"></div>
+        <div class="modal-title" id="modal-title"></div>
+        <div class="modal-sub" id="modal-sub"></div>
+        <div class="modal-hr"></div>
+        <div class="modal-tags" id="modal-tags"></div>
         <div class="modal-count" id="modal-count"></div>
-        <div class="modal-project-list" id="modal-list"></div>
-        <div class="modal-footer-actions">
-            <a class="modal-btn-primary" id="modal-btn-page" href="#">
-                <i class="fas fa-layer-group" style="font-size:0.8rem;"></i>
+        <div class="modal-list" id="modal-list"></div>
+        <div class="modal-footer">
+            <a class="modal-btn-p" id="modal-btn-page" href="#">
+                <i class="fas fa-layer-group"></i>
                 <span id="modal-btn-page-text">Lihat Halaman Kategori</span>
             </a>
-            <button class="modal-btn-secondary" onclick="closeModal()">
-                <i class="fas fa-times" style="font-size:0.8rem;"></i>
+            <button class="modal-btn-s" onclick="closeModal()">
+                <i class="fas fa-times"></i>
                 <span data-i18n="modal_close_btn">Tutup</span>
             </button>
         </div>
     </div>
 </div>
 
+<!-- ====================================================== -->
+<!--  SCRIPTS                                               -->
+<!-- ====================================================== -->
 <script>
-// ================================================================
-//  DATA
-// ================================================================
+/* ============================================================ */
+/*  DATA                                                        */
+/* ============================================================ */
 const allProjects = [
-    {
-        id: 'ecommerce',
-        category: 'ecommerce',
-        titleID: 'E-Commerce Dashboard',
-        titleEN: 'E-Commerce Dashboard',
-        descID: 'Dashboard admin toko online dengan analitik real-time, manajemen stok, dan payment gateway.',
-        descEN: 'Admin dashboard for an online store with real-time analytics, inventory management, and payment gateway.',
-        stack: ['React', 'Firebase', 'Chart.js', 'Next.js'],
-        tags: ['frontend', 'fullstack', 'database', 'ui'],
-        badge: 'Web App'
-    },
-    {
-        id: 'travel',
-        category: 'travel',
-        titleID: 'Travel Booking App',
-        titleEN: 'Travel Booking App',
-        descID: 'Aplikasi web responsif pemesanan wisata lokal dengan pencarian, filter lokasi, dan sistem review.',
-        descEN: 'Responsive web app for local tourism booking with search, location filters, and user reviews.',
-        stack: ['Vue.js', 'Laravel', 'MySQL'],
-        tags: ['frontend', 'backend', 'database', 'ui'],
-        badge: 'Full Stack'
-    },
-    {
-        id: 'aibot',
-        category: 'aibot',
-        titleID: 'AI Chat Bot',
-        titleEN: 'AI Chat Bot',
-        descID: 'Bot WhatsApp otomatis menjawab pertanyaan pelanggan menggunakan NLP dasar.',
-        descEN: 'Automated WhatsApp bot handling customer queries using basic NLP.',
-        stack: ['Python', 'Flask', 'OpenAI API'],
-        tags: ['backend', 'ai', 'api', 'automation'],
-        badge: 'AI / Bot'
-    },
-    {
-        id: 'finance',
-        category: 'finance',
-        titleID: 'Personal Finance Tracker',
-        titleEN: 'Personal Finance Tracker',
-        descID: 'Aplikasi mobile mencatat pengeluaran harian dan visualisasi budget bulanan.',
-        descEN: 'Mobile app to track daily expenses and visualize monthly budgets.',
-        stack: ['Flutter', 'Dart', 'SQLite'],
-        tags: ['mobile', 'database', 'ui'],
-        badge: 'Mobile'
-    }
+    { id:'ecommerce', category:'ecommerce', titleID:'E-Commerce Dashboard', titleEN:'E-Commerce Dashboard', descID:'Dashboard admin toko online dengan analitik real-time, manajemen stok, dan payment gateway.', descEN:'Admin dashboard for online store with real-time analytics, inventory management, and payment gateway.', stack:['React','Firebase','Chart.js','Next.js'], tags:['frontend','fullstack','database','ui'], badge:'Web App' },
+    { id:'travel', category:'travel', titleID:'Travel Booking App', titleEN:'Travel Booking App', descID:'Aplikasi web responsif pemesanan wisata lokal dengan pencarian, filter lokasi, dan sistem review.', descEN:'Responsive web app for local tourism booking with search, location filters, and user reviews.', stack:['Vue.js','Laravel','MySQL'], tags:['frontend','backend','database','ui'], badge:'Full Stack' },
+    { id:'aibot', category:'aibot', titleID:'AI Chat Bot', titleEN:'AI Chat Bot', descID:'Bot WhatsApp otomatis menjawab pertanyaan pelanggan menggunakan NLP dasar.', descEN:'Automated WhatsApp bot handling customer queries using basic NLP.', stack:['Python','Flask','OpenAI API'], tags:['backend','ai','api','automation'], badge:'AI / Bot' },
+    { id:'finance', category:'finance', titleID:'Personal Finance Tracker', titleEN:'Personal Finance Tracker', descID:'Aplikasi mobile mencatat pengeluaran harian dan visualisasi budget bulanan.', descEN:'Mobile app to track daily expenses and visualize monthly budgets.', stack:['Flutter','Dart','SQLite'], tags:['mobile','database','ui'], badge:'Mobile' }
 ];
 
 const modalMeta = {
-    ecommerce: {
-        labelID: '02. Project Pilihan', labelEN: '02. Featured Projects',
-        titleID: 'Project Serupa: Frontend & Fullstack',
-        titleEN: 'Related Projects: Frontend & Fullstack',
-        subID: 'Project yang menggunakan teknologi frontend, fullstack, atau database.',
-        subEN: 'Projects using frontend, fullstack, or database technologies.',
-        matchTags: ['frontend', 'fullstack', 'database', 'ui'],
-        pageURL: 'project-ecommerce.html'
-    },
-    travel: {
-        labelID: '02. Project Pilihan', labelEN: '02. Featured Projects',
-        titleID: 'Project Serupa: Web App & Backend',
-        titleEN: 'Related Projects: Web App & Backend',
-        subID: 'Project yang menggunakan stack backend, database, atau UI web.',
-        subEN: 'Projects using backend stack, database, or web UI.',
-        matchTags: ['frontend', 'backend', 'database', 'ui'],
-        pageURL: 'projects.html?cat=travel'
-    },
-    aibot: {
-        labelID: '02. Project Pilihan', labelEN: '02. Featured Projects',
-        titleID: 'Project Serupa: AI & Automation',
-        titleEN: 'Related Projects: AI & Automation',
-        subID: 'Project yang memanfaatkan AI, backend, API, atau otomasi.',
-        subEN: 'Projects using AI, backend, APIs, or automation.',
-        matchTags: ['backend', 'ai', 'api', 'automation'],
-        pageURL: 'projects.html?cat=aibot'
-    },
-    finance: {
-        labelID: '02. Project Pilihan', labelEN: '02. Featured Projects',
-        titleID: 'Project Serupa: Mobile & Data',
-        titleEN: 'Related Projects: Mobile & Data',
-        subID: 'Project mobile atau yang berfokus pada visualisasi data.',
-        subEN: 'Mobile projects or those focused on data visualization.',
-        matchTags: ['mobile', 'database', 'ui'],
-        pageURL: 'projects.html?cat=finance'
-    }
+    ecommerce: { labelID:'02. Project Pilihan', labelEN:'02. Featured Projects', titleID:'Project Serupa: Frontend & Fullstack', titleEN:'Related Projects: Frontend & Fullstack', subID:'Project yang menggunakan teknologi frontend, fullstack, atau database.', subEN:'Projects using frontend, fullstack, or database technologies.', matchTags:['frontend','fullstack','database','ui'], pageURL:'project-ecommerce.html' },
+    travel: { labelID:'02. Project Pilihan', labelEN:'02. Featured Projects', titleID:'Project Serupa: Web App & Backend', titleEN:'Related Projects: Web App & Backend', subID:'Project yang menggunakan stack backend, database, atau UI web.', subEN:'Projects using backend stack, database, or web UI.', matchTags:['frontend','backend','database','ui'], pageURL:'projects.html?cat=travel' },
+    aibot: { labelID:'02. Project Pilihan', labelEN:'02. Featured Projects', titleID:'Project Serupa: AI & Automation', titleEN:'Related Projects: AI & Automation', subID:'Project yang memanfaatkan AI, backend, API, atau otomasi.', subEN:'Projects using AI, backend, APIs, or automation.', matchTags:['backend','ai','api','automation'], pageURL:'projects.html?cat=aibot' },
+    finance: { labelID:'02. Project Pilihan', labelEN:'02. Featured Projects', titleID:'Project Serupa: Mobile & Data', titleEN:'Related Projects: Mobile & Data', subID:'Project mobile atau yang berfokus pada visualisasi data.', subEN:'Mobile projects or those focused on data visualization.', matchTags:['mobile','database','ui'], pageURL:'projects.html?cat=finance' }
 };
 
-const allTags = ['frontend', 'backend', 'fullstack', 'mobile', 'ai', 'api', 'database', 'ui', 'automation'];
+const allTags = ['frontend','backend','fullstack','mobile','ai','api','database','ui','automation'];
 
-// ================================================================
-//  TRANSLATIONS
-// ================================================================
 const translations = {
     id: {
-        nav_about: "Tentang", nav_portfolio: "Portofolio", nav_contact: "Kontak",
-        hero_greeting: "Halo, nama saya",
-        hero_subtitle: "Saya membangun solusi digital.",
-        hero_desc: "Saya seorang Software Engineer yang berfokus membangun pengalaman digital yang (terkadang) luar biasa. Fokus pada produk yang responsif dan user-friendly.",
-        btn_hero: "Lihat Project Saya!",
-        title_about: "Tentang Saya",
-        about_p1: "Halo! Nama saya Samuel Andi Winata dan saya senang membuat sesuatu yang hidup di internet. Ketertarikan saya pada pengembangan web dimulai ketika saya mencoba mengedit kode HTML sederhana.",
-        about_p2: "Hari ini, saya telah mengerjakan berbagai proyek mulai dari landing page sederhana hingga sistem manajemen yang kompleks, memastikan semuanya berjalan lancar di berbagai perangkat.",
-        tech_title: "Teknologi yang saya gunakan:",
-        title_portfolio: "Project Pilihan",
-        proj1_title: "E-Commerce Dashboard", proj1_desc: "Membangun dashboard admin untuk toko online dengan fitur analitik penjualan real-time, manajemen stok, dan integrasi payment gateway.",
-        proj2_title: "Travel Booking App", proj2_desc: "Aplikasi web responsif untuk pemesanan tiket wisata lokal. Termasuk fitur pencarian, filter lokasi, dan sistem review user.",
-        proj3_title: "AI Chat Bot", proj3_desc: "Bot sederhana yang terintegrasi dengan WhatsApp API untuk menjawab pertanyaan pelanggan secara otomatis menggunakan NLP dasar.",
-        proj4_title: "Personal Finance Tracker", proj4_desc: "Membantu pengguna mencatat pengeluaran harian dan visualisasi budget bulanan agar keuangan tetap terkontrol.",
-        contact_small: "03. Selanjutnya?", contact_big: "Hubungi Saya",
-        contact_desc: "Saya sedang mencari peluang baru untuk kolaborasi. Baik Anda memiliki pertanyaan atau hanya ingin menyapa, inbox saya selalu terbuka!",
-        btn_contact: "Kirim Email", footer_text: "Dibuat dengan kode dan kopi oleh",
-        btn_relevant: "Lihat project relevan", btn_category: "Halaman kategori",
-        modal_close_btn: "Tutup", modal_page_btn: "Lihat Halaman Kategori",
-        modal_found: "Ditemukan", modal_found2: "project relevan"
+        nav_about:'Tentang', nav_portfolio:'Portofolio', nav_contact:'Kontak',
+        hero_greeting:'Halo, nama saya', hero_subtitle:'Saya membangun solusi digital.',
+        hero_desc:'Saya seorang Software Engineer yang berfokus membangun pengalaman digital yang (terkadang) luar biasa. Fokus pada produk yang responsif dan user-friendly.',
+        btn_hero:'Lihat Project Saya!', btn_contact:'Kirim Email',
+        title_about:'Tentang', title_portfolio:'Project',
+        about_p1:'Halo! Nama saya Samuel Andi Winata dan saya senang membuat sesuatu yang hidup di internet. Ketertarikan saya pada pengembangan web dimulai ketika saya mencoba mengedit kode HTML sederhana.',
+        about_p2:'Hari ini, saya telah mengerjakan berbagai proyek mulai dari landing page sederhana hingga sistem manajemen yang kompleks, memastikan semuanya berjalan lancar di berbagai perangkat.',
+        tech_title:'Teknologi yang saya gunakan:',
+        stat1:'Tahun Pengalaman', stat2:'Project Selesai', stat3:'Klien Puas', stat4:'Cangkir Kopi',
+        proj1_title:'E-Commerce Dashboard', proj1_desc:'Membangun dashboard admin untuk toko online dengan fitur analitik penjualan real-time, manajemen stok, dan integrasi payment gateway.',
+        proj2_title:'Travel Booking App', proj2_desc:'Aplikasi web responsif untuk pemesanan tiket wisata lokal. Termasuk fitur pencarian, filter lokasi, dan sistem review user.',
+        proj3_title:'AI Chat Bot', proj3_desc:'Bot sederhana yang terintegrasi dengan WhatsApp API untuk menjawab pertanyaan pelanggan secara otomatis menggunakan NLP dasar.',
+        proj4_title:'Personal Finance Tracker', proj4_desc:'Membantu pengguna mencatat pengeluaran harian dan visualisasi budget bulanan agar keuangan tetap terkontrol.',
+        contact_big:'Hubungi', contact_desc:'Saya sedang mencari peluang baru untuk kolaborasi. Baik Anda memiliki pertanyaan atau hanya ingin menyapa, inbox saya selalu terbuka!',
+        btn_relevant:'Lihat project relevan', btn_category:'Halaman kategori',
+        modal_close_btn:'Tutup', modal_page_btn:'Lihat Halaman Kategori',
+        modal_found:'Ditemukan', modal_found2:'project relevan',
+        footer_text:'Dibuat dengan kode dan kopi oleh', status:'Available for work'
     },
     en: {
-        nav_about: "About", nav_portfolio: "Portfolio", nav_contact: "Contact",
-        hero_greeting: "Hi, my name is",
-        hero_subtitle: "I build things for the web.",
-        hero_desc: "I'm a Software Engineer specializing in building (and occasionally designing) exceptional digital experiences. Currently, I'm focused on building accessible, human-centered products.",
-        btn_hero: "Check out my work!",
-        title_about: "About Me",
-        about_p1: "Hello! My name is Samuel Andi Winata and I enjoy creating things that live on the internet. My interest in web development started when I decided to try editing simple HTML codes.",
-        about_p2: "Fast-forward to today, and I've worked on various projects from simple landing pages to complex management systems, ensuring everything runs smoothly across devices.",
-        tech_title: "Technologies I've been working with:",
-        title_portfolio: "Featured Projects",
-        proj1_title: "E-Commerce Dashboard", proj1_desc: "Built an admin dashboard for an online store featuring real-time sales analytics, inventory management, and payment gateway integration.",
-        proj2_title: "Travel Booking App", proj2_desc: "A responsive web app for booking local tourism tickets. Includes search features, location filtering, and user review systems.",
-        proj3_title: "AI Chat Bot", proj3_desc: "A simple bot integrated with WhatsApp API to answer customer queries automatically using basic NLP.",
-        proj4_title: "Personal Finance Tracker", proj4_desc: "Helps users track daily expenses and visualize monthly budgets to keep finances under control.",
-        contact_small: "03. What's Next?", contact_big: "Get In Touch",
-        contact_desc: "I'm currently looking for new opportunities. Whether you have a question or just want to say hi, my inbox is always open!",
-        btn_contact: "Say Hello", footer_text: "Built with code and coffee by",
-        btn_relevant: "View related projects", btn_category: "Category page",
-        modal_close_btn: "Close", modal_page_btn: "View Category Page",
-        modal_found: "Found", modal_found2: "related projects"
+        nav_about:'About', nav_portfolio:'Portfolio', nav_contact:'Contact',
+        hero_greeting:'Hi, my name is', hero_subtitle:'I build things for the web.',
+        hero_desc:"I'm a Software Engineer specializing in building (and occasionally designing) exceptional digital experiences. Focused on accessible, human-centered products.",
+        btn_hero:'Check out my work!', btn_contact:'Say Hello',
+        title_about:'About', title_portfolio:'Featured',
+        about_p1:"Hello! My name is Samuel Andi Winata and I enjoy creating things that live on the internet. My interest in web development started when I decided to try editing simple HTML codes.",
+        about_p2:"Fast-forward to today, and I've worked on various projects from simple landing pages to complex management systems, ensuring everything runs smoothly across devices.",
+        tech_title:"Technologies I've been working with:",
+        stat1:'Years Experience', stat2:'Projects Completed', stat3:'Happy Clients', stat4:'Cups of Coffee',
+        proj1_title:'E-Commerce Dashboard', proj1_desc:'Built an admin dashboard for an online store featuring real-time sales analytics, inventory management, and payment gateway integration.',
+        proj2_title:'Travel Booking App', proj2_desc:'A responsive web app for booking local tourism tickets. Includes search features, location filtering, and user review systems.',
+        proj3_title:'AI Chat Bot', proj3_desc:'A simple bot integrated with WhatsApp API to answer customer queries automatically using basic NLP.',
+        proj4_title:'Personal Finance Tracker', proj4_desc:'Helps users track daily expenses and visualize monthly budgets to keep finances under control.',
+        contact_big:'Get In', contact_desc:"I'm currently looking for new opportunities. Whether you have a question or just want to say hi, my inbox is always open!",
+        btn_relevant:'View related projects', btn_category:'Category page',
+        modal_close_btn:'Close', modal_page_btn:'View Category Page',
+        modal_found:'Found', modal_found2:'related projects',
+        footer_text:'Built with code and coffee by', status:'Available for work'
     }
 };
 
 let currentLang = 'id';
 
+/* ============================================================ */
+/*  CURSOR GLOW                                                 */
+/* ============================================================ */
+const glow = document.getElementById('cursor-glow');
+document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top  = e.clientY + 'px';
+});
+
+/* ============================================================ */
+/*  INTRO: STAR CANVAS                                          */
+/* ============================================================ */
+(function() {
+    const canvas = document.getElementById('intro-canvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+
+    for (let i = 0; i < 220; i++) {
+        stars.push({
+            x: Math.random(), y: Math.random(),
+            r: Math.random() * 1.5 + 0.2,
+            a: Math.random() * 0.8 + 0.2,
+            speed: (Math.random() - 0.5) * 0.025
+        });
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+            ctx.beginPath();
+            ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(200,220,255,${Math.max(0.05, Math.min(0.9, s.a))})`;
+            ctx.fill();
+            s.a += s.speed;
+            if (s.a > 1 || s.a < 0.05) s.speed *= -1;
+        });
+        if (document.getElementById('intro').style.display !== 'none') requestAnimationFrame(draw);
+    }
+    draw();
+})();
+
+/* ============================================================ */
+/*  INTRO: LAUNCH SEQUENCE                                      */
+/* ============================================================ */
+let introSkipped = false;
+let smokeTimer = null;
+
+function skipIntro() {
+    if (introSkipped) return;
+    introSkipped = true;
+    clearInterval(smokeTimer);
+    const intro = document.getElementById('intro');
+    intro.style.transition = 'opacity .5s ease';
+    intro.style.opacity = '0';
+    setTimeout(showMain, 500);
+}
+
+function showMain() {
+    document.getElementById('intro').style.display = 'none';
+    const m = document.getElementById('main-page');
+    m.style.display = 'block';
+    m.style.opacity = '0';
+    m.style.transition = 'opacity .8s ease';
+    setTimeout(() => { m.style.opacity = '1'; }, 30);
+    initMain();
+}
+
+function spawnPuff() {
+    const area = document.getElementById('smoke-area');
+    const puff = document.createElement('div');
+    puff.className = 'puff';
+    const s = Math.random() * 30 + 10;
+    puff.style.cssText = `width:${s}px;height:${s}px;left:${(Math.random()*60-30)}px;bottom:0;animation-duration:${(Math.random()*.8+1.2)}s`;
+    area.appendChild(puff);
+    setTimeout(() => puff.remove(), 2000);
+}
+
+(function runIntro() {
+    const fill = document.getElementById('bar-fill');
+    const pct  = document.getElementById('bar-pct');
+    const flames = document.getElementById('flames');
+    const rocket = document.getElementById('rocket-wrap');
+    const intro  = document.getElementById('intro');
+
+    let p = 0;
+    const barTimer = setInterval(() => {
+        p++;
+        fill.style.width = p + '%';
+        pct.textContent = p + '%';
+        if (p >= 100) {
+            clearInterval(barTimer);
+            // Begin countdown
+            let count = 3;
+            const cdEl = document.querySelector('.intro-sub');
+            const cdTick = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    cdEl.textContent = 'T-' + count + '...';
+                } else {
+                    clearInterval(cdTick);
+                    cdEl.textContent = 'IGNITION ✦';
+                    flames.style.opacity = '1';
+                    smokeTimer = setInterval(spawnPuff, 100);
+
+                    // Shake
+                    let shakes = 0;
+                    const shakeI = setInterval(() => {
+                        const dx = (Math.random()-.5)*8, dy = (Math.random()-.5)*4;
+                        rocket.style.transform = `translateX(calc(-50% + ${dx}px)) translateY(${dy}px)`;
+                        shakes++;
+                        if (shakes > 25) {
+                            clearInterval(shakeI);
+                            rocket.style.transform = 'translateX(-50%)';
+                            launch();
+                        }
+                    }, 60);
+                }
+            }, 1000);
+        }
+    }, 28);
+
+    function launch() {
+        clearInterval(smokeTimer);
+        const vh = window.innerHeight;
+        rocket.style.transition = 'bottom 1.8s cubic-bezier(.4,0,.2,1), opacity .4s ease 1.5s';
+        rocket.style.bottom = (vh + 200) + 'px';
+        rocket.style.opacity = '0';
+        setTimeout(() => {
+            intro.style.transition = 'opacity .7s ease';
+            intro.style.opacity = '0';
+            setTimeout(showMain, 700);
+        }, 1600);
+    }
+})();
+
+/* ============================================================ */
+/*  MAIN PAGE INIT                                              */
+/* ============================================================ */
+function initMain() {
+    initNav();
+    initHeroAnimations();
+    initScrollReveal();
+    initTyping();
+}
+
+function initNav() {
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+
+        // Active nav link
+        const sections = ['about','portfolio','contact'];
+        let current = '';
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el && window.scrollY >= el.offsetTop - 200) current = id;
+        });
+        document.querySelectorAll('.nav-link').forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+        });
+    });
+}
+
+function initHeroAnimations() {
+    const delays = [
+        ['#hero-eyebrow', .1],
+        ['#hero-name',    .3],
+        ['#hero-role',    .5],
+        ['#hero-desc',    .65],
+        ['#hero-actions', .8],
+        ['#photo-frame',  .4],
+    ];
+    delays.forEach(([sel, delay]) => {
+        const el = document.querySelector(sel);
+        if (!el) return;
+        el.style.transition = `opacity .8s ${delay}s ease, transform .8s ${delay}s ease`;
+        setTimeout(() => {
+            el.style.opacity = '1';
+            el.style.transform = el.id === 'photo-frame' ? 'scale(1)' : 'translateY(0)';
+        }, 100);
+    });
+}
+
+function initTyping() {
+    const el = document.getElementById('typing-text');
+    const cursor = document.getElementById('cursor');
+    const text = 'Samuel Andi Winata.';
+    let i = 0;
+    function type() {
+        if (i < text.length) {
+            el.textContent += text[i++];
+            setTimeout(type, 90);
+        } else {
+            // Keep cursor blinking after done
+        }
+    }
+    setTimeout(type, 1000);
+}
+
+function initScrollReveal() {
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                observer.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+        observer.observe(el);
+    });
+}
+
+/* ============================================================ */
+/*  LANGUAGE                                                    */
+/* ============================================================ */
 function setLanguage(lang) {
     currentLang = lang;
     document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[lang][key]) el.innerText = translations[lang][key];
+        const k = el.getAttribute('data-i18n');
+        if (translations[lang][k]) el.innerText = translations[lang][k];
     });
-    document.getElementById('lang-id').classList.remove('active');
-    document.getElementById('lang-en').classList.remove('active');
-    document.getElementById('lang-' + lang).classList.add('active');
+    document.getElementById('lang-id').classList.toggle('active', lang === 'id');
+    document.getElementById('lang-en').classList.toggle('active', lang === 'en');
 }
 
-// ================================================================
-//  MODAL
-// ================================================================
+/* ============================================================ */
+/*  MODAL                                                       */
+/* ============================================================ */
 function openModal(key) {
     const meta = modalMeta[key];
     const lang = currentLang;
-
-    document.getElementById('modal-label').textContent   = lang === 'en' ? meta.labelEN : meta.labelID;
-    document.getElementById('modal-title').textContent   = lang === 'en' ? meta.titleEN : meta.titleID;
-    document.getElementById('modal-sub').textContent     = lang === 'en' ? meta.subEN   : meta.subID;
-    document.getElementById('modal-btn-page').href       = meta.pageURL;
+    document.getElementById('modal-label').textContent = lang === 'en' ? meta.labelEN : meta.labelID;
+    document.getElementById('modal-title').textContent = lang === 'en' ? meta.titleEN : meta.titleID;
+    document.getElementById('modal-sub').textContent   = lang === 'en' ? meta.subEN   : meta.subID;
+    document.getElementById('modal-btn-page').href     = meta.pageURL;
     document.getElementById('modal-btn-page-text').textContent = translations[lang].modal_page_btn;
 
-    // Tags
-    const tagContainer = document.getElementById('modal-tags');
-    tagContainer.innerHTML = allTags.map(t =>
+    document.getElementById('modal-tags').innerHTML = allTags.map(t =>
         `<span class="modal-tag ${meta.matchTags.includes(t) ? 'active' : ''}">${t}</span>`
     ).join('');
 
-    // Relevant projects (exclude self, at least 1 matching tag)
-    const relevant = allProjects.filter(p =>
-        p.id !== key && p.tags.some(t => meta.matchTags.includes(t))
-    );
+    const relevant = allProjects.filter(p => p.id !== key && p.tags.some(t => meta.matchTags.includes(t)));
+    document.getElementById('modal-count').innerHTML =
+        `${translations[lang].modal_found} <strong>${relevant.length}</strong> ${translations[lang].modal_found2}`;
 
-    const countEl = document.getElementById('modal-count');
-    countEl.innerHTML = `${translations[lang].modal_found} <strong>${relevant.length}</strong> ${translations[lang].modal_found2}`;
-
-    const listEl = document.getElementById('modal-list');
-    listEl.innerHTML = relevant.map(p => {
-        const stackHTML = p.stack.map(s => {
-            const isMatch = meta.matchTags.some(t => s.toLowerCase().replace(/\s/g,'').includes(t.replace(/\s/g,'')));
-            return `<span ${isMatch ? 'class="hl"' : ''}>${s}</span>`;
-        }).join('');
-        return `
-        <div class="modal-project-item" onclick="window.location.href='projects.html?cat=${p.category}'">
+    document.getElementById('modal-list').innerHTML = relevant.map(p => {
+        const stackHTML = p.stack.map(s => `<span class="${meta.matchTags.some(t => s.toLowerCase().includes(t)) ? 'hl' : ''}">${s}</span>`).join('');
+        return `<div class="modal-item" onclick="window.location.href='projects.html?cat=${p.category}'">
             <div class="modal-item-top">
                 <div class="modal-item-title">${lang === 'en' ? p.titleEN : p.titleID}</div>
                 <div class="modal-item-badge">${p.badge}</div>
@@ -695,155 +1649,6 @@ function closeModal() {
 function handleModalClick(e) {
     if (e.target === document.getElementById('project-modal')) closeModal();
 }
-
-// ================================================================
-//  STARS
-// ================================================================
-(function initStars() {
-    const canvas = document.getElementById('stars-canvas');
-    const ctx = canvas.getContext('2d');
-    let stars = [];
-    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    resize();
-    window.addEventListener('resize', resize);
-    for (let i = 0; i < 180; i++) {
-        stars.push({ x: Math.random(), y: Math.random(), r: Math.random() * 1.5 + 0.2, alpha: Math.random() * 0.8 + 0.2 });
-    }
-    function drawStars() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        stars.forEach(s => {
-            ctx.beginPath();
-            ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
-            ctx.fill();
-            s.alpha += (Math.random() - 0.5) * 0.03;
-            s.alpha = Math.max(0.1, Math.min(1, s.alpha));
-        });
-        if (document.getElementById('rocket-intro').style.display !== 'none') requestAnimationFrame(drawStars);
-    }
-    drawStars();
-})();
-
-// ================================================================
-//  SMOKE
-// ================================================================
-function spawnSmoke() {
-    const container = document.getElementById('smoke-container');
-    const puff = document.createElement('div');
-    puff.className = 'smoke';
-    const size = Math.random() * 20 + 10;
-    puff.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*60-30}px;bottom:0;animation-duration:${Math.random()*0.8+0.8}s;`;
-    container.appendChild(puff);
-    setTimeout(() => puff.remove(), 1600);
-}
-
-// ================================================================
-//  INTRO
-// ================================================================
-let smokeInterval = null;
-let introSkipped = false;
-
-function skipIntro() {
-    if (introSkipped) return;
-    introSkipped = true;
-    clearInterval(smokeInterval);
-    const intro = document.getElementById('rocket-intro');
-    intro.style.transition = 'opacity 0.5s ease';
-    intro.style.opacity = '0';
-    setTimeout(showMainPage, 500);
-}
-
-function showMainPage() {
-    document.getElementById('rocket-intro').style.display = 'none';
-    const main = document.getElementById('main-page');
-    main.style.display = 'block';
-    main.style.opacity = '0';
-    main.style.transition = 'opacity 0.8s ease';
-    setTimeout(() => { main.style.opacity = '1'; }, 50);
-    initMainPage();
-}
-
-function runIntro() {
-    const countdownEl = document.getElementById('countdown-number');
-    const barFill     = document.getElementById('loading-bar-fill');
-    const loadLabel   = document.getElementById('loading-label');
-    const flameWrap   = document.getElementById('flame-wrap');
-    const rocketWrap  = document.getElementById('rocket-wrap');
-    const introEl     = document.getElementById('rocket-intro');
-    const labels      = ['SYSTEMS NOMINAL', 'FUEL LOADED', 'IGNITION READY', 'ALL SYSTEMS GO'];
-    let barPct = 0, labelIdx = 0;
-
-    const barTimer = setInterval(() => {
-        barPct++;
-        barFill.style.width = barPct + '%';
-        if (barPct % 25 === 0) { labelIdx = Math.min(labelIdx+1, labels.length-1); loadLabel.textContent = labels[labelIdx]; }
-        if (barPct >= 100) clearInterval(barTimer);
-    }, 30);
-
-    setTimeout(() => {
-        let count = 3;
-        const cdTimer = setInterval(() => {
-            count--;
-            if (count > 0) {
-                countdownEl.textContent = count;
-                countdownEl.style.transform = 'scale(1.3)';
-                setTimeout(() => { countdownEl.style.transition='transform 0.3s'; countdownEl.style.transform='scale(1)'; }, 100);
-            } else {
-                clearInterval(cdTimer);
-                countdownEl.textContent = '';
-                countdownEl.style.fontSize = '2.5rem';
-                document.getElementById('countdown-display').querySelector('span').textContent = 'LAUNCH!';
-                flameWrap.style.opacity = '1';
-                smokeInterval = setInterval(spawnSmoke, 120);
-                let shakes = 0;
-                const shakeTimer = setInterval(() => {
-                    const dx = (Math.random()-0.5)*6, dy = (Math.random()-0.5)*3;
-                    rocketWrap.style.transform = `translateX(calc(-50% + ${dx}px)) translateY(${dy}px)`;
-                    shakes++;
-                    if (shakes > 20) { clearInterval(shakeTimer); rocketWrap.style.transform='translateX(-50%)'; launchRocket(); }
-                }, 60);
-            }
-        }, 1000);
-    }, 3000);
-
-    function launchRocket() {
-        clearInterval(smokeInterval);
-        const vh = window.innerHeight;
-        rocketWrap.style.transition = 'bottom 1.6s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease 1.3s';
-        rocketWrap.style.bottom = (vh + 150) + 'px';
-        rocketWrap.style.opacity = '0';
-        setTimeout(() => {
-            introEl.style.transition = 'opacity 0.7s ease';
-            introEl.style.opacity = '0';
-            setTimeout(showMainPage, 700);
-        }, 1500);
-    }
-}
-
-// ================================================================
-//  MAIN PAGE INIT
-// ================================================================
-function initMainPage() {
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.timeline({ scrollTrigger: { trigger: ".wrapper", start: "top top", end: "+=150%", pin: true, scrub: true } })
-        .to(".zoom-img", { scale: 2, z: 350, transformOrigin: "center center", ease: "power1.inOut" })
-        .to(".zoom-bg",  { scale: 1.1, transformOrigin: "center center", ease: "power1.inOut" }, "<");
-
-    const textElement = document.getElementById('typing-text');
-    const textToType  = "Samuel Andi Winata.";
-    let idx = 0;
-    function typeWriter() {
-        if (idx < textToType.length) { textElement.innerHTML += textToType.charAt(idx++); setTimeout(typeWriter, 100); }
-    }
-    typeWriter();
-
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
-    });
-    document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
-}
-
-window.addEventListener('load', runIntro);
 </script>
 </body>
 </html>
