@@ -1143,13 +1143,9 @@
                     <span class="stack-tag">Next.js</span>
                 </div>
                 <div class="card-actions-row">
-                    <button class="card-btn card-btn-primary" onclick="openModal('ecommerce')">
+                    <a class="card-btn card-btn-primary" href="asset/project-ecommerce.html">
                         <i class="far fa-folder-open"></i>
                         <span data-i18n="btn_relevant">Lihat project relevan</span>
-                    </button>
-                    <a class="card-btn card-btn-ghost" href="project-ecommerce.html">
-                        <span data-i18n="btn_category">Halaman kategori</span>
-                        <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
@@ -1172,13 +1168,9 @@
                     <span class="stack-tag">MySQL</span>
                 </div>
                 <div class="card-actions-row">
-                    <button class="card-btn card-btn-primary" onclick="openModal('travel')">
+                    <a class="card-btn card-btn-primary" href="asset/project-travel.html">
                         <i class="far fa-folder-open"></i>
                         <span data-i18n="btn_relevant">Lihat project relevan</span>
-                    </button>
-                    <a class="card-btn card-btn-ghost" href="projects.html?cat=travel">
-                        <span data-i18n="btn_category">Halaman kategori</span>
-                        <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
@@ -1201,13 +1193,9 @@
                     <span class="stack-tag">OpenAI API</span>
                 </div>
                 <div class="card-actions-row">
-                    <button class="card-btn card-btn-primary" onclick="openModal('aibot')">
+                    <a class="card-btn card-btn-primary" href="asset/project-aibot.html">
                         <i class="far fa-folder-open"></i>
                         <span data-i18n="btn_relevant">Lihat project relevan</span>
-                    </button>
-                    <a class="card-btn card-btn-ghost" href="projects.html?cat=aibot">
-                        <span data-i18n="btn_category">Halaman kategori</span>
-                        <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
@@ -1230,13 +1218,35 @@
                     <span class="stack-tag">SQLite</span>
                 </div>
                 <div class="card-actions-row">
-                    <button class="card-btn card-btn-primary" onclick="openModal('finance')">
+                    <a class="card-btn card-btn-primary" href="asset/project-finance.html">
                         <i class="far fa-folder-open"></i>
                         <span data-i18n="btn_relevant">Lihat project relevan</span>
-                    </button>
-                    <a class="card-btn card-btn-ghost" href="projects.html?cat=finance">
-                        <span data-i18n="btn_category">Halaman kategori</span>
-                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="project-card reveal" style="transition-delay:.4s">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-file-code"></i></div>
+                    <div class="card-links">
+                        <a class="card-link" href="#"><i class="fas fa-external-link-alt"></i></a>
+                        <a class="card-link" href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="card-badge">AI / Tool</div>
+                <div class="card-title" data-i18n="proj5_title">CV PDF → Personal Website</div>
+                <div class="card-desc" data-i18n="proj5_desc">Upload CV kamu dalam format PDF, dan dalam hitungan detik AI akan mengubahnya menjadi website personal yang siap pakai. Cocok banget buat personal branding — tampil profesional tanpa perlu coding sama sekali.</div>
+                <div class="card-stack">
+                    <span class="stack-tag">Python</span>
+                    <span class="stack-tag">OpenAI API</span>
+                    <span class="stack-tag">HTML/CSS</span>
+                    <span class="stack-tag">FastAPI</span>
+                </div>
+                <div class="card-actions-row">
+                    <a class="card-btn card-btn-primary" href="asset/project-cvweb.html">
+                        <i class="far fa-folder-open"></i>
+                        <span data-i18n="btn_relevant">Lihat project relevan</span>
                     </a>
                 </div>
             </div>
@@ -1255,9 +1265,9 @@
                 Saya sedang mencari peluang baru untuk kolaborasi. Baik Anda memiliki pertanyaan atau hanya ingin menyapa, inbox saya selalu terbuka!
             </p>
             <div class="reveal" style="display:flex; justify-content:center;">
-                <a href="mailto:samuel@example.com" class="contact-email">
+                <a href="/cdn-cgi/l/email-protection#c9baa8a4bcaca589acb1a8a4b9a5ace7aaa6a4" class="contact-email">
                     <i class="far fa-envelope"></i>
-                    <span>samuel@example.com</span>
+                    <span><span class="__cf_email__" data-cfemail="6714060a12020b27021f060a170b024904080a">[email&#160;protected]</span></span>
                 </a>
             </div>
 
@@ -1295,10 +1305,6 @@
         <div class="modal-count" id="modal-count"></div>
         <div class="modal-list" id="modal-list"></div>
         <div class="modal-footer">
-            <a class="modal-btn-p" id="modal-btn-page" href="#">
-                <i class="fas fa-layer-group"></i>
-                <span id="modal-btn-page-text">Lihat Halaman Kategori</span>
-            </a>
             <button class="modal-btn-s" onclick="closeModal()">
                 <i class="fas fa-times"></i>
                 <span data-i18n="modal_close_btn">Tutup</span>
@@ -1310,7 +1316,7 @@
 <!-- ====================================================== -->
 <!--  SCRIPTS                                               -->
 <!-- ====================================================== -->
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ============================================================ */
 /*  DATA                                                        */
 /* ============================================================ */
@@ -1318,14 +1324,16 @@ const allProjects = [
     { id:'ecommerce', category:'ecommerce', titleID:'E-Commerce Dashboard', titleEN:'E-Commerce Dashboard', descID:'Dashboard admin toko online dengan analitik real-time, manajemen stok, dan payment gateway.', descEN:'Admin dashboard for online store with real-time analytics, inventory management, and payment gateway.', stack:['React','Firebase','Chart.js','Next.js'], tags:['frontend','fullstack','database','ui'], badge:'Web App' },
     { id:'travel', category:'travel', titleID:'Travel Booking App', titleEN:'Travel Booking App', descID:'Aplikasi web responsif pemesanan wisata lokal dengan pencarian, filter lokasi, dan sistem review.', descEN:'Responsive web app for local tourism booking with search, location filters, and user reviews.', stack:['Vue.js','Laravel','MySQL'], tags:['frontend','backend','database','ui'], badge:'Full Stack' },
     { id:'aibot', category:'aibot', titleID:'AI Chat Bot', titleEN:'AI Chat Bot', descID:'Bot WhatsApp otomatis menjawab pertanyaan pelanggan menggunakan NLP dasar.', descEN:'Automated WhatsApp bot handling customer queries using basic NLP.', stack:['Python','Flask','OpenAI API'], tags:['backend','ai','api','automation'], badge:'AI / Bot' },
-    { id:'finance', category:'finance', titleID:'Personal Finance Tracker', titleEN:'Personal Finance Tracker', descID:'Aplikasi mobile mencatat pengeluaran harian dan visualisasi budget bulanan.', descEN:'Mobile app to track daily expenses and visualize monthly budgets.', stack:['Flutter','Dart','SQLite'], tags:['mobile','database','ui'], badge:'Mobile' }
+    { id:'finance', category:'finance', titleID:'Personal Finance Tracker', titleEN:'Personal Finance Tracker', descID:'Aplikasi mobile mencatat pengeluaran harian dan visualisasi budget bulanan.', descEN:'Mobile app to track daily expenses and visualize monthly budgets.', stack:['Flutter','Dart','SQLite'], tags:['mobile','database','ui'], badge:'Mobile' },
+    { id:'cvweb', category:'cvweb', titleID:'CV PDF → Personal Website', titleEN:'CV PDF → Personal Website', descID:'Ubah CV PDF menjadi website personal siap pakai dalam hitungan detik menggunakan AI.', descEN:'Convert a PDF CV into a ready-to-use personal website in seconds using AI.', stack:['Python','OpenAI API','HTML/CSS','FastAPI'], tags:['ai','api','automation','frontend'], badge:'AI / Tool' }
 ];
 
 const modalMeta = {
-    ecommerce: { labelID:'02. Project Pilihan', labelEN:'02. Featured Projects', titleID:'Project Serupa: Frontend & Fullstack', titleEN:'Related Projects: Frontend & Fullstack', subID:'Project yang menggunakan teknologi frontend, fullstack, atau database.', subEN:'Projects using frontend, fullstack, or database technologies.', matchTags:['frontend','fullstack','database','ui'], pageURL:'project-ecommerce.html' },
-    travel: { labelID:'02. Project Pilihan', labelEN:'02. Featured Projects', titleID:'Project Serupa: Web App & Backend', titleEN:'Related Projects: Web App & Backend', subID:'Project yang menggunakan stack backend, database, atau UI web.', subEN:'Projects using backend stack, database, or web UI.', matchTags:['frontend','backend','database','ui'], pageURL:'projects.html?cat=travel' },
-    aibot: { labelID:'02. Project Pilihan', labelEN:'02. Featured Projects', titleID:'Project Serupa: AI & Automation', titleEN:'Related Projects: AI & Automation', subID:'Project yang memanfaatkan AI, backend, API, atau otomasi.', subEN:'Projects using AI, backend, APIs, or automation.', matchTags:['backend','ai','api','automation'], pageURL:'projects.html?cat=aibot' },
-    finance: { labelID:'02. Project Pilihan', labelEN:'02. Featured Projects', titleID:'Project Serupa: Mobile & Data', titleEN:'Related Projects: Mobile & Data', subID:'Project mobile atau yang berfokus pada visualisasi data.', subEN:'Mobile projects or those focused on data visualization.', matchTags:['mobile','database','ui'], pageURL:'projects.html?cat=finance' }
+    ecommerce: { labelID:'02. Project Pilihan', labelEN:'02. Featured Projects', titleID:'Project Serupa: Frontend & Fullstack', titleEN:'Related Projects: Frontend & Fullstack', subID:'Project yang menggunakan teknologi frontend, fullstack, atau database.', subEN:'Projects using frontend, fullstack, or database technologies.', matchTags:['frontend','fullstack','database','ui'], pageURL:'asset/project-ecommerce.html' },
+    travel: { labelID:'02. Project Pilihan', labelEN:'02. Featured Projects', titleID:'Project Serupa: Web App & Backend', titleEN:'Related Projects: Web App & Backend', subID:'Project yang menggunakan stack backend, database, atau UI web.', subEN:'Projects using backend stack, database, or web UI.', matchTags:['frontend','backend','database','ui'], pageURL:'asset/project-travel.html' },
+    aibot: { labelID:'02. Project Pilihan', labelEN:'02. Featured Projects', titleID:'Project Serupa: AI & Automation', titleEN:'Related Projects: AI & Automation', subID:'Project yang memanfaatkan AI, backend, API, atau otomasi.', subEN:'Projects using AI, backend, APIs, or automation.', matchTags:['backend','ai','api','automation'], pageURL:'asset/project-aibot.html' },
+    finance: { labelID:'02. Project Pilihan', labelEN:'02. Featured Projects', titleID:'Project Serupa: Mobile & Data', titleEN:'Related Projects: Mobile & Data', subID:'Project mobile atau yang berfokus pada visualisasi data.', subEN:'Mobile projects or those focused on data visualization.', matchTags:['mobile','database','ui'], pageURL:'asset/project-finance.html' },
+    cvweb: { labelID:'02. Project Pilihan', labelEN:'02. Featured Projects', titleID:'Project Serupa: AI & Automation', titleEN:'Related Projects: AI & Automation', subID:'Project memanfaatkan AI, API, atau otomasi.', subEN:'Projects using AI, APIs, or automation.', matchTags:['ai','api','automation','frontend'], pageURL:'asset/project-cvweb.html' }
 };
 
 const allTags = ['frontend','backend','fullstack','mobile','ai','api','database','ui','automation'];
@@ -1345,6 +1353,7 @@ const translations = {
         proj2_title:'Travel Booking App', proj2_desc:'Aplikasi web responsif untuk pemesanan tiket wisata lokal. Termasuk fitur pencarian, filter lokasi, dan sistem review user.',
         proj3_title:'AI Chat Bot', proj3_desc:'Bot sederhana yang terintegrasi dengan WhatsApp API untuk menjawab pertanyaan pelanggan secara otomatis menggunakan NLP dasar.',
         proj4_title:'Personal Finance Tracker', proj4_desc:'Membantu pengguna mencatat pengeluaran harian dan visualisasi budget bulanan agar keuangan tetap terkontrol.',
+        proj5_title:'CV PDF → Personal Website', proj5_desc:'Upload CV kamu dalam format PDF, dan dalam hitungan detik AI akan mengubahnya menjadi website personal yang siap pakai. Cocok banget buat personal branding — tampil profesional tanpa perlu coding sama sekali.',
         contact_big:'Hubungi', contact_desc:'Saya sedang mencari peluang baru untuk kolaborasi. Baik Anda memiliki pertanyaan atau hanya ingin menyapa, inbox saya selalu terbuka!',
         btn_relevant:'Lihat project relevan', btn_category:'Halaman kategori',
         modal_close_btn:'Tutup', modal_page_btn:'Lihat Halaman Kategori',
@@ -1365,6 +1374,7 @@ const translations = {
         proj2_title:'Travel Booking App', proj2_desc:'A responsive web app for booking local tourism tickets. Includes search features, location filtering, and user review systems.',
         proj3_title:'AI Chat Bot', proj3_desc:'A simple bot integrated with WhatsApp API to answer customer queries automatically using basic NLP.',
         proj4_title:'Personal Finance Tracker', proj4_desc:'Helps users track daily expenses and visualize monthly budgets to keep finances under control.',
+        proj5_title:'CV PDF → Personal Website', proj5_desc:"Upload your CV as a PDF and AI will instantly transform it into a ready-to-use personal website. Perfect for personal branding — look professional without writing a single line of code.",
         contact_big:'Get In', contact_desc:"I'm currently looking for new opportunities. Whether you have a question or just want to say hi, my inbox is always open!",
         btn_relevant:'View related projects', btn_category:'Category page',
         modal_close_btn:'Close', modal_page_btn:'View Category Page',
