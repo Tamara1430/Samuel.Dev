@@ -626,6 +626,7 @@
             position: absolute; inset: 0;
             background: linear-gradient(135deg, rgba(0,212,255,0.04) 0%, rgba(123,92,255,0.04) 100%);
             opacity: 0; transition: .4s;
+            pointer-events: none;  /* ← tambahkan ini */
         }
         .project-card::after {
             content: '';
@@ -633,6 +634,7 @@
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--accent), transparent);
             opacity: 0; transition: .4s;
+            pointer-events: none;  /* ← dan ini */
         }
         .project-card:hover {
             border-color: rgba(0,212,255,0.2);
