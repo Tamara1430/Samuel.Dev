@@ -788,106 +788,7 @@
             background: linear-gradient(90deg, transparent, var(--border), transparent);
         }
 
-        /* ============================================================ */
-        /*  MODAL                                                       */
-        /* ============================================================ */
-        .modal-overlay {
-            display: none; position: fixed; inset: 0;
-            background: rgba(5,8,16,0.85);
-            backdrop-filter: blur(12px);
-            z-index: 6000;
-            align-items: center; justify-content: center; padding: 20px;
-        }
-        .modal-overlay.active { display: flex; }
 
-        .modal-box {
-            background: var(--card);
-            border: 1px solid rgba(0,212,255,0.15);
-            border-radius: 14px; padding: 40px;
-            max-width: 680px; width: 100%;
-            max-height: 85vh; overflow-y: auto;
-            position: relative;
-            animation: modalSlide .35s cubic-bezier(.22,1,.36,1);
-            scrollbar-width: thin;
-            scrollbar-color: rgba(0,212,255,0.2) transparent;
-        }
-        .modal-box::-webkit-scrollbar { width: 4px; }
-        .modal-box::-webkit-scrollbar-thumb { background: rgba(0,212,255,0.2); border-radius: 4px; }
-        @keyframes modalSlide {
-            from { opacity: 0; transform: translateY(30px) scale(.97); }
-            to   { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .modal-close {
-            position: absolute; top: 18px; right: 20px;
-            background: rgba(255,255,255,.05); border: 1px solid var(--border);
-            color: var(--muted); font-size: 1rem; cursor: pointer;
-            width: 34px; height: 34px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            transition: .3s;
-        }
-        .modal-close:hover { color: var(--accent); border-color: rgba(0,212,255,.3); }
-        .modal-label {
-            font-family: 'JetBrains Mono', monospace; font-size: .72rem;
-            color: var(--accent); letter-spacing: 2px; text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-        .modal-title { font-size: 1.4rem; color: var(--white); font-weight: 700; margin-bottom: 6px; letter-spacing: -.3px; }
-        .modal-sub { font-size: .88rem; color: var(--muted); margin-bottom: 24px; }
-        .modal-hr { height: 1px; background: var(--border); margin-bottom: 24px; }
-        .modal-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-        .modal-tag {
-            font-family: 'JetBrains Mono', monospace; font-size: .7rem;
-            padding: 5px 13px; border-radius: 50px;
-            border: 1px solid var(--border); color: var(--muted);
-            background: rgba(255,255,255,0.02); transition: .2s;
-        }
-        .modal-tag.active { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,0.07); }
-        .modal-count { font-family: 'JetBrains Mono', monospace; font-size: .78rem; color: var(--muted); margin-bottom: 16px; }
-        .modal-count strong { color: var(--accent); }
-        .modal-list { display: flex; flex-direction: column; gap: 12px; }
-        .modal-item {
-            background: rgba(255,255,255,0.025); border: 1px solid var(--border);
-            border-radius: 10px; padding: 20px; transition: .25s;
-            cursor: pointer; position: relative; overflow: hidden;
-        }
-        .modal-item::before {
-            content: ''; position: absolute; left: 0; top: 0;
-            width: 3px; height: 100%;
-            background: linear-gradient(to bottom, var(--accent), var(--accent2));
-            transform: scaleY(0); transition: .25s;
-        }
-        .modal-item:hover { border-color: rgba(0,212,255,0.2); transform: translateX(6px); background: rgba(0,212,255,.03); }
-        .modal-item:hover::before { transform: scaleY(1); }
-        .modal-item-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
-        .modal-item-title { font-size: 1rem; color: var(--white); font-weight: 600; }
-        .modal-item-badge {
-            font-family: 'JetBrains Mono', monospace; font-size: .68rem;
-            color: var(--accent2); border: 1px solid rgba(123,92,255,.3);
-            padding: 3px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0;
-        }
-        .modal-item-desc { font-size: .87rem; color: var(--muted); margin-bottom: 12px; line-height: 1.6; }
-        .modal-item-stack { display: flex; gap: 8px; flex-wrap: wrap; }
-        .modal-item-stack span { font-family: 'JetBrains Mono', monospace; font-size: .72rem; color: var(--muted); }
-        .modal-item-stack .hl { color: var(--accent); }
-        .modal-footer {
-            display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap;
-        }
-        .modal-btn-p {
-            font-family: 'JetBrains Mono', monospace; font-size: .82rem;
-            color: var(--bg); background: linear-gradient(135deg, var(--accent), var(--accent2));
-            border: none; padding: 11px 24px; border-radius: 5px; cursor: pointer;
-            transition: .25s; font-weight: 700;
-            text-decoration: none; display: inline-flex; align-items: center; gap: 7px;
-        }
-        .modal-btn-p:hover { transform: translateY(-2px); box-shadow: 0 8px 24px var(--glow); }
-        .modal-btn-s {
-            font-family: 'JetBrains Mono', monospace; font-size: .82rem;
-            color: var(--muted); background: transparent;
-            border: 1px solid var(--border); padding: 11px 24px; border-radius: 5px;
-            cursor: pointer; transition: .25s;
-            display: inline-flex; align-items: center; gap: 7px;
-        }
-        .modal-btn-s:hover { color: var(--accent); border-color: rgba(0,212,255,.3); }
 
         /* ============================================================ */
         /*  ANIMATIONS                                                  */
@@ -1143,7 +1044,7 @@
                     <span class="stack-tag">Next.js</span>
                 </div>
                 <div class="card-actions-row">
-                    <a class="card-btn card-btn-primary" onclick="openModal('ecommerce')" style="cursor:pointer">
+                    <a class="card-btn card-btn-primary" href="project/project-ecommerce.html">
                         <i class="far fa-folder-open"></i>
                         <span data-i18n="btn_relevant">Lihat project relevan</span>
                     </a>
@@ -1168,7 +1069,7 @@
                     <span class="stack-tag">MySQL</span>
                 </div>
                 <div class="card-actions-row">
-                    <a class="card-btn card-btn-primary" onclick="openModal('travel')" style="cursor:pointer">
+                    <a class="card-btn card-btn-primary" href="project/project-travel.html">
                         <i class="far fa-folder-open"></i>
                         <span data-i18n="btn_relevant">Lihat project relevan</span>
                     </a>
@@ -1193,7 +1094,7 @@
                     <span class="stack-tag">OpenAI API</span>
                 </div>
                 <div class="card-actions-row">
-                    <a class="card-btn card-btn-primary" onclick="openModal('bot')" style="cursor:pointer">
+                    <a class="card-btn card-btn-primary" href="project/project-aibot.html">
                         <i class="far fa-folder-open"></i>
                         <span data-i18n="btn_relevant">Lihat project relevan</span>
                     </a>
@@ -1265,9 +1166,9 @@
                 Saya sedang mencari peluang baru untuk kolaborasi. Baik Anda memiliki pertanyaan atau hanya ingin menyapa, inbox saya selalu terbuka!
             </p>
             <div class="reveal" style="display:flex; justify-content:center;">
-                <a href="/cdn-cgi/l/email-protection#c9baa8a4bcaca589acb1a8a4b9a5ace7aaa6a4" class="contact-email">
+                <a href="mailto:samuelandiwinata@gmail.com" class="contact-email">
                     <i class="far fa-envelope"></i>
-                    <span><span class="__cf_email__" data-cfemail="6714060a12020b27021f060a170b024904080a">[email&#160;protected]</span></span>
+                    <span>samuelandiwinata@gmail.com</span>
                 </a>
             </div>
 
@@ -1291,52 +1192,15 @@
 
 </div><!-- end #main-page -->
 
-<!-- ====================================================== -->
-<!--  MODAL                                                 -->
-<!-- ====================================================== -->
-<div class="modal-overlay" id="project-modal" onclick="handleModalClick(event)">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeModal()">✕</button>
-        <div class="modal-label" id="modal-label"></div>
-        <div class="modal-title" id="modal-title"></div>
-        <div class="modal-sub" id="modal-sub"></div>
-        <div class="modal-hr"></div>
-        <div class="modal-tags" id="modal-tags"></div>
-        <div class="modal-count" id="modal-count"></div>
-        <div class="modal-list" id="modal-list"></div>
-        <div class="modal-footer">
-            <button class="modal-btn-s" onclick="closeModal()">
-                <i class="fas fa-times"></i>
-                <span data-i18n="modal_close_btn">Tutup</span>
-            </button>
-        </div>
-    </div>
-</div>
+
 
 <!-- ====================================================== -->
 <!--  SCRIPTS                                               -->
 <!-- ====================================================== -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ============================================================ */
 /*  DATA                                                        */
 /* ============================================================ */
-const allProjects = [
-    { id:'ecommerce', category:'ecommerce', titleID:'E-Commerce Dashboard', titleEN:'E-Commerce Dashboard', descID:'Dashboard admin toko online dengan analitik real-time, manajemen stok, dan payment gateway.', descEN:'Admin dashboard for online store with real-time analytics, inventory management, and payment gateway.', stack:['React','Firebase','Chart.js','Next.js'], tags:['frontend','fullstack','database','ui'], badge:'Web App' },
-    { id:'travel', category:'travel', titleID:'Travel Booking App', titleEN:'Travel Booking App', descID:'Aplikasi web responsif pemesanan wisata lokal dengan pencarian, filter lokasi, dan sistem review.', descEN:'Responsive web app for local tourism booking with search, location filters, and user reviews.', stack:['Vue.js','Laravel','MySQL'], tags:['frontend','backend','database','ui'], badge:'Full Stack' },
-    { id:'aibot', category:'aibot', titleID:'AI Chat Bot', titleEN:'AI Chat Bot', descID:'Bot WhatsApp otomatis menjawab pertanyaan pelanggan menggunakan NLP dasar.', descEN:'Automated WhatsApp bot handling customer queries using basic NLP.', stack:['Python','Flask','OpenAI API'], tags:['backend','ai','api','automation'], badge:'AI / Bot' },
-    { id:'finance', category:'finance', titleID:'Personal Finance Tracker', titleEN:'Personal Finance Tracker', descID:'Aplikasi mobile mencatat pengeluaran harian dan visualisasi budget bulanan.', descEN:'Mobile app to track daily expenses and visualize monthly budgets.', stack:['Flutter','Dart','SQLite'], tags:['mobile','database','ui'], badge:'Mobile' },
-    { id:'cvweb', category:'cvweb', titleID:'CV PDF → Personal Website', titleEN:'CV PDF → Personal Website', descID:'Ubah CV PDF menjadi website personal siap pakai dalam hitungan detik menggunakan AI.', descEN:'Convert a PDF CV into a ready-to-use personal website in seconds using AI.', stack:['Python','OpenAI API','HTML/CSS','FastAPI'], tags:['ai','api','automation','frontend'], badge:'AI / Tool' }
-];
-
-const modalMeta = {
-    ecommerce: { labelID:'02. Project Pilihan', labelEN:'02. Featured Projects', titleID:'Project Serupa: Frontend & Fullstack', titleEN:'Related Projects: Frontend & Fullstack', subID:'Project yang menggunakan teknologi frontend, fullstack, atau database.', subEN:'Projects using frontend, fullstack, or database technologies.', matchTags:['frontend','fullstack','database','ui'], pageURL:'project/project-ecommerce.html' },
-    travel: { labelID:'02. Project Pilihan', labelEN:'02. Featured Projects', titleID:'Project Serupa: Web App & Backend', titleEN:'Related Projects: Web App & Backend', subID:'Project yang menggunakan stack backend, database, atau UI web.', subEN:'Projects using backend stack, database, or web UI.', matchTags:['frontend','backend','database','ui'], pageURL:'project/project-travel.html' },
-    aibot: { labelID:'02. Project Pilihan', labelEN:'02. Featured Projects', titleID:'Project Serupa: AI & Automation', titleEN:'Related Projects: AI & Automation', subID:'Project yang memanfaatkan AI, backend, API, atau otomasi.', subEN:'Projects using AI, backend, APIs, or automation.', matchTags:['backend','ai','api','automation'], pageURL:'project/project-aibot.html' },
-    finance: { labelID:'02. Project Pilihan', labelEN:'02. Featured Projects', titleID:'Project Serupa: Mobile & Data', titleEN:'Related Projects: Mobile & Data', subID:'Project mobile atau yang berfokus pada visualisasi data.', subEN:'Mobile projects or those focused on data visualization.', matchTags:['mobile','database','ui'], pageURL:'project/project-finance.html' },
-    cvweb: { labelID:'02. Project Pilihan', labelEN:'02. Featured Projects', titleID:'Project Serupa: AI & Automation', titleEN:'Related Projects: AI & Automation', subID:'Project memanfaatkan AI, API, atau otomasi.', subEN:'Projects using AI, APIs, or automation.', matchTags:['ai','api','automation','frontend'], pageURL:'project/project-cvweb.html' }
-};
-
-const allTags = ['frontend','backend','fullstack','mobile','ai','api','database','ui','automation'];
 
 const translations = {
     id: {
@@ -1356,8 +1220,6 @@ const translations = {
         proj5_title:'CV PDF → Personal Website', proj5_desc:'Upload CV kamu dalam format PDF, dan dalam hitungan detik AI akan mengubahnya menjadi website personal yang siap pakai. Cocok banget buat personal branding — tampil profesional tanpa perlu coding sama sekali.',
         contact_big:'Hubungi', contact_desc:'Saya sedang mencari peluang baru untuk kolaborasi. Baik Anda memiliki pertanyaan atau hanya ingin menyapa, inbox saya selalu terbuka!',
         btn_relevant:'Lihat project relevan', btn_category:'Halaman kategori',
-        modal_close_btn:'Tutup', modal_page_btn:'Lihat Halaman Kategori',
-        modal_found:'Ditemukan', modal_found2:'project relevan',
         footer_text:'Dibuat dengan kode dan kopi oleh', status:'Available for work'
     },
     en: {
@@ -1377,8 +1239,6 @@ const translations = {
         proj5_title:'CV PDF → Personal Website', proj5_desc:"Upload your CV as a PDF and AI will instantly transform it into a ready-to-use personal website. Perfect for personal branding — look professional without writing a single line of code.",
         contact_big:'Get In', contact_desc:"I'm currently looking for new opportunities. Whether you have a question or just want to say hi, my inbox is always open!",
         btn_relevant:'View related projects', btn_category:'Category page',
-        modal_close_btn:'Close', modal_page_btn:'View Category Page',
-        modal_found:'Found', modal_found2:'related projects',
         footer_text:'Built with code and coffee by', status:'Available for work'
     }
 };
@@ -1433,7 +1293,7 @@ document.addEventListener('mousemove', e => {
 /*  INTRO: LAUNCH SEQUENCE                                      */
 /* ============================================================ */
 let introSkipped = false;
-let smokeTimer = null;
+var smokeTimer = null;
 
 function skipIntro() {
     if (introSkipped) return;
@@ -1613,51 +1473,6 @@ function setLanguage(lang) {
     });
     document.getElementById('lang-id').classList.toggle('active', lang === 'id');
     document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-}
-
-/* ============================================================ */
-/*  MODAL                                                       */
-/* ============================================================ */
-function openModal(key) {
-    const meta = modalMeta[key];
-    const lang = currentLang;
-    document.getElementById('modal-label').textContent = lang === 'en' ? meta.labelEN : meta.labelID;
-    document.getElementById('modal-title').textContent = lang === 'en' ? meta.titleEN : meta.titleID;
-    document.getElementById('modal-sub').textContent   = lang === 'en' ? meta.subEN   : meta.subID;
-    document.getElementById('modal-btn-page').href     = meta.pageURL;
-    document.getElementById('modal-btn-page-text').textContent = translations[lang].modal_page_btn;
-
-    document.getElementById('modal-tags').innerHTML = allTags.map(t =>
-        `<span class="modal-tag ${meta.matchTags.includes(t) ? 'active' : ''}">${t}</span>`
-    ).join('');
-
-    const relevant = allProjects.filter(p => p.id !== key && p.tags.some(t => meta.matchTags.includes(t)));
-    document.getElementById('modal-count').innerHTML =
-        `${translations[lang].modal_found} <strong>${relevant.length}</strong> ${translations[lang].modal_found2}`;
-
-    document.getElementById('modal-list').innerHTML = relevant.map(p => {
-        const stackHTML = p.stack.map(s => `<span class="${meta.matchTags.some(t => s.toLowerCase().includes(t)) ? 'hl' : ''}">${s}</span>`).join('');
-        return `<div class="modal-item" onclick="window.location.href='projects.html?cat=${p.category}'">
-            <div class="modal-item-top">
-                <div class="modal-item-title">${lang === 'en' ? p.titleEN : p.titleID}</div>
-                <div class="modal-item-badge">${p.badge}</div>
-            </div>
-            <div class="modal-item-desc">${lang === 'en' ? p.descEN : p.descID}</div>
-            <div class="modal-item-stack">${stackHTML}</div>
-        </div>`;
-    }).join('');
-
-    document.getElementById('project-modal').classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-    document.getElementById('project-modal').classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-function handleModalClick(e) {
-    if (e.target === document.getElementById('project-modal')) closeModal();
 }
 </script>
 </body>
