@@ -82,151 +82,150 @@
             align-items: center; justify-content: center;
             overflow: hidden;
         }
-        #intro-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+        /* seq-canvas is handled by scroll sequence styles below */
 
-        .intro-content {
-            position: relative; z-index: 10;
-            display: flex; flex-direction: column;
-            align-items: center; gap: 32px;
-            text-align: center;
-        }
 
-        .intro-logo {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 800;
-            letter-spacing: -1px;
-            background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            opacity: 0;
-            animation: introFadeUp 1s .2s ease forwards;
-        }
 
-        .intro-sub {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: .9rem;
-            color: var(--muted);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            opacity: 0;
-            animation: introFadeUp 1s .5s ease forwards;
-        }
+        /* ============================================================ */
+        /*  SCROLL FRAME SEQUENCE                                       */
+        /* ============================================================ */
 
-        .intro-progress {
-            width: 240px;
-            opacity: 0;
-            animation: introFadeUp .8s .8s ease forwards;
-        }
-        .intro-bar-track {
-            height: 2px;
-            background: rgba(255,255,255,0.07);
-            border-radius: 2px;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-        .intro-bar-fill {
+        /* Canvas — fullscreen, no overlays on top */
+        #seq-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, var(--accent), var(--accent2));
-            border-radius: 2px;
+            z-index: 2;
+            display: block;
+        }
+
+        /* Thin progress bar at very bottom edge */
+        #seq-progress {
+            position: absolute;
+            bottom: 0; left: 0;
+            height: 2px;
             width: 0%;
-            transition: width .05s linear;
-            box-shadow: 0 0 10px var(--accent);
+            background: linear-gradient(to right, var(--accent), var(--accent2));
+            z-index: 6;
+            transition: width 0.08s linear;
         }
-        .intro-pct {
+
+        /* Scroll hint — minimal arrow only, no text */
+        #seq-scroll-hint {
+            position: absolute;
+            bottom: 6vh;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            opacity: 1;
+            transition: opacity 0.6s ease;
+        }
+        #seq-scroll-hint.hidden { opacity: 0; pointer-events: none; }
+        .seq-hint-line {
+            width: 1px; height: 40px;
+            background: linear-gradient(to bottom, rgba(0,212,255,0.7), transparent);
+            animation: seqLinePulse 1.8s ease-in-out infinite;
+        }
+        .seq-hint-chevron {
+            width: 10px; height: 10px;
+            border-right: 1px solid rgba(0,212,255,0.5);
+            border-bottom: 1px solid rgba(0,212,255,0.5);
+            transform: rotate(45deg);
+            animation: seqLinePulse 1.8s ease-in-out infinite 0.2s;
+        }
+        @keyframes seqLinePulse {
+            0%, 100% { opacity: 0.25; }
+            50%       { opacity: 0.9; }
+        }
+
+        /* Enter button — shown at end of sequence */
+        #seq-enter {
+            position: absolute;
+            bottom: 10vh;
+            left: 50%;
+            transform: translateX(-50%) translateY(16px);
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 0.7s ease, transform 0.7s ease;
+            pointer-events: none;
+        }
+        #seq-enter.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+        .seq-enter-btn {
             font-family: 'JetBrains Mono', monospace;
-            font-size: .75rem;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid rgba(0,212,255,0.28);
+            padding: 11px 26px;
+            border-radius: 2px;
+            background: rgba(5,8,16,0.6);
+            cursor: pointer;
+            transition: 0.3s;
+            backdrop-filter: blur(12px);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .seq-enter-btn:hover {
+            background: rgba(0,212,255,0.1);
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(0,212,255,0.18);
+        }
+        .seq-enter-arrow {
+            width: 14px; height: 1px;
+            background: var(--accent);
+            position: relative; display: inline-block;
+        }
+        .seq-enter-arrow::after {
+            content: '';
+            position: absolute;
+            right: 0; top: -3px;
+            width: 6px; height: 6px;
+            border-right: 1px solid var(--accent);
+            border-top: 1px solid var(--accent);
+            transform: rotate(45deg);
+        }
+
+        /* ── Loading spinner overlay ── */
+        #seq-loader {
+            position: absolute;
+            inset: 0;
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            z-index: 20;
+            transition: opacity 0.6s ease;
+        }
+        #seq-loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .seq-spinner {
+            width: 36px; height: 36px;
+            border: 1.5px solid rgba(0,212,255,0.15);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: seqSpin 0.9s linear infinite;
+        }
+        @keyframes seqSpin {
+            to { transform: rotate(360deg); }
+        }
+        .seq-loader-pct {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.3em;
             color: var(--muted);
-            text-align: right;
-        }
-
-        /* Rocket redesign */
-        #rocket-wrap {
-            position: absolute;
-            bottom: 80px; left: 50%;
-            transform: translateX(-50%);
-            z-index: 15;
-            display: flex; flex-direction: column; align-items: center;
-        }
-        .rocket-body {
-            width: 48px; height: 80px;
-            background: linear-gradient(180deg, #c8d8f0 0%, #8898b8 100%);
-            border-radius: 50% 50% 20% 20% / 60% 60% 20% 20%;
-            position: relative;
-            box-shadow: 0 0 20px rgba(200,216,240,0.3);
-        }
-        .rocket-window {
-            position: absolute;
-            top: 24px; left: 50%;
-            transform: translateX(-50%);
-            width: 18px; height: 18px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, #00d4ff, #003355);
-            border: 2px solid rgba(255,255,255,0.2);
-            box-shadow: 0 0 10px rgba(0,212,255,0.5);
-        }
-        .rocket-fins {
-            display: flex; justify-content: space-between;
-            width: 70px; margin-top: -4px;
-        }
-        .fin {
-            width: 18px; height: 28px;
-            background: linear-gradient(135deg, #7b5cff, #3a3060);
-            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-        }
-        .fin.right { transform: scaleX(-1); }
-        .rocket-flames {
-            display: flex; gap: 3px; justify-content: center;
-            margin-top: 2px; opacity: 0;
-            transition: opacity .3s;
-        }
-        .rocket-flame {
-            border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
-            animation: flameFlicker .08s infinite alternate;
-        }
-        .flame-c { width: 16px; height: 36px; background: linear-gradient(180deg, #fff5c0, #ff8800, transparent); }
-        .flame-s { width: 9px; height: 22px; background: linear-gradient(180deg, #ffcc44, #ff4400, transparent); }
-        @keyframes flameFlicker {
-            from { transform: scaleY(1) scaleX(1); }
-            to   { transform: scaleY(.9) scaleX(1.08); }
-        }
-
-        .pad {
-            position: absolute; bottom: 60px; left: 50%;
-            transform: translateX(-50%);
-            z-index: 12;
-        }
-        .pad-base {
-            width: 100px; height: 10px;
-            background: linear-gradient(90deg, #1a2a4a, #2a4060, #1a2a4a);
-            border-radius: 3px;
-            border: 1px solid rgba(0,212,255,0.2);
-            box-shadow: 0 0 15px rgba(0,212,255,0.1);
-        }
-        .pad-arm {
-            display: flex; gap: 72px; margin-top: -1px; justify-content: center;
-        }
-        .pad-arm span {
-            width: 5px; height: 16px;
-            background: #1a2a4a;
-            border-radius: 0 0 3px 3px;
-        }
-
-        .smoke-area {
-            position: absolute; bottom: 70px; left: 50%;
-            transform: translateX(-50%);
-            z-index: 11; pointer-events: none;
-        }
-        .puff {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(180,200,220,0.12), transparent);
-            animation: puffRise 1.8s ease-out forwards;
-        }
-        @keyframes puffRise {
-            0%   { transform: translateY(0) scale(.5); opacity: .4; }
-            100% { transform: translateY(-80px) scale(3); opacity: 0; }
         }
 
         /* Grid lines in intro bg */
@@ -859,42 +858,33 @@
 <!--  INTRO                                                 -->
 <!-- ====================================================== -->
 <div id="intro">
-    <canvas id="intro-canvas"></canvas>
     <div class="intro-grid"></div>
 
-    <div class="intro-content">
-        <div class="intro-logo">Samuel A. W.</div>
-        <div class="intro-sub">Initializing Portfolio</div>
-        <div class="intro-progress">
-            <div class="intro-bar-track">
-                <div class="intro-bar-fill" id="bar-fill"></div>
-            </div>
-            <div class="intro-pct" id="bar-pct">0%</div>
-        </div>
+    <!-- Scroll Frame Sequence Canvas — 100% video, no text overlay -->
+    <canvas id="seq-canvas"></canvas>
+
+    <!-- Scroll hint — chevron only -->
+    <div id="seq-scroll-hint">
+        <div class="seq-hint-line"></div>
+        <div class="seq-hint-chevron"></div>
     </div>
 
-    <!-- Rocket -->
-    <div id="rocket-wrap">
-        <div class="rocket-body">
-            <div class="rocket-window"></div>
-        </div>
-        <div class="rocket-fins">
-            <div class="fin left"></div>
-            <div class="fin right"></div>
-        </div>
-        <div class="rocket-flames" id="flames">
-            <div class="rocket-flame flame-s"></div>
-            <div class="rocket-flame flame-c"></div>
-            <div class="rocket-flame flame-s"></div>
-        </div>
+    <!-- Enter portfolio button (end of sequence) -->
+    <div id="seq-enter">
+        <button class="seq-enter-btn" onclick="enterPortfolio()">
+            Enter Portfolio
+            <span class="seq-enter-arrow"></span>
+        </button>
     </div>
 
-    <!-- Launch pad -->
-    <div class="pad">
-        <div class="pad-base"></div>
-        <div class="pad-arm"><span></span><span></span></div>
+    <!-- Sequence progress bar -->
+    <div id="seq-progress"></div>
+
+    <!-- Loading spinner — blocks canvas until frames are ready -->
+    <div id="seq-loader">
+        <div class="seq-spinner"></div>
+        <div class="seq-loader-pct" id="loader-pct">0%</div>
     </div>
-    <div class="smoke-area" id="smoke-area"></div>
 
     <button id="skip-btn" onclick="skipIntro()">SKIP</button>
 </div>
@@ -1257,133 +1247,296 @@ document.addEventListener('mousemove', e => {
 });
 
 /* ============================================================ */
-/*  INTRO: STAR CANVAS                                          */
+/*  INTRO: SCROLL FRAME SEQUENCE ENGINE                        */
+/*  - Dual source: mobile (portrait) vs desktop (landscape)    */
+/*  - Breakpoint: < 768px = mobile, >= 768px = desktop         */
+/*  - Spinner blocks until PRELOAD_INITIAL frames are ready     */
+/*  - No text overlay, no procedural fallback                  */
 /* ============================================================ */
 (function() {
-    const canvas = document.getElementById('intro-canvas');
-    const ctx = canvas.getContext('2d');
-    let stars = [];
-    function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
-    resize();
-    window.addEventListener('resize', resize);
+    'use strict';
 
-    for (let i = 0; i < 220; i++) {
-        stars.push({
-            x: Math.random(), y: Math.random(),
-            r: Math.random() * 1.5 + 0.2,
-            a: Math.random() * 0.8 + 0.2,
-            speed: (Math.random() - 0.5) * 0.025
-        });
+    /* ── CONFIG ─────────────────────────────────────────────────
+       Kedua set frame boleh punya FRAME_COUNT berbeda.
+       Sesuaikan dengan jumlah frame hasil FFmpeg masing-masing.
+    ─────────────────────────────────────────────────────────── */
+    const SOURCES = {
+        mobile: {
+            FRAME_COUNT:     41,               // jumlah frame video portrait
+            FRAME_PATH:      'frames/mobile/frame_',
+            FRAME_PAD:       4,
+            FRAME_EXT:       '.webp',
+            PRELOAD_INITIAL: 6,
+        },
+        desktop: {
+            FRAME_COUNT:     41,               // jumlah frame video landscape
+            FRAME_PATH:      'frames/desktop/frame_',
+            FRAME_PAD:       4,
+            FRAME_EXT:       '.webp',
+            PRELOAD_INITIAL: 8,
+        },
+    };
+
+    const BREAKPOINT = 768;   // px — di bawah ini = mobile
+
+    /* ── Tentukan mode saat ini ──────────────────────────────── */
+    function getMode() {
+        return window.innerWidth < BREAKPOINT ? 'mobile' : 'desktop';
     }
 
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        stars.forEach(s => {
-            ctx.beginPath();
-            ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(200,220,255,${Math.max(0.05, Math.min(0.9, s.a))})`;
-            ctx.fill();
-            s.a += s.speed;
-            if (s.a > 1 || s.a < 0.05) s.speed *= -1;
-        });
-        if (document.getElementById('intro').style.display !== 'none') requestAnimationFrame(draw);
+    /* ── DOM ─────────────────────────────────────────────────── */
+    const introEl    = document.getElementById('intro');
+    const canvas     = document.getElementById('seq-canvas');
+    const ctx        = canvas.getContext('2d');
+    const progressEl = document.getElementById('seq-progress');
+    const hintEl     = document.getElementById('seq-scroll-hint');
+    const enterEl    = document.getElementById('seq-enter');
+    const loaderEl   = document.getElementById('seq-loader');
+    const loaderPct  = document.getElementById('loader-pct');
+
+    /* ── STATE (per-mode, independent cache) ─────────────────── */
+    // Setiap mode punya cache frame sendiri sehingga saat resize
+    // tidak perlu reload ulang dari nol.
+    const cache = {
+        mobile:  { frames: [], loadedCount: 0, ready: false },
+        desktop: { frames: [], loadedCount: 0, ready: false },
+    };
+
+    // Inisialisasi array cache sesuai FRAME_COUNT masing-masing
+    Object.keys(SOURCES).forEach(mode => {
+        cache[mode].frames = new Array(SOURCES[mode].FRAME_COUNT).fill(null);
+    });
+
+    let activeMode   = getMode();
+    let seqReady     = false;
+    let currentFrame = 0;
+    let targetFrame  = 0;
+    let displayFrame = 0;
+    let hintHidden   = false;
+    let seqDone      = false;
+    let rafId        = null;
+
+    /* ── Scroll driver ───────────────────────────────────────── */
+    const driver = document.createElement('div');
+    driver.id = 'seq-driver';
+    driver.style.cssText = 'position:relative;height:500vh;background:transparent;pointer-events:none;';
+    document.body.insertBefore(driver, introEl);
+
+    introEl.style.position = 'fixed';
+    introEl.style.height   = '100vh';
+
+    /* ── Canvas resize ───────────────────────────────────────── */
+    function resizeCanvas() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width  = canvas.offsetWidth  * dpr;
+        canvas.height = canvas.offsetHeight * dpr;
+        ctx.scale(dpr, dpr);
+        if (seqReady) renderFrame(currentFrame);
     }
-    draw();
+
+    /* ── Frame path helper ───────────────────────────────────── */
+    function framePath(mode, i) {
+        const src = SOURCES[mode];
+        return src.FRAME_PATH + String(i + 1).padStart(src.FRAME_PAD, '0') + src.FRAME_EXT;
+    }
+
+    /* ── Render frame ────────────────────────────────────────── */
+    function renderFrame(index) {
+        const src  = SOURCES[activeMode];
+        const c    = cache[activeMode];
+        const i    = Math.max(0, Math.min(src.FRAME_COUNT - 1, Math.round(index)));
+        const img  = c.frames[i];
+        if (!img || img.naturalWidth === 0) return;
+
+        const w = canvas.offsetWidth;
+        const h = canvas.offsetHeight;
+        ctx.clearRect(0, 0, w, h);
+        const sc = Math.max(w / img.naturalWidth, h / img.naturalHeight);
+        ctx.drawImage(
+            img,
+            (w - img.naturalWidth  * sc) / 2,
+            (h - img.naturalHeight * sc) / 2,
+            img.naturalWidth  * sc,
+            img.naturalHeight * sc
+        );
+    }
+
+    /* ── Frame loader (mode-aware) ───────────────────────────── */
+    function loadFrame(mode, index) {
+        const c   = cache[mode];
+        const src = SOURCES[mode];
+        if (c.frames[index] !== null) return;
+
+        const img = new Image();
+        c.frames[index] = img;
+
+        img.onload = img.onerror = () => {
+            c.loadedCount++;
+
+            // Hanya update UI jika mode ini sedang aktif
+            if (mode === activeMode) {
+                const pct = Math.round((c.loadedCount / src.FRAME_COUNT) * 100);
+                if (loaderPct) loaderPct.textContent = pct + '%';
+            }
+
+            // Cek apakah initial batch mode ini sudah selesai
+            if (!c.ready && c.loadedCount >= src.PRELOAD_INITIAL) {
+                c.ready = true;
+
+                // Kalau ini mode yang aktif saat ini, sembunyikan spinner
+                if (mode === activeMode) {
+                    seqReady = true;
+                    loaderEl.classList.add('hidden');
+                    renderFrame(currentFrame);
+                }
+
+                // Lazy-load sisa frame mode ini di background
+                for (let j = src.PRELOAD_INITIAL; j < src.FRAME_COUNT; j++) {
+                    const idx = j;
+                    setTimeout(() => loadFrame(mode, idx), (idx - src.PRELOAD_INITIAL) * 35);
+                }
+            }
+        };
+
+        img.src = framePath(mode, index);
+    }
+
+    /* ── Switch mode saat resize melewati breakpoint ─────────── */
+    let lastMode = activeMode;
+
+    function handleResize() {
+        resizeCanvas();
+        const newMode = getMode();
+        if (newMode === lastMode) return;   // tidak ada perubahan mode, skip
+        lastMode   = newMode;
+        activeMode = newMode;
+
+        const c   = cache[newMode];
+        const src = SOURCES[newMode];
+
+        if (c.ready) {
+            // Frame mode baru sudah ada di cache → langsung tampil
+            seqReady = true;
+            loaderEl.classList.add('hidden');
+            // Clamp frame ke range mode baru
+            currentFrame = Math.min(currentFrame, src.FRAME_COUNT - 1);
+            displayFrame = currentFrame;
+            targetFrame  = currentFrame;
+            renderFrame(currentFrame);
+        } else {
+            // Frame mode baru belum siap → tampilkan spinner, mulai load
+            seqReady = false;
+            loaderEl.classList.remove('hidden');
+            if (loaderPct) loaderPct.textContent = '0%';
+            for (let i = 0; i < src.PRELOAD_INITIAL; i++) loadFrame(newMode, i);
+        }
+    }
+
+    window.addEventListener('resize', handleResize, { passive: true });
+
+    /* ── Scroll progress ─────────────────────────────────────── */
+    function getScrollProgress() {
+        const total = driver.offsetHeight - window.innerHeight;
+        return Math.max(0, Math.min(1, window.scrollY / total));
+    }
+
+    /* ── Enter button ────────────────────────────────────────── */
+    function checkEnterBtn(p) {
+        if (p >= 0.88 && !seqDone) {
+            seqDone = true;
+            enterEl && enterEl.classList.add('visible');
+        } else if (p < 0.88 && seqDone) {
+            seqDone = false;
+            enterEl && enterEl.classList.remove('visible');
+        }
+    }
+
+    /* ── RAF smooth lerp ─────────────────────────────────────── */
+    function tick() {
+        rafId = requestAnimationFrame(tick);
+        displayFrame += (targetFrame - displayFrame) * 0.18;
+        const fi = Math.round(displayFrame);
+        if (fi !== currentFrame) {
+            currentFrame = fi;
+            if (seqReady) renderFrame(fi);
+        }
+    }
+
+    /* ── Scroll handler ──────────────────────────────────────── */
+    window.addEventListener('scroll', () => {
+        if (introEl.style.display === 'none') return;
+        const p = getScrollProgress();
+
+        // Clamp target ke FRAME_COUNT mode aktif
+        targetFrame = Math.round(p * (SOURCES[activeMode].FRAME_COUNT - 1));
+        checkEnterBtn(p);
+
+        if (progressEl) progressEl.style.width = (p * 100) + '%';
+
+        if (!hintHidden && p > 0.02) {
+            hintHidden = true;
+            hintEl && hintEl.classList.add('hidden');
+        }
+    }, { passive: true });
+
+    /* ── Init — load kedua mode secara paralel ───────────────── */
+    // Mode aktif: load PRELOAD_INITIAL frame (akan munculkan konten)
+    // Mode lain:  load frame pertama saja di background (preconnect)
+    const initMode    = activeMode;
+    const otherMode   = initMode === 'mobile' ? 'desktop' : 'mobile';
+    const initSrc     = SOURCES[initMode];
+    const otherSrc    = SOURCES[otherMode];
+
+    for (let i = 0; i < initSrc.PRELOAD_INITIAL; i++) loadFrame(initMode, i);
+
+    // Preload mode lain sedikit tertunda supaya tidak bersaing bandwidth
+    setTimeout(() => {
+        for (let i = 0; i < otherSrc.PRELOAD_INITIAL; i++) loadFrame(otherMode, i);
+    }, 1500);
+
+    resizeCanvas();
+    rafId = requestAnimationFrame(tick);
+
+    /* ── enterPortfolio exposed globally ─────────────────────── */
+    window.enterPortfolio = function() {
+        introEl.style.transition = 'opacity .5s ease';
+        introEl.style.opacity    = '0';
+        driver.style.display     = 'none';
+        cancelAnimationFrame(rafId);
+        setTimeout(showMain, 500);
+    };
+
 })();
 
 /* ============================================================ */
-/*  INTRO: LAUNCH SEQUENCE                                      */
+/*  SKIP BUTTON — still works                                   */
 /* ============================================================ */
 let introSkipped = false;
-var smokeTimer = null;
 
 function skipIntro() {
     if (introSkipped) return;
     introSkipped = true;
-    clearInterval(smokeTimer);
     const intro = document.getElementById('intro');
+    const driver = document.getElementById('seq-driver');
     intro.style.transition = 'opacity .5s ease';
     intro.style.opacity = '0';
+    if (driver) driver.style.display = 'none';
     setTimeout(showMain, 500);
 }
 
 function showMain() {
-    document.getElementById('intro').style.display = 'none';
+    const intro = document.getElementById('intro');
+    const driver = document.getElementById('seq-driver');
+    if (intro)  intro.style.display  = 'none';
+    if (driver) driver.style.display = 'none';
+    window.scrollTo(0, 0);
     const m = document.getElementById('main-page');
-    m.style.display = 'block';
-    m.style.opacity = '0';
+    m.style.display    = 'block';
+    m.style.opacity    = '0';
     m.style.transition = 'opacity .8s ease';
     setTimeout(() => { m.style.opacity = '1'; }, 30);
     initMain();
 }
-
-function spawnPuff() {
-    const area = document.getElementById('smoke-area');
-    const puff = document.createElement('div');
-    puff.className = 'puff';
-    const s = Math.random() * 30 + 10;
-    puff.style.cssText = `width:${s}px;height:${s}px;left:${(Math.random()*60-30)}px;bottom:0;animation-duration:${(Math.random()*.8+1.2)}s`;
-    area.appendChild(puff);
-    setTimeout(() => puff.remove(), 2000);
-}
-
-(function runIntro() {
-    const fill = document.getElementById('bar-fill');
-    const pct  = document.getElementById('bar-pct');
-    const flames = document.getElementById('flames');
-    const rocket = document.getElementById('rocket-wrap');
-    const intro  = document.getElementById('intro');
-
-    let p = 0;
-    const barTimer = setInterval(() => {
-        p++;
-        fill.style.width = p + '%';
-        pct.textContent = p + '%';
-        if (p >= 100) {
-            clearInterval(barTimer);
-            // Begin countdown
-            let count = 3;
-            const cdEl = document.querySelector('.intro-sub');
-            const cdTick = setInterval(() => {
-                count--;
-                if (count > 0) {
-                    cdEl.textContent = 'T-' + count + '...';
-                } else {
-                    clearInterval(cdTick);
-                    cdEl.textContent = 'IGNITION ✦';
-                    flames.style.opacity = '1';
-                    smokeTimer = setInterval(spawnPuff, 100);
-
-                    // Shake
-                    let shakes = 0;
-                    const shakeI = setInterval(() => {
-                        const dx = (Math.random()-.5)*8, dy = (Math.random()-.5)*4;
-                        rocket.style.transform = `translateX(calc(-50% + ${dx}px)) translateY(${dy}px)`;
-                        shakes++;
-                        if (shakes > 25) {
-                            clearInterval(shakeI);
-                            rocket.style.transform = 'translateX(-50%)';
-                            launch();
-                        }
-                    }, 60);
-                }
-            }, 1000);
-        }
-    }, 28);
-
-    function launch() {
-        clearInterval(smokeTimer);
-        const vh = window.innerHeight;
-        rocket.style.transition = 'bottom 1.8s cubic-bezier(.4,0,.2,1), opacity .4s ease 1.5s';
-        rocket.style.bottom = (vh + 200) + 'px';
-        rocket.style.opacity = '0';
-        setTimeout(() => {
-            intro.style.transition = 'opacity .7s ease';
-            intro.style.opacity = '0';
-            setTimeout(showMain, 700);
-        }, 1600);
-    }
-})();
 
 /* ============================================================ */
 /*  MAIN PAGE INIT                                              */
